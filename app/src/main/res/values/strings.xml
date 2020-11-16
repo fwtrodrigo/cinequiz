@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CineQuiz</string>
+    <string name="logo_cine_quiz">Logo Cine Quiz</string>
+    <string name="fa_a_login_com_suas_redes_sociais">FAÇA LOGIN COM SUAS REDES SOCIAIS</string>
+    <string name="ou_com_seu_email_e_senha">OU COM SEU EMAIL E SENHA</string>
+    <string name="log_in">LOG IN</string>
+    <string name="email">EMAIL</string>
+    <string name="senha">SENHA</string>
+    <string name="ainda_n_o_tem_uma_conta">AINDA NÃO TEM UMA CONTA?</string>
+    <string name="crie_sua_conta">CRIE SUA CONTA</string>
+</resources>
