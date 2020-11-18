@@ -8,4 +8,11 @@
     <string name="senha">SENHA</string>
     <string name="ainda_n_o_tem_uma_conta">AINDA NÃO TEM UMA CONTA?</string>
     <string name="crie_sua_conta">CRIE SUA CONTA</string>
+    <string name="nome">NOME</string>
+    <string name="confirma_o">CONFIRMAÇÃO</string>
+    <string name="login_com_facebook">login com facebook</string>
+    <string name="login_com_conta_google">Login com conta google</string>
+    <string name="entrar">ENTRAR</string>
+    <string name="insira_suas_informa_es">INSIRA SUAS INFORMAÇÕES</string>
+    <string name="cadastrar">Cadastrar</string>
 </resources>
