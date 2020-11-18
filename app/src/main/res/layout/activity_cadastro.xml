@@ -6,115 +6,135 @@
     android:layout_height="match_parent"
     android:background="@color/cineAzul"
     tools:context=".CadastroActivity">
-
     <include
         android:id="@+id/toolbarCadastro"
         layout="@layout/toolbar_main" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintVertical_bias="0.1"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="320dp"
+        android:layout_height="190dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/logo_cine_quiz"
+        android:src="@drawable/logo_ingresso"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <ImageView
-            android:layout_width="232dp"
-            android:layout_height="140dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="2dp"
-            android:contentDescription="@string/logo_cine_quiz"
-            android:src="@drawable/logo_ingresso" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:text="@string/insira_suas_informa_es"
-            android:textAllCaps="true"
-            android:textColor="@color/colorBranco"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-
-        <EditText
-            android:id="@+id/edtCadastroNome"
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="13dp"
-            android:background="@drawable/shape_anel"
-            android:drawableEnd="@drawable/ic_person"
-            android:hint="@string/nome"
-            android:inputType="textPersonName"
-            android:labelFor="@+id/idaa"
-            android:paddingHorizontal="15dp"
-            android:textColor="@color/colorBranco"
-            android:textColorHint="@color/colorBranco"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/edtCadastroEmail"
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="13dp"
-            android:background="@drawable/shape_anel"
-            android:drawableEnd="@drawable/ic_email"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:labelFor="@+id/idaa"
-            android:paddingHorizontal="15dp"
-            android:textColor="@color/colorBranco"
-            android:textColorHint="@color/colorBranco"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/edtCadastroSenha"
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/shape_anel"
-            android:drawableEnd="@drawable/ic_lock"
-            android:hint="@string/senha"
-            android:inputType="textPassword"
-            android:paddingHorizontal="15dp"
-            android:textColor="@color/colorBranco"
-            android:textColorHint="@color/colorBranco"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/edtCadastroConfirmacaoSenha"
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/shape_anel"
-            android:drawableEnd="@drawable/ic_lock"
-            android:hint="@string/confirma_o"
-            android:inputType="textPassword"
-            android:paddingHorizontal="15dp"
-            android:textColor="@color/colorBranco"
-            android:textColorHint="@color/colorBranco"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/btnCadastroCadastrar"
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="13dp"
-            android:background="@drawable/shape_botao_verde_sombreado"
-            android:text="@string/cadastrar"
-            android:textColor="@color/colorBranco"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/insira_suas_informa_es"
+        android:textAllCaps="true"
+        android:textColor="@color/colorBranco"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.091" />
+    <EditText
+        android:id="@+id/edtCadastroNome"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/shape_anel"
+        android:drawableEnd="@drawable/ic_person"
+        android:hint="@string/nome"
+        android:inputType="textPersonName"
+        android:labelFor="@+id/idaa"
+        android:paddingHorizontal="15dp"
+        android:textColor="@color/colorBranco"
+        android:textColorHint="@color/colorBranco"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.044" />
+    <EditText
+        android:id="@+id/edtCadastroEmail"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/shape_anel"
+        android:drawableEnd="@drawable/ic_email"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:labelFor="@+id/idaa"
+        android:paddingHorizontal="15dp"
+        android:textColor="@color/colorBranco"
+        android:textColorHint="@color/colorBranco"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtCadastroNome"
+        app:layout_constraintVertical_bias="0.0" />
+    <EditText
+        android:id="@+id/edtCadastroSenha"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/shape_anel"
+        android:drawableEnd="@drawable/ic_lock"
+        android:hint="@string/senha"
+        android:inputType="textPassword"
+        android:paddingHorizontal="15dp"
+        android:textColor="@color/colorBranco"
+        android:textColorHint="@color/colorBranco"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtCadastroEmail"
+        app:layout_constraintVertical_bias="0.0" />
+    <EditText
+        android:id="@+id/edtCadastroConfirmacaoSenha"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/shape_anel"
+        android:drawableEnd="@drawable/ic_lock"
+        android:hint="@string/confirma_o"
+        android:inputType="textPassword"
+        android:paddingHorizontal="15dp"
+        android:textColor="@color/colorBranco"
+        android:textColorHint="@color/colorBranco"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtCadastroSenha"
+        app:layout_constraintVertical_bias="0.0" />
+    <Button
+        android:id="@+id/btnCadastroCadastrar"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/shape_botao_verde_sombreado"
+        android:text="@string/cadastrar"
+        android:textColor="@color/colorBranco"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtCadastroConfirmacaoSenha"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
