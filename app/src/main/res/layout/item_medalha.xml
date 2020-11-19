@@ -19,15 +19,16 @@
 
     <ImageView
         android:id="@+id/ivMedalhaIcone"
-        android:layout_width="48dp"
-        android:layout_height="96dp"
+        android:layout_width="100dp"
+        android:layout_height="125dp"
         app:layout_constraintStart_toStartOf="@id/ivMedalhaFundo"
         app:layout_constraintEnd_toEndOf="@id/ivMedalhaFundo"
         app:layout_constraintTop_toTopOf="@id/ivMedalhaFundo"
         app:layout_constraintBottom_toBottomOf="@id/ivMedalhaFundo"
-        app:srcCompat="@drawable/img_pontuacao"
-        android:paddingTop="24dp"
+        app:srcCompat="@drawable/medalha_anos_60"
         android:elevation="8dp"/>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,12 +37,13 @@
         android:background="@drawable/shape_fundo_medalha"
         android:orientation="vertical"
         android:paddingVertical="20dp"
-        android:paddingHorizontal="100dp"
+        android:paddingStart="100dp"
+        android:paddingEnd="8dp"
         android:elevation="4dp">
 
         <TextView
             android:id="@+id/tvMedalhaTit"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Título da medalha"
             android:textSize="18sp"
@@ -49,7 +51,7 @@
 
         <TextView
             android:id="@+id/tvMedalhaDesc"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Descrição da medalha"
             android:textSize="16sp" />
