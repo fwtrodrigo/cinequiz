@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.cinequiz.R
 import br.com.cinequiz.domain.Medalha
 
-class MedalhasAdapter (private val listaMedalhas: ArrayList<Medalha>, val context: Context): RecyclerView.Adapter<MedalhasAdapter.MedalhaViewHolder>() {
+class MedalhasAdapter (private val listaMedalhas: ArrayList<Medalha>): RecyclerView.Adapter<MedalhasAdapter.MedalhaViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MedalhasAdapter.MedalhaViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_medalha, parent, false)
         return MedalhaViewHolder(itemView)
