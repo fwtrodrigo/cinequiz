@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cineAzul"
+    android:background="@drawable/shape_fundo_azul"
     tools:context=".MedalhasActivity">
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="48dp"
         android:background="@drawable/shape_fundo_verde"
-        android:elevation="16dp"
+        android:elevation="4dp"
         android:orientation="horizontal"
         android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,8 +44,8 @@
             android:layout_height="96dp"
             android:layout_marginEnd="12dp"
             android:layout_weight="1"
-            android:elevation="16dp"
-            app:srcCompat="@drawable/img_pipoca" />
+            android:elevation="8dp"
+            app:srcCompat="@drawable/img_pontuacao" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -127,8 +127,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        tools:listitem="@layout/item_medalha"
-        android:elevation="32dp"/>
+        tools:listitem="@layout/item_medalha"/>
 
     <include
         android:id="@+id/toolbarMedalhas"
