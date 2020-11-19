@@ -1,38 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="20dp">
+    android:layout_gravity="right"
+    android:orientation="horizontal"
+    android:padding="16dp">
 
-    <androidx.cardview.widget.CardView
+    <ImageView
+        android:id="@+id/ivMedalhaFundo"
+        android:layout_width="100dp"
+        android:layout_height="125dp"
+        android:elevation="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/img_fundo_medalha" />
+
+    <ImageView
+        android:id="@+id/ivMedalhaIcone"
+        android:layout_width="48dp"
+        android:layout_height="96dp"
+        app:layout_constraintStart_toStartOf="@id/ivMedalhaFundo"
+        app:layout_constraintEnd_toEndOf="@id/ivMedalhaFundo"
+        app:layout_constraintTop_toTopOf="@id/ivMedalhaFundo"
+        app:layout_constraintBottom_toBottomOf="@id/ivMedalhaFundo"
+        app:srcCompat="@drawable/img_pontuacao"
+        android:paddingTop="24dp"
+        android:elevation="8dp"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="20dp"
-        android:layout_gravity="center">
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/shape_fundo_medalha"
+        android:orientation="vertical"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="100dp"
+        android:elevation="4dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="20dp">
+        <TextView
+            android:id="@+id/tvMedalhaTit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Título da medalha"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvMedalhaTit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Título da medalha"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tvMedalhaDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descrição da medalha"
+            android:textSize="16sp" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvMedalhaDesc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Descrição da medalha"
-                android:textSize="20sp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-</LinearLayout>
+    <ImageView
+        android:id="@+id/btShare"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/ic_btn_share"
+        android:layout_marginEnd="8dp"
+        android:elevation="8dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
