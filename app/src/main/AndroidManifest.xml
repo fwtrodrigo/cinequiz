@@ -9,10 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CineQuiz">
+        <activity android:name=".JogoCena"></activity>
         <activity android:name=".MedalhasActivity" />
         <activity android:name=".CadastroActivity" />
         <activity
             android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".CadastroActivity" />
+        <activity
+            android:name=".SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
