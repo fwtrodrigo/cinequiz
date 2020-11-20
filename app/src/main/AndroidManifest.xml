@@ -10,6 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CineQuiz">
         <activity android:name=".JogoCena"></activity>
+        <activity android:name=".MedalhasActivity" />
+        <activity android:name=".CadastroActivity" />
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait" />
