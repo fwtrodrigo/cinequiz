@@ -39,8 +39,8 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <include
-        android:id="@+id/btnMenuCenas"
-        layout="@layout/item_botao_selecao_modo_cena"
+        android:id="@+id/btnMenuDicas"
+        layout="@layout/item_botao_selecao_modo_dicas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
@@ -52,16 +52,17 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <include
-        android:id="@+id/btnMenuDicas"
-        layout="@layout/item_botao_selecao_modo_dicas"
+        android:id="@+id/btnMenuCenas"
+        layout="@layout/item_botao_selecao_modo_cena"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnMenuCenas"
+        app:layout_constraintTop_toBottomOf="@+id/btnMenuDicas"
         app:layout_constraintVertical_bias="0.0" />
 
     <View
@@ -74,7 +75,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnMenuDicas"
+        app:layout_constraintTop_toBottomOf="@+id/btnMenuCenas"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
