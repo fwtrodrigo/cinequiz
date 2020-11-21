@@ -13,5 +13,10 @@ class LoginActivity : AppCompatActivity() {
         btnLoginCadastrar.setOnClickListener {
             startActivity(Intent(this, CadastroActivity::class.java))
         }
+
+        btnLoginEntrar.setOnClickListener {
+            startActivity(Intent(this, MenuActivity::class.java))
+            finish()
+        }
     }
 }
