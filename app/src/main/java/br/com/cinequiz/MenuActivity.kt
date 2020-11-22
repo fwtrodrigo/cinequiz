@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_menu.*
+import kotlinx.android.synthetic.main.activity_opcoes.*
 import kotlinx.android.synthetic.main.item_botao_selecao_modo_cena.view.*
 import kotlinx.android.synthetic.main.item_botao_selecao_modo_dicas.view.*
 
@@ -24,6 +25,11 @@ class MenuActivity : AppCompatActivity() {
         btnMenuMedalhas.setOnClickListener {
             startActivity(Intent(this, MedalhasActivity::class.java))
         }
+
+        btnMenuOpcoes.setOnClickListener {
+            startActivity(Intent(this, OpcoesActivity::class.java))
+        }
+
 
     }
 }

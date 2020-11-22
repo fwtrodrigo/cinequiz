@@ -29,5 +29,8 @@
     <string name="descricao_btn_dicas">Descubra o filme usando o menor número de dicas!</string>
     <string name="btn_medalhas">MINHAS MEDALHAS</string>
     <string name="btn_opcoes">OPÇÕES</string>
+    <string name="opcoes">OPÇÕES</string>
+    <string name="logout">LOGOUT</string>
+    <string name="notificacoes">NOTIFICAÇÕES</string>
 
 </resources>
