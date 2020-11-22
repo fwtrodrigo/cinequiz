@@ -32,5 +32,11 @@
     <string name="opcoes">OPÇÕES</string>
     <string name="logout">LOGOUT</string>
     <string name="notificacoes">NOTIFICAÇÕES</string>
+    <string name="jogar_novamente">JOGAR NOVAMENTE</string>
+    <string name="voltar_ao_menu">VOLTAR AO MENU</string>
+    <string name="parabens">PARABÉNS!</string>
+    <string name="sua_pontua_o_total_foi_de">Sua pontuação total foi de</string>
+    <string name="_55">55</string>
+    <string name="popcorns">PopCorns</string>
 
 </resources>

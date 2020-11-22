@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="360dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/itemCardResultadoJogo"
+        android:layout_width="310dp"
+        android:layout_height="310dp"
+        android:layout_marginHorizontal="50dp"
+        android:background="@drawable/shape_card_opcoes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.287">
+
+        <TextView
+            android:id="@+id/txtParabens"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:text="@string/parabens"
+            android:textAllCaps="true"
+            android:textColor="@color/colorBranco"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/itemCardResultadoJogo"
+            app:layout_constraintStart_toStartOf="@+id/itemCardResultadoJogo"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtSuaPontuacaoFoiDe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/sua_pontua_o_total_foi_de"
+            android:textAllCaps="true"
+            android:textColor="@color/colorBranco"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/itemCardResultadoJogo"
+            app:layout_constraintStart_toStartOf="@+id/itemCardResultadoJogo"
+            app:layout_constraintTop_toBottomOf="@id/txtParabens" />
+
+
+        <ImageView
+            android:id="@+id/ivResultadoPopCornIcon"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/img_pontuacao"
+            app:layout_constraintEnd_toEndOf="@+id/itemCardResultadoJogo"
+            app:layout_constraintHorizontal_bias="0.131"
+            app:layout_constraintStart_toStartOf="@+id/itemCardResultadoJogo"
+            app:layout_constraintTop_toBottomOf="@+id/txtSuaPontuacaoFoiDe" />
+
+        <TextView
+            android:id="@+id/txtResultadoPontos"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_fundo_branco"
+            android:gravity="center"
+            android:paddingVertical="2dp"
+            android:text="@string/_55"
+            android:textAllCaps="true"
+            android:textColor="@color/cineVerde"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/itemCardResultadoJogo"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/ivResultadoPopCornIcon"
+            app:layout_constraintTop_toTopOf="@+id/ivResultadoPopCornIcon" />
+
+        <TextView
+            android:id="@+id/txtPopCorns"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/popcorns"
+            android:textColor="@color/colorBranco"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/itemCardResultadoJogo"
+            app:layout_constraintHorizontal_bias="0.065"
+            app:layout_constraintStart_toEndOf="@id/ivResultadoPopCornIcon"
+            app:layout_constraintTop_toBottomOf="@id/txtResultadoPontos" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/shape_circulo_laranja"
+        android:src="@drawable/ic_compartilhar_temp"
+        app:layout_constraintBottom_toBottomOf="@+id/itemCardResultadoJogo"
+        app:layout_constraintEnd_toEndOf="@+id/itemCardResultadoJogo"
+        app:layout_constraintStart_toEndOf="@+id/itemCardResultadoJogo"
+        app:layout_constraintTop_toBottomOf="@+id/itemCardResultadoJogo" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
