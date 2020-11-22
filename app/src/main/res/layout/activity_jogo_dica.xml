@@ -83,6 +83,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
+        android:id="@+id/includeJogoDicaBotoes"
         layout="@layout/item_botoes_alternativas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
