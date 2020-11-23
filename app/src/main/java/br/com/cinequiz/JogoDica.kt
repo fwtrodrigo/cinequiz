@@ -1,10 +1,13 @@
 package br.com.cinequiz
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import br.com.cinequiz.adapters.ResultadoDialogAdapter
 import kotlinx.android.synthetic.main.activity_jogo_dica.*
 import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.item_botao_selecao_modo_cena.view.*
@@ -28,9 +31,10 @@ class JogoDica : AppCompatActivity() {
         val adapter = ArrayAdapter(this, R.layout.item_lista_dica, listaDicas)
         listView.adapter = adapter
 
+        var resultadoDialog = ResultadoDialogAdapter()
 
         includeJogoDicaBotoes.imageButtonAlternativas1.setOnClickListener {
-            setContentView(R.layout.layout_resultado_jogo)
+            resultadoDialog.show(supportFragmentManager, "resultadoDialog")
         }
     }
 }
