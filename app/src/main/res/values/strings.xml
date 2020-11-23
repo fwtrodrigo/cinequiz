@@ -22,5 +22,21 @@
     <!--    MODOS DE JOGO    -->
     <string name="jogo_dicas">Dicas</string>
     <string name="jogo_cenas">Cenas</string>
+    <string name="modo_de_jogo">MODO DE JOGO</string>
+    <string name="btn_cena_titulo">CENAS</string>
+    <string name="decricao_btn_cenas">Descubra quantos filmes puder em 60 segundos!</string>
+    <string name="btn_dica_titulo">DICAS</string>
+    <string name="descricao_btn_dicas">Descubra o filme usando o menor número de dicas!</string>
+    <string name="btn_medalhas">MINHAS MEDALHAS</string>
+    <string name="btn_opcoes">OPÇÕES</string>
+    <string name="opcoes">OPÇÕES</string>
+    <string name="logout">LOGOUT</string>
+    <string name="notificacoes">NOTIFICAÇÕES</string>
+    <string name="jogar_novamente">JOGAR NOVAMENTE</string>
+    <string name="voltar_ao_menu">VOLTAR AO MENU</string>
+    <string name="parabens">PARABÉNS!</string>
+    <string name="sua_pontua_o_total_foi_de">Sua pontuação total foi de</string>
+    <string name="_55">55</string>
+    <string name="popcorns">PopCorns</string>
 
 </resources>

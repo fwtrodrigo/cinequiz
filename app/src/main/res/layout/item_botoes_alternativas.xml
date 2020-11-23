@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="160dp"
+            android:layout_height="90dp">
+
+            <ImageButton
+                android:id="@+id/imageButtonAlternativas1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@drawable/shape_botao_alternativa_topo_esquerda"
+                android:textColor="@color/colorBranco"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                autofit:layout_constraintBottom_toBottomOf="parent"
+                autofit:layout_constraintEnd_toEndOf="parent"
+                autofit:layout_constraintHorizontal_bias="0.5"
+                autofit:layout_constraintStart_toStartOf="parent"
+                autofit:layout_constraintTop_toTopOf="parent" />
+
+            <me.grantland.widget.AutofitTextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="12dp"
+                android:gravity="center"
+                android:maxLines="3"
+                android:singleLine="false"
+                android:text="Detona Ralph"
+                android:textColor="@color/colorBranco"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                autofit:layout_constraintBottom_toBottomOf="parent"
+                autofit:layout_constraintEnd_toEndOf="parent"
+                autofit:layout_constraintHorizontal_bias="0.0"
+                autofit:layout_constraintStart_toStartOf="parent"
+                autofit:layout_constraintTop_toTopOf="parent"
+                autofit:layout_constraintVertical_bias="0.0"
+                autofit:minTextSize="8sp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="160dp"
+            android:layout_height="90dp">
+
+            <ImageButton
+                android:id="@+id/imageButtonAlternativas2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@drawable/shape_botao_alternativa_topo_direita"
+                android:textColor="@color/colorBranco"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                autofit:layout_constraintBottom_toBottomOf="parent"
+                autofit:layout_constraintEnd_toEndOf="parent"
+                autofit:layout_constraintHorizontal_bias="0.5"
+                autofit:layout_constraintStart_toStartOf="parent"
+                autofit:layout_constraintTop_toTopOf="parent" />
+
+            <me.grantland.widget.AutofitTextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="12dp"
+                android:gravity="center"
+                android:maxLines="3"
+                android:singleLine="false"
+                android:text="O Mar Não Está Prá Peixe: Tubarões à Vista!"
+                android:textColor="@color/colorBranco"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                autofit:layout_constraintBottom_toBottomOf="parent"
+                autofit:layout_constraintEnd_toEndOf="parent"
+                autofit:layout_constraintHorizontal_bias="0.0"
+                autofit:layout_constraintStart_toStartOf="parent"
+                autofit:layout_constraintTop_toTopOf="parent"
+                autofit:layout_constraintVertical_bias="0.0"
+                autofit:minTextSize="8sp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="160dp"
+            android:layout_height="90dp">
+
+            <ImageButton
+                android:id="@+id/imageButtonAlternativas3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@drawable/shape_botao_alternativa_inferior_esquerda"
+                android:textColor="@color/colorBranco"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                autofit:layout_constraintBottom_toBottomOf="parent"
+                autofit:layout_constraintEnd_toEndOf="parent"
+                autofit:layout_constraintHorizontal_bias="0.5"
+                autofit:layout_constraintStart_toStartOf="parent"
+                autofit:layout_constraintTop_toTopOf="parent" />
+
+            <me.grantland.widget.AutofitTextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:maxLines="3"
+                android:singleLine="false"
+                android:text="As Crônicas de Nárnia: O Leão, a Feiticeira e o Guarda-Roupa"
+                android:textColor="@color/colorBranco"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                autofit:layout_constraintBottom_toBottomOf="parent"
+                autofit:layout_constraintEnd_toEndOf="parent"
+                autofit:layout_constraintHorizontal_bias="0.0"
+                autofit:layout_constraintStart_toStartOf="parent"
+                autofit:layout_constraintTop_toTopOf="parent"
+                autofit:layout_constraintVertical_bias="0.0"
+                autofit:minTextSize="8sp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="160dp"
+            android:layout_height="90dp">
+
+            <ImageButton
+                android:id="@+id/imageButtonAlternativas4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@drawable/shape_botao_alternativa_inferior_direita"
+                android:textColor="@color/colorBranco"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                autofit:layout_constraintBottom_toBottomOf="parent"
+                autofit:layout_constraintEnd_toEndOf="parent"
+                autofit:layout_constraintHorizontal_bias="0.5"
+                autofit:layout_constraintStart_toStartOf="parent"
+                autofit:layout_constraintTop_toTopOf="parent" />
+
+            <me.grantland.widget.AutofitTextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:maxLines="3"
+                android:singleLine="false"
+                android:text="A Branca de Neve e os Sete Anões"
+                android:textColor="@color/colorBranco"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                autofit:layout_constraintBottom_toBottomOf="parent"
+                autofit:layout_constraintEnd_toEndOf="parent"
+                autofit:layout_constraintHorizontal_bias="0.0"
+                autofit:layout_constraintStart_toStartOf="parent"
+                autofit:layout_constraintTop_toTopOf="parent"
+                autofit:layout_constraintVertical_bias="0.0"
+                autofit:minTextSize="8sp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
