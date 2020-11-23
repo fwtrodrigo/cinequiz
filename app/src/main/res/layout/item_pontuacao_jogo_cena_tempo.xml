@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_gravity="center"
         android:background="@drawable/shape_pontuacao_verde"
         android:gravity="center"
@@ -39,16 +39,22 @@
             android:gravity="center"
             android:paddingVertical="2dp"
             android:text="55"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="25dp"
             android:textAllCaps="true"
             android:textColor="@color/cineVerde"
             android:textSize="22sp"
             android:textStyle="bold" />
 
+        <View
+            android:layout_width="2dp"
+            android:layout_height="70dp"
+            android:background="@color/colorBranco"/>
+
+
         <ImageView
             android:id="@+id/ivJogoCenaTempo"
-            android:layout_width="65dp"
-            android:layout_height="96dp"
+            android:layout_width="60dp"
+            android:layout_height="80dp"
             android:layout_marginEnd="0dp"
             android:layout_weight="1"
             android:elevation="16dp"
@@ -64,7 +70,7 @@
             android:gravity="center"
             android:paddingVertical="2dp"
             android:text="55"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="25dp"
             android:textAllCaps="true"
             android:textColor="@color/cineVerde"
             android:textSize="22sp"
