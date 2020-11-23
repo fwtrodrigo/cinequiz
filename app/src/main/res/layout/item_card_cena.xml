@@ -6,14 +6,14 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
-    app:cardCornerRadius="15dp">
+    app:cardCornerRadius="60dp">
 
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="290dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/img_detona_ralph" />
+        android:src="@drawable/img_detona_ralph"/>
 
 </androidx.cardview.widget.CardView>
 
