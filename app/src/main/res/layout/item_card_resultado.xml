@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.287">
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/txtParabens"
@@ -70,7 +70,7 @@
             android:text="@string/_55"
             android:textAllCaps="true"
             android:textColor="@color/cineVerde"
-            android:textSize="22sp"
+            android:textSize="32sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/itemCardResultadoJogo"
             app:layout_constraintHorizontal_bias="0.0"
@@ -94,8 +94,8 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageButton
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="30dp"
         android:background="@drawable/shape_circulo_laranja"
         android:src="@drawable/ic_compartilhar_temp"
