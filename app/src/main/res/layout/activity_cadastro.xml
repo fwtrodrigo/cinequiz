@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cineAzul"
-    tools:context=".CadastroActivity"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    tools:context=".CadastroActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -30,6 +30,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
+
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
@@ -56,6 +57,7 @@
             android:background="@drawable/shape_anel"
             android:drawableEnd="@drawable/ic_person"
             android:hint="@string/nome"
+            android:imeOptions="actionNext"
             android:inputType="textPersonName"
             android:labelFor="@+id/idaa"
             android:paddingHorizontal="15dp"
@@ -68,6 +70,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
             app:layout_constraintVertical_bias="0.044" />
+
         <EditText
             android:id="@+id/edtCadastroEmail"
             android:layout_width="350dp"
@@ -77,6 +80,7 @@
             android:background="@drawable/shape_anel"
             android:drawableEnd="@drawable/ic_email"
             android:hint="@string/email"
+            android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
             android:labelFor="@+id/idaa"
             android:paddingHorizontal="15dp"
@@ -89,6 +93,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edtCadastroNome"
             app:layout_constraintVertical_bias="0.0" />
+
         <EditText
             android:id="@+id/edtCadastroSenha"
             android:layout_width="350dp"
@@ -98,6 +103,7 @@
             android:background="@drawable/shape_anel"
             android:drawableEnd="@drawable/ic_lock"
             android:hint="@string/senha"
+            android:imeOptions="actionNext"
             android:inputType="textPassword"
             android:paddingHorizontal="15dp"
             android:textColor="@color/colorBranco"
@@ -109,6 +115,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edtCadastroEmail"
             app:layout_constraintVertical_bias="0.0" />
+
         <EditText
             android:id="@+id/edtCadastroConfirmacaoSenha"
             android:layout_width="350dp"
@@ -118,6 +125,7 @@
             android:background="@drawable/shape_anel"
             android:drawableEnd="@drawable/ic_lock"
             android:hint="@string/confirma_o"
+            android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:paddingHorizontal="15dp"
             android:textColor="@color/colorBranco"
