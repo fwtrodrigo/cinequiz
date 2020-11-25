@@ -46,4 +46,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation "androidx.fragment:fragment-ktx:1.2.5"
     implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation 'me.grantland:autofittextview:0.2.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+
+
 }

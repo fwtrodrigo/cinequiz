@@ -1,13 +1,12 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item>
         <shape android:shape="rectangle">
             <solid android:color="@color/cineSombra" />
             <corners
-                android:bottomLeftRadius="16dp"
-                android:bottomRightRadius="16dp"
-                android:topLeftRadius="3dp"
-                android:topRightRadius="16dp" />
+                android:bottomLeftRadius="60dp"
+                android:bottomRightRadius="10dp"
+                android:topLeftRadius="80dp"
+                android:topRightRadius="80dp" />
             <padding
                 android:bottom="1dp"
                 android:left="0dp"
@@ -17,14 +16,13 @@
     </item>
 
     <item android:bottom="10px">
-        <shape android:shape="rectangle">
+        <shape>
             <solid android:color="@color/cineVerde" />
             <corners
-                android:bottomLeftRadius="16dp"
-                android:bottomRightRadius="16dp"
-                android:topLeftRadius="3dp"
-                android:topRightRadius="16dp" />
+                android:bottomLeftRadius="60dp"
+                android:bottomRightRadius="10dp"
+                android:topLeftRadius="60dp"
+                android:topRightRadius="60dp" />
         </shape>
     </item>
 </layer-list>
-

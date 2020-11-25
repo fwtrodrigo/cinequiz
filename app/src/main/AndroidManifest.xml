@@ -9,12 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CineQuiz">
-        <activity android:name=".MedalhasActivity">
-
-        </activity>
-        <activity android:name=".CadastroActivity" />
+        <activity android:name=".OpcoesActivity" />
+        <activity android:name=".JogoDica" />
+        <activity android:name=".JogoCena" />
+        <activity android:name=".MedalhasActivity" />
+        <activity
+            android:name=".CadastroActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".MenuActivity" />
         <activity
             android:name=".LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
