@@ -19,13 +19,15 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="320dp"
-            android:layout_height="190dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_gravity="center"
+            android:layout_marginTop="16dp"
             android:contentDescription="@string/logo_cine_quiz"
             android:src="@drawable/logo_ingresso"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.30"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

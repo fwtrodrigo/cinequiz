@@ -1,44 +1,44 @@
 [
   {
     "id": "c",
-    "tit": "CCC CCC",
-    "desc": "Descrição da medalha",
+    "tit": "Titulo Medalha",
+    "desc": "Descrição da medalha Descrição da medalha Descrição da medalha Descrição da medalha",
     "req": "partidas > 15 && partidasDicas > 10"
   },
   {
     "id": "d",
-    "tit": "DDD DDD",
-    "desc": "Descrição da medalha",
+    "tit": "Titulo Medalha",
+    "desc": "Descrição da medalha Descrição da medalha Descrição da medalha Descrição da medalha",
     "req": "partidas > 15 && partidasCenas > 10"
   },
   {
     "id": "acertosAnimacao",
-    "tit": "D'oh!",
-    "desc": "Você só assiste desenho?!",
+    "tit": "Titulo Medalha",
+    "desc": "Descrição da medalha Descrição da medalha Descrição da medalha Descrição da medalha",
     "req": "acertosAnimacao > 10"
   },
   {
     "id": "acertosRomance",
-    "tit": "BBB BBB",
-    "desc": "Descrição da medalha",
+    "tit": "Titulo Medalha",
+    "desc": "Descrição da medalha Descrição da medalha Descrição da medalha Descrição da medalha",
     "req": "acertosRomance > 10"
   },
   {
     "id": "acertosAcao",
-    "tit": "BBB BBB",
-    "desc": "Descrição da medalha",
+    "tit": "Titulo Medalha",
+    "desc": "Descrição da medalha Descrição da medalha Descrição da medalha Descrição da medalha",
     "req": "acertosAcao > 10"
   },
   {
     "id": "acertosDrama",
-    "tit": "BBB BBB",
-    "desc": "Descrição da medalha",
+    "tit": "Titulo Medalha",
+    "desc": "Descrição da medalha Descrição da medalha Descrição da medalha Descrição da medalha",
     "req": "acertosDrama > 10"
   },
   {
     "id": "acertosComedia",
-    "tit": "BBB BBB",
-    "desc": "Descrição da medalha",
+    "tit": "Titulo Medalha",
+    "desc": "Descrição da medalha Descrição da medalha Descrição da medalha Descrição da medalha",
     "req": "acertosComedia > 10"
   },
   {
