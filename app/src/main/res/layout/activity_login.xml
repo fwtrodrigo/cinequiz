@@ -9,16 +9,21 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="316dp"
-            android:layout_height="189dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:contentDescription="@string/logo_cine_quiz"
             android:src="@drawable/logo_ingresso"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.30"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -102,7 +107,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/idaa" />
+            app:layout_constraintTop_toBottomOf="@+id/idaa"
+             />
 
         <EditText
             android:id="@+id/edtLoginSenha"
@@ -143,7 +149,7 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:gravity="center"
             android:text="@string/ainda_n_o_tem_uma_conta"
             android:textAllCaps="true"

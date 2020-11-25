@@ -19,40 +19,30 @@
         android:id="@+id/txtOpcoes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
         android:gravity="center"
         android:text="@string/opcoes"
         android:textAllCaps="true"
         android:textColor="@color/colorBranco"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarOpcoes" />
-
-
-    <View
-        android:id="@+id/opcoesLineView"
-        android:layout_width="100dp"
-        android:layout_height="3dp"
-        android:layout_marginTop="15dp"
-        android:background="@color/colorBranco"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtOpcoes"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="290dp"
+        android:layout_height="240dp"
         android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/shape_card_opcoes"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/opcoesLineView"
-        app:layout_constraintVertical_bias="0.2">
+        app:layout_constraintTop_toBottomOf="@+id/txtOpcoes"
+        app:layout_constraintVertical_bias="0.0">
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:layout_width="match_parent"
@@ -73,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/shape_botao_opcao_rosa"
             android:text="@string/logout"
             android:textAllCaps="true"
