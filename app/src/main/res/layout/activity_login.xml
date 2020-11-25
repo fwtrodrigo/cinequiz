@@ -56,12 +56,14 @@
                 android:layout_height="60dp"
                 android:layout_marginEnd="30dp"
                 android:background="@drawable/shape_circulo"
+                android:src="@drawable/ic_baseline_facebook_24"
                 android:contentDescription="@string/login_com_facebook" />
 
             <ImageButton
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@drawable/shape_circulo"
+                android:src="@drawable/ic_logo_google"
                 android:contentDescription="@string/login_com_conta_google" />
         </LinearLayout>
 
