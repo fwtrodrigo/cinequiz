@@ -1,13 +1,10 @@
-package br.com.cinequiz
+package br.com.cinequiz.ui
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.MotionEvent
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import br.com.cinequiz.R
 import kotlinx.android.synthetic.main.activity_login.*
 
 

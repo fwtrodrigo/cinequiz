@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/shape_fundo_azul"
-    tools:context=".MedalhasActivity">
+    tools:context=".ui.MedalhasActivity">
 
     <TextView
         android:id="@+id/textView4"

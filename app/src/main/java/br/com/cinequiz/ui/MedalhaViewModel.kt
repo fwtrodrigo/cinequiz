@@ -1,4 +1,4 @@
-package br.com.cinequiz.models
+package br.com.cinequiz.ui
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
