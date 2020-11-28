@@ -1,12 +1,10 @@
-package br.com.cinequiz
+package br.com.cinequiz.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import br.com.cinequiz.R
 import br.com.cinequiz.adapters.MedalhasAdapter
-import br.com.cinequiz.domain.Medalha
-import br.com.cinequiz.models.MedalhaViewModel
-import kotlinx.android.synthetic.main.activity_cadastro.*
 import kotlinx.android.synthetic.main.activity_medalhas.*
 import kotlinx.android.synthetic.main.toolbar_main.view.*
 

@@ -8,9 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
-import br.com.cinequiz.MenuActivity
+import br.com.cinequiz.ui.MenuActivity
 import br.com.cinequiz.R
-import kotlinx.android.synthetic.main.layout_resultado_jogo.view.*
 
 class ResultadoDialogAdapter: DialogFragment() {
 
