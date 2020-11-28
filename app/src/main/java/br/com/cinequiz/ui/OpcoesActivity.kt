@@ -1,9 +1,9 @@
-package br.com.cinequiz
+package br.com.cinequiz.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_cadastro.*
+import br.com.cinequiz.R
 import kotlinx.android.synthetic.main.activity_opcoes.*
 import kotlinx.android.synthetic.main.toolbar_main.view.*
 
