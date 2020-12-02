@@ -8,7 +8,7 @@
     android:background="@color/cineAzul"
     android:focusableInTouchMode="true"
     android:fillViewport="true"
-    tools:context=".CadastroActivity">
+    tools:context=".ui.CadastroActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutCadastro"

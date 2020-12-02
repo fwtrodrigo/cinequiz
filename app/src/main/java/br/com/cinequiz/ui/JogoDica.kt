@@ -1,19 +1,13 @@
-package br.com.cinequiz
+package br.com.cinequiz.ui
 
-import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import br.com.cinequiz.R
 import br.com.cinequiz.adapters.ResultadoDialogAdapter
 import kotlinx.android.synthetic.main.activity_jogo_dica.*
-import kotlinx.android.synthetic.main.activity_menu.*
-import kotlinx.android.synthetic.main.item_botao_selecao_modo_cena.view.*
 import kotlinx.android.synthetic.main.item_botoes_alternativas.view.*
-import kotlinx.android.synthetic.main.layout_resultado_jogo.*
-import kotlinx.android.synthetic.main.layout_resultado_jogo.view.*
 
 class JogoDica : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

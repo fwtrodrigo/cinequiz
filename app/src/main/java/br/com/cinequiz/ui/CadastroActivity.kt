@@ -1,12 +1,11 @@
-package br.com.cinequiz
+package br.com.cinequiz.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import br.com.cinequiz.R
 import kotlinx.android.synthetic.main.activity_cadastro.*
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.toolbar_main.view.*
 
 class CadastroActivity : AppCompatActivity() {
@@ -25,7 +24,9 @@ class CadastroActivity : AppCompatActivity() {
 
         edtCadastroNome.setOnFocusChangeListener { view, hasFocus ->
             if(hasFocus) {
-                view.background =  ContextCompat.getDrawable(this, R.drawable.shape_anel_selecionado)
+                view.background =  ContextCompat.getDrawable(this,
+                    R.drawable.shape_anel_selecionado
+                )
             } else {
                 view.background =  ContextCompat.getDrawable(this, R.drawable.shape_anel)
             }
@@ -33,7 +34,9 @@ class CadastroActivity : AppCompatActivity() {
 
         edtCadastroEmail.setOnFocusChangeListener { view, hasFocus ->
             if(hasFocus) {
-                view.background =  ContextCompat.getDrawable(this, R.drawable.shape_anel_selecionado)
+                view.background =  ContextCompat.getDrawable(this,
+                    R.drawable.shape_anel_selecionado
+                )
             } else {
                 view.background =  ContextCompat.getDrawable(this, R.drawable.shape_anel)
             }
@@ -41,7 +44,9 @@ class CadastroActivity : AppCompatActivity() {
 
         edtCadastroSenha.setOnFocusChangeListener { view, hasFocus ->
             if(hasFocus) {
-                view.background =  ContextCompat.getDrawable(this, R.drawable.shape_anel_selecionado)
+                view.background =  ContextCompat.getDrawable(this,
+                    R.drawable.shape_anel_selecionado
+                )
             } else {
                 view.background =  ContextCompat.getDrawable(this, R.drawable.shape_anel)
             }
@@ -49,7 +54,9 @@ class CadastroActivity : AppCompatActivity() {
 
         edtCadastroConfirmacaoSenha.setOnFocusChangeListener { view, hasFocus ->
             if(hasFocus) {
-                view.background =  ContextCompat.getDrawable(this, R.drawable.shape_anel_selecionado)
+                view.background =  ContextCompat.getDrawable(this,
+                    R.drawable.shape_anel_selecionado
+                )
             } else {
                 view.background =  ContextCompat.getDrawable(this, R.drawable.shape_anel)
             }
