@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DialogStyle"
+        parent="Theme.MaterialComponents.Dialog">
+        <!-- (1)-->
+        <item name="android:windowIsFloating">false</item>
+        <!-- (2) -->
+        <item name="android:windowBackground">@color/cineSombraAzul</item>
+    </style>
+
+</resources>
