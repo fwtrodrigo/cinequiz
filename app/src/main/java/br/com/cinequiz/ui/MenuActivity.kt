@@ -12,6 +12,7 @@ import br.com.cinequiz.service.repository
 import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.item_botao_selecao_modo_cena.view.*
 import kotlinx.android.synthetic.main.item_botao_selecao_modo_dicas.view.*
+import java.io.Serializable
 
 class MenuActivity : AppCompatActivity() {
 
@@ -39,6 +40,10 @@ class MenuActivity : AppCompatActivity() {
 
         viewModel.filme.observe(this) {
             Log.i("FILME TITULO:", it.title)
+//            it.filmesSimilares.forEach {filme->
+//                Log.i("FILME SIMILARE:", filme.title)
+//            }
+
         }
 
         btnMenuDicas.btnItemDica.setOnClickListener {
@@ -46,7 +51,10 @@ class MenuActivity : AppCompatActivity() {
         }
 
         btnMenuCenas.btnItemCena.setOnClickListener {
-            startActivity(Intent(this, JogoCena::class.java))
+            val intent: Intent = Intent(this, JogoCena::class.java)
+                .putExtra("listaFilmes", viewModel.listaFilmesPopulares.value as Serializable)
+
+            startActivity(intent)
         }
 
         btnMenuMedalhas.setOnClickListener {
