@@ -4,10 +4,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.cinequiz.BuildConfig
 import br.com.cinequiz.domain.Filme
 import br.com.cinequiz.domain.FilmePopular
-import br.com.cinequiz.domain.FilmeSimilar
 import br.com.cinequiz.service.Repository
 import kotlinx.coroutines.launch
 
@@ -21,55 +19,63 @@ class MenuViewModel(val repository: Repository) : ViewModel() {
 
     fun getResults() {
 
-        try {
-            viewModelScope.launch {
+        viewModelScope.launch {
+            try {
+
                 listaFilmesPopulares.value = repository.getFilmesPopulares(
                     apiKey,
                     "pt-BR"
                 ).listaFilmesPopulares
+
+            } catch (e: Exception) {
+                Log.e("MenuViewModel", e.toString())
             }
-        } catch (e: Exception) {
-            Log.e("MenuViewModel", e.toString())
+
         }
     }
 
     fun getFilme(filmeID: Int) {
-        try {
-            viewModelScope.launch {
+        viewModelScope.launch {
+            try {
+
                 filme.value = repository.getFilme(
                     filmeID,
                     apiKey,
                     "pt-BR"
                 )
 
-                getFilmesSimiliares(filmeID)
-                getImagensFilme(filmeID)
-
+            } catch (e: Exception) {
+                Log.e("MenuViewModel", e.toString())
             }
-        } catch (e: Exception) {
-            Log.e("MenuViewModel", e.toString())
         }
     }
 
     fun getFilmesSimiliares(filmeID: Int) {
-        try {
-            viewModelScope.launch {
+        viewModelScope.launch {
+            try {
+
                 val listaFilmesSimilares = repository.getFilmesSimiliares(
                     filmeID,
                     apiKey,
                     "pt-BR"
                 ).listaFilmesSimilares
                 filme.value?.filmesSimilares = listaFilmesSimilares
-                Log.i("FILMES SIMILARES:", filmeID.toString() + " " + listaFilmesSimilares.toString())
+                Log.i(
+                    "FILMES SIMILARES:",
+                    filmeID.toString() + " " + listaFilmesSimilares.toString()
+                )
+
+            } catch (e: Exception) {
+                Log.e("MenuViewModel", e.toString())
             }
-        } catch (e: Exception) {
-            Log.e("MenuViewModel", e.toString())
+
         }
     }
 
     fun getImagensFilme(filmeID: Int) {
-        try {
-            viewModelScope.launch {
+        viewModelScope.launch {
+            try {
+
                 val listaImagensFilme = repository.getImagensFilme(
                     filmeID,
                     apiKey,
@@ -78,10 +84,11 @@ class MenuViewModel(val repository: Repository) : ViewModel() {
                 //filme.value?.imagensFilme = listaImagensFilme
                 Log.i("IMAGENS:", filmeID.toString() + " " + listaImagensFilme?.toString())
 
+            } catch (e: Exception) {
+                Log.e("MenuViewModel", e.toString())
             }
-        } catch (e: Exception) {
-            Log.e("MenuViewModel", e.toString())
         }
+
     }
 
 }
