@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import br.com.cinequiz.R
+import br.com.cinequiz.domain.Filme
 import br.com.cinequiz.service.repository
 import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.item_botao_selecao_modo_cena.view.*
@@ -32,18 +33,21 @@ class MenuActivity : AppCompatActivity() {
 
         viewModel.listaFilmesPopulares.observe(this) {
             for (filme in it) {
-                Log.i("FILME ID:", filme.id.toString())
-
                 viewModel.getFilme(filme.id)
             }
         }
 
         viewModel.filme.observe(this) {
-            Log.i("FILME TITULO:", it.title)
-//            it.filmesSimilares.forEach {filme->
-//                Log.i("FILME SIMILARE:", filme.title)
-//            }
+            viewModel.listaFilmesUtilizaveis.add(it)
 
+            Log.i("FilmeObserve", it.toString())
+
+            if (ehFilmeUtilizavel(it)) {
+                Log.i("MENUACTIVITY", "FOI")
+
+            } else {
+                Log.i("MENUACTIVITY", "NUMFOI")
+            }
         }
 
         btnMenuDicas.btnItemDica.setOnClickListener {
@@ -51,8 +55,9 @@ class MenuActivity : AppCompatActivity() {
         }
 
         btnMenuCenas.btnItemCena.setOnClickListener {
+
             val intent: Intent = Intent(this, JogoCena::class.java)
-                .putExtra("listaFilmes", viewModel.listaFilmesPopulares.value as Serializable)
+                .putExtra("listaFilmes", viewModel.listaFilmesUtilizaveis as Serializable)
 
             startActivity(intent)
         }
@@ -64,5 +69,23 @@ class MenuActivity : AppCompatActivity() {
         btnMenuOpcoes.setOnClickListener {
             startActivity(Intent(this, OpcoesActivity::class.java))
         }
+    }
+
+
+    fun ehFilmeUtilizavel(filme: Filme): Boolean {
+    TODO("IDENTIFICAR QUANDO FILME EH INVALIDO PARA USO")
+//        return when {
+//            filme.equals(null) -> false
+//            filme.imagensFilme.equals(null)  -> false
+//            filme.imagensFilme[0].equals(null) -> false
+//            filme.imagensFilme[0].file_path.equals(null) -> false
+//            filme.filmesSimilares.equals(null) -> false
+//            filme.filmesSimilares[0].equals(null) -> false
+//            filme.filmesSimilares[0].equals(null) -> false
+//            else -> true
+//        }
+
+
+        return true
     }
 }

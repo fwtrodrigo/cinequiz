@@ -15,10 +15,9 @@ class MenuViewModel(val repository: Repository) : ViewModel() {
 
     val listaFilmesPopulares = MutableLiveData<List<FilmePopular>>()
     val filme = MutableLiveData<Filme>()
-    val listaFilmesUtilizaveis = MutableLiveData<List<Filme>>()
+    val listaFilmesUtilizaveis = mutableListOf<Filme>()
 
     fun getResults() {
-
         viewModelScope.launch {
             try {
 
@@ -38,58 +37,33 @@ class MenuViewModel(val repository: Repository) : ViewModel() {
         viewModelScope.launch {
             try {
 
-                filme.value = repository.getFilme(
+                val f = repository.getFilme(
                     filmeID,
                     apiKey,
                     "pt-BR"
                 )
 
-            } catch (e: Exception) {
-                Log.e("MenuViewModel", e.toString())
-            }
-        }
-    }
-
-    fun getFilmesSimiliares(filmeID: Int) {
-        viewModelScope.launch {
-            try {
-
-                val listaFilmesSimilares = repository.getFilmesSimiliares(
+                val fSimilares = repository.getFilmesSimiliares(
                     filmeID,
                     apiKey,
                     "pt-BR"
                 ).listaFilmesSimilares
-                filme.value?.filmesSimilares = listaFilmesSimilares
-                Log.i(
-                    "FILMES SIMILARES:",
-                    filmeID.toString() + " " + listaFilmesSimilares.toString()
-                )
 
-            } catch (e: Exception) {
-                Log.e("MenuViewModel", e.toString())
-            }
 
-        }
-    }
-
-    fun getImagensFilme(filmeID: Int) {
-        viewModelScope.launch {
-            try {
-
-                val listaImagensFilme = repository.getImagensFilme(
+                val imgsFilme = repository.getImagensFilme(
                     filmeID,
                     apiKey,
                     "null"
                 ).listaImagensFilme
-                //filme.value?.imagensFilme = listaImagensFilme
-                Log.i("IMAGENS:", filmeID.toString() + " " + listaImagensFilme?.toString())
+
+                f.imagensFilme = imgsFilme
+                f.filmesSimilares = fSimilares
+                filme.value = f
 
             } catch (e: Exception) {
                 Log.e("MenuViewModel", e.toString())
             }
         }
-
     }
-
 }
 
