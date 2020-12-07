@@ -50,19 +50,40 @@ class MenuViewModel(val repository: Repository) : ViewModel() {
                 ).listaFilmesSimilares
 
 
-                val imgsFilme = repository.getImagensFilme(
+                val fImagens = repository.getImagensFilme(
                     filmeID,
                     apiKey,
                     "null"
                 ).listaImagensFilme
 
-                f.imagensFilme = imgsFilme
+                f.imagensFilme = fImagens
                 f.filmesSimilares = fSimilares
-                filme.value = f
+
+                if (filtroFilmeUtilizavel(f)) {
+                    Log.i("MENUACTIVITY", "FOI")
+                    listaFilmesUtilizaveis.add(f)
+
+                } else {
+                    Log.i("MENUACTIVITY", "NUMFOI")
+                }
+
 
             } catch (e: Exception) {
                 Log.e("MenuViewModel", e.toString())
             }
+        }
+    }
+
+    private fun filtroFilmeUtilizavel (filme: Filme): Boolean {
+
+        return when {
+            filme.equals(null) -> false
+            filme.title.isEmpty() -> false
+            filme.imagensFilme.isEmpty() -> false
+            filme.imagensFilme[0].file_path.isEmpty() -> false
+            filme.filmesSimilares.isEmpty() -> false
+            filme.filmesSimilares[0].title.isEmpty() -> false
+            else -> true
         }
     }
 }

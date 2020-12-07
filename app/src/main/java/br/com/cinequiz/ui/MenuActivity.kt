@@ -34,19 +34,7 @@ class MenuActivity : AppCompatActivity() {
         viewModel.listaFilmesPopulares.observe(this) {
             for (filme in it) {
                 viewModel.getFilme(filme.id)
-            }
-        }
-
-        viewModel.filme.observe(this) {
-            viewModel.listaFilmesUtilizaveis.add(it)
-
-            Log.i("FilmeObserve", it.toString())
-
-            if (ehFilmeUtilizavel(it)) {
-                Log.i("MENUACTIVITY", "FOI")
-
-            } else {
-                Log.i("MENUACTIVITY", "NUMFOI")
+                Log.i("FILMESPOPULARES", filme.id.toString() )
             }
         }
 
@@ -69,23 +57,5 @@ class MenuActivity : AppCompatActivity() {
         btnMenuOpcoes.setOnClickListener {
             startActivity(Intent(this, OpcoesActivity::class.java))
         }
-    }
-
-
-    fun ehFilmeUtilizavel(filme: Filme): Boolean {
-    TODO("IDENTIFICAR QUANDO FILME EH INVALIDO PARA USO")
-//        return when {
-//            filme.equals(null) -> false
-//            filme.imagensFilme.equals(null)  -> false
-//            filme.imagensFilme[0].equals(null) -> false
-//            filme.imagensFilme[0].file_path.equals(null) -> false
-//            filme.filmesSimilares.equals(null) -> false
-//            filme.filmesSimilares[0].equals(null) -> false
-//            filme.filmesSimilares[0].equals(null) -> false
-//            else -> true
-//        }
-
-
-        return true
     }
 }

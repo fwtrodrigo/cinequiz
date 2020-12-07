@@ -46,6 +46,5 @@ class JogoCena : AppCompatActivity() {
             txtAlternativa3.text = listaFilmes[0].filmesSimilares[1].title
             txtAlternativa4.text = listaFilmes[0].filmesSimilares[2].title
         }
-
     }
 }
