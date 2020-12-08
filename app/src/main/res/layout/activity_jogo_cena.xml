@@ -50,7 +50,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <include
-        android:id="@+id/includeJogoDicaBotoes"
+        android:id="@+id/includeJogoCenaBotoes"
         layout="@layout/item_botoes_alternativas"
         android:layout_width="0dp"
         android:layout_height="0dp"

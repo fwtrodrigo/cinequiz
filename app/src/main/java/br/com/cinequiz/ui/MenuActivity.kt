@@ -39,7 +39,11 @@ class MenuActivity : AppCompatActivity() {
         }
 
         btnMenuDicas.btnItemDica.setOnClickListener {
-            startActivity(Intent(this, JogoDica::class.java))
+
+            val intent: Intent = Intent(this, JogoDica::class.java)
+                .putExtra("listaFilmes", viewModel.listaFilmesUtilizaveis as Serializable)
+
+            startActivity(intent)
         }
 
         btnMenuCenas.btnItemCena.setOnClickListener {

@@ -29,7 +29,6 @@ class MenuViewModel(val repository: Repository) : ViewModel() {
             } catch (e: Exception) {
                 Log.e("MenuViewModel", e.toString())
             }
-
         }
     }
 
@@ -79,6 +78,8 @@ class MenuViewModel(val repository: Repository) : ViewModel() {
         return when {
             filme.equals(null) -> false
             filme.title.isEmpty() -> false
+            filme.production_companies.isEmpty() -> false
+            filme.release_date.isEmpty() -> false
             filme.imagensFilme.isEmpty() -> false
             filme.imagensFilme[0].file_path.isEmpty() -> false
             filme.filmesSimilares.isEmpty() -> false
