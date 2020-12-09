@@ -9,9 +9,10 @@ import retrofit2.http.Query
 
 interface Repository {
 
-    @GET("movie/popular")
-    suspend fun getFilmesPopulares(
+    @GET("movie/top_rated")
+    suspend fun getFilmesVotados(
         @Query("api_key") api_key: String,
+        @Query("page") page: Int,
         @Query("language") idioma: String = "pt-BR",
     ): FiltroFilmes
 
@@ -36,6 +37,12 @@ interface Repository {
         @Query("language") idioma: String = "null",
     ): ImagensFilme
 
+    @GET("movie/{movie_id}/credits")
+    suspend fun getPessoasFilme(
+        @Path("movie_id") movie_id: Int,
+        @Query("api_key") api_key: String,
+        @Query("language") idioma: String = "pt-BR",
+    ): PessoasFilme
 }
 
 val urlApiTMDB = "https://api.themoviedb.org/3/"

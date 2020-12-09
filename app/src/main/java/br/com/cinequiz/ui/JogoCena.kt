@@ -1,7 +1,6 @@
 package br.com.cinequiz.ui
 
 
-import android.accounts.AccountManager.get
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,14 +12,10 @@ import br.com.cinequiz.adapters.ResultadoDialogAdapter
 import br.com.cinequiz.domain.Filme
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_jogo_cena.*
-import kotlinx.android.synthetic.main.activity_jogo_dica.*
-import kotlinx.android.synthetic.main.activity_jogo_dica.includeJogoDicaBotoes
-import kotlinx.android.synthetic.main.item_botao_selecao_modo_cena.*
 import kotlinx.android.synthetic.main.item_botoes_alternativas.*
 import kotlinx.android.synthetic.main.item_botoes_alternativas.view.*
 import kotlinx.android.synthetic.main.item_card_cena.*
-import java.lang.reflect.Array.get
-import java.nio.file.Paths.get
+
 
 class JogoCena : AppCompatActivity() {
 
