@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import br.com.cinequiz.R
-import br.com.cinequiz.domain.Filme
 import br.com.cinequiz.service.repository
 import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.item_botao_selecao_modo_cena.view.*
@@ -31,10 +30,10 @@ class MenuActivity : AppCompatActivity() {
 
         viewModel.getResults()
 
-        viewModel.listaFilmesPopulares.observe(this) {
+        viewModel.listaFilmesVotados.observe(this) {
             for (filme in it) {
                 viewModel.getFilme(filme.id)
-                Log.i("FILMESPOPULARES", filme.id.toString() )
+                Log.i("listaFilmesVotados", filme.id.toString() )
             }
         }
 

@@ -3,10 +3,13 @@ package br.com.cinequiz.domain
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
+import java.text.SimpleDateFormat
+import java.util.*
 
-class FiltroFilmes(@SerializedName("results") @Expose var listaFilmesPopulares: List<FilmePopular>)
+class FiltroFilmes(@SerializedName("results") @Expose var listaFilmesVotados: List<FilmeVotado>)
 class FilmesSimilares(@SerializedName("results") @Expose var listaFilmesSimilares: List<FilmeSimilar>)
 class ImagensFilme(@SerializedName("backdrops") @Expose var listaImagensFilme: List<ImagemFilme>)
+class PessoasFilme(@SerializedName("cast") @Expose var listaPessoasFilme: List<PessoaFilme>)
 
 
 data class Filme(
@@ -36,8 +39,19 @@ data class Filme(
     val vote_average: Double,
     val vote_count: Int,
     var filmesSimilares: List<FilmeSimilar>,
-    var imagensFilme: List<ImagemFilme>
-) : Serializable
+    var imagensFilme: List<ImagemFilme>,
+    var pessoasFilme: List<PessoaFilme>
+) : Serializable {
+
+    fun formataDataLancamento(): String{
+
+        val BRAZIL = Locale("pt", "BR")
+        val dataOriginal = SimpleDateFormat("yyyy-MM-dd").parse(release_date)
+        val dataFormatada = SimpleDateFormat("MMMM/yyyy", BRAZIL)
+        return dataFormatada.format(dataOriginal)
+    }
+
+}
 
 data class Genre(
     val id: Int,
@@ -62,7 +76,7 @@ data class SpokenLanguage(
     val name: String
 ) : Serializable
 
-data class FilmePopular(
+data class FilmeVotado(
     val id: Int
 ) : Serializable
 
@@ -73,4 +87,12 @@ data class FilmeSimilar(
 
 data class ImagemFilme(
     val file_path: String,
+) : Serializable
+
+data class PessoaFilme(
+    val id: Int,
+    val gender: Int,
+    val known_for_department: String,
+    val name: String,
+    val character: String
 ) : Serializable

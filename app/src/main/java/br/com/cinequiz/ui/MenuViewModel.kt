@@ -5,7 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.cinequiz.domain.Filme
-import br.com.cinequiz.domain.FilmePopular
+import br.com.cinequiz.domain.FilmeVotado
+import br.com.cinequiz.domain.PessoaFilme
 import br.com.cinequiz.service.Repository
 import kotlinx.coroutines.launch
 
@@ -13,18 +14,19 @@ class MenuViewModel(val repository: Repository) : ViewModel() {
 
     val apiKey: String = ""
 
-    val listaFilmesPopulares = MutableLiveData<List<FilmePopular>>()
-    val filme = MutableLiveData<Filme>()
+    val listaFilmesVotados = MutableLiveData<List<FilmeVotado>>()
     val listaFilmesUtilizaveis = mutableListOf<Filme>()
+    val listaPessoasFilme = mutableListOf<PessoaFilme>()
 
     fun getResults() {
         viewModelScope.launch {
             try {
 
-                listaFilmesPopulares.value = repository.getFilmesPopulares(
+                listaFilmesVotados.value = repository.getFilmesVotados(
                     apiKey,
+                    (1..10).random(),
                     "pt-BR"
-                ).listaFilmesPopulares
+                ).listaFilmesVotados
 
             } catch (e: Exception) {
                 Log.e("MenuViewModel", e.toString())
@@ -55,17 +57,23 @@ class MenuViewModel(val repository: Repository) : ViewModel() {
                     "null"
                 ).listaImagensFilme
 
+                val fPessoas = repository.getPessoasFilme(
+                    filmeID,
+                    apiKey,
+                    "pt-BR"
+                ).listaPessoasFilme
+
                 f.imagensFilme = fImagens
                 f.filmesSimilares = fSimilares
+                f.pessoasFilme = fPessoas
 
                 if (filtroFilmeUtilizavel(f)) {
-                    Log.i("MENUACTIVITY", "FOI")
+                    Log.i("MENUACTIVITY", "Adicionado: ${f.id.toString()}")
                     listaFilmesUtilizaveis.add(f)
 
                 } else {
-                    Log.i("MENUACTIVITY", "NUMFOI")
+                    Log.i("MENUACTIVITY", "Não adicionado: ${f.id.toString()}")
                 }
-
 
             } catch (e: Exception) {
                 Log.e("MenuViewModel", e.toString())
@@ -80,6 +88,7 @@ class MenuViewModel(val repository: Repository) : ViewModel() {
             filme.title.isEmpty() -> false
             filme.production_companies.isEmpty() -> false
             filme.release_date.isEmpty() -> false
+            filme.pessoasFilme.isEmpty() -> false
             filme.imagensFilme.isEmpty() -> false
             filme.imagensFilme[0].file_path.isEmpty() -> false
             filme.filmesSimilares.isEmpty() -> false
