@@ -12,6 +12,7 @@ import br.com.cinequiz.service.repository
 import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.item_botao_selecao_modo_cena.view.*
 import kotlinx.android.synthetic.main.item_botao_selecao_modo_dicas.view.*
+import java.io.Serializable
 
 class MenuActivity : AppCompatActivity() {
 
@@ -29,24 +30,27 @@ class MenuActivity : AppCompatActivity() {
 
         viewModel.getResults()
 
-        viewModel.listaFilmesPopulares.observe(this) {
+        viewModel.listaFilmesVotados.observe(this) {
             for (filme in it) {
-                Log.i("FILME ID:", filme.id.toString())
-
                 viewModel.getFilme(filme.id)
+                Log.i("listaFilmesVotados", filme.id.toString() )
             }
         }
 
-        viewModel.filme.observe(this) {
-            Log.i("FILME TITULO:", it.title)
-        }
-
         btnMenuDicas.btnItemDica.setOnClickListener {
-            startActivity(Intent(this, JogoDica::class.java))
+
+            val intent: Intent = Intent(this, JogoDica::class.java)
+                .putExtra("listaFilmes", viewModel.listaFilmesUtilizaveis as Serializable)
+
+            startActivity(intent)
         }
 
         btnMenuCenas.btnItemCena.setOnClickListener {
-            startActivity(Intent(this, JogoCena::class.java))
+
+            val intent: Intent = Intent(this, JogoCena::class.java)
+                .putExtra("listaFilmes", viewModel.listaFilmesUtilizaveis as Serializable)
+
+            startActivity(intent)
         }
 
         btnMenuMedalhas.setOnClickListener {

@@ -35,6 +35,7 @@
             autofit:layout_constraintTop_toTopOf="parent" />
 
         <me.grantland.widget.AutofitTextView
+            android:id="@+id/txtAlternativa1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
@@ -86,6 +87,7 @@
             autofit:layout_constraintTop_toTopOf="parent" />
 
         <me.grantland.widget.AutofitTextView
+            android:id="@+id/txtAlternativa2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="12dp"
@@ -138,6 +140,7 @@
             autofit:layout_constraintTop_toTopOf="parent" />
 
         <me.grantland.widget.AutofitTextView
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
@@ -145,6 +148,7 @@
             android:layout_marginRight="12dp"
             android:layout_marginBottom="15dp"
             android:gravity="center"
+            android:id="@+id/txtAlternativa3"
             android:maxLines="3"
             android:singleLine="false"
             android:text="As Crônicas de Nárnia: O Leão, a Feiticeira e o Guarda-Roupa"
@@ -197,6 +201,7 @@
             android:layout_marginBottom="15dp"
             android:gravity="center"
             android:maxLines="3"
+            android:id="@+id/txtAlternativa4"
             android:singleLine="false"
             android:text="A Branca de Neve e os Sete Anões"
             android:textColor="@color/colorBranco"
