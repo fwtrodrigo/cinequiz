@@ -40,10 +40,10 @@ class JogoDica : AppCompatActivity() {
     fun iniciarFilme(listaFilmes: List<Filme>, contadorFilme: Int, listView: ListView){
 
         val listaDicas = arrayOf(
-            "1 - Brad Pitt atuou como um dos meus personagens.",
+            "1 - ${listaFilmes[contadorFilme].pessoasFilme[0].name} atuou como um dos meus personagens.",
             "2 - Fui produzido pelo estúdio ${listaFilmes[contadorFilme].production_companies[0].name}.",
-            "3 - Minha estreia foi em ${listaFilmes[contadorFilme].release_date}.",
-            "4 - Um dos meus personagens se chama Ralph."
+            "3 - Minha estreia foi em ${listaFilmes[contadorFilme].formataDataLancamento()}.",
+            "4 - Um dos meus personagens se chama ${listaFilmes[contadorFilme].pessoasFilme[0].character}."
         )
 
         val adapter = ArrayAdapter(this, R.layout.item_lista_dica, listaDicas)
