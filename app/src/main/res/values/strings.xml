@@ -39,5 +39,8 @@
     <string name="_55">55</string>
     <string name="popcorns">PopCorns</string>
     <string name="qual_o_nome_do_filme">Qual o nome do Filme?</string>
+    <string name="facebook_app_id">198624748566171</string>
+    <string name="fb_login_protocol_scheme">fb198624748566171</string>
+
 
 </resources>
