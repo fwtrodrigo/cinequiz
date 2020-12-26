@@ -8,14 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import br.com.cinequiz.R
 import br.com.cinequiz.databinding.ActivityLoginBinding
+import br.com.cinequiz.utils.ehEmailValido
 import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.auth.FacebookAuthProvider
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.*
 import kotlinx.android.synthetic.main.activity_login.*
 
 //851294246873-0gel4t589odrfmqa2r5vl0si8n7i68f7.apps.googleusercontent.com
@@ -140,12 +139,19 @@ class LoginActivity : AppCompatActivity() {
 
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha)
             .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    showToast("Bem vindo, UserID: ${it.result?.user?.uid}")
-                    appLogin()
-                }
+                //conclusao request
+            }.addOnSuccessListener {
+                showToast("Bem vindo, UserID: ${it.user?.uid}")
+                appLogin()
+
             }.addOnFailureListener {
-                showToast(it.message.toString())
+                if (it is FirebaseAuthInvalidCredentialsException) {
+                    showToast("Usuário e/ou senha inválidos.")
+                }
+
+                if (it is FirebaseAuthInvalidUserException) {
+                    showToast("Usuário e/ou senha inválidos.")
+                }
             }
     }
 
@@ -161,15 +167,22 @@ class LoginActivity : AppCompatActivity() {
         return when {
             email.isEmpty() -> {
                 binding.edtLoginEmail.requestFocus()
-                binding.edtLoginEmail.error = "Obrigatório"
-                showToast("Favor, preencher o campo de e-mail")
+                binding.edtLoginEmail.error = getString(R.string.obrigatorio)
+                showToast(getString(R.string.preencher, "email"))
+                false
+            }
+
+            !ehEmailValido(email) -> {
+                binding.edtLoginEmail.requestFocus()
+                binding.edtLoginEmail.error = getString(R.string.formato_email_invalido)
+                showToast(getString(R.string.informe_email_valido))
                 false
             }
 
             senha.isEmpty() -> {
                 binding.edtLoginSenha.requestFocus()
-                binding.edtLoginSenha.error = "Obrigatório"
-                showToast("Favor, preencher o campo de senha")
+                binding.edtLoginSenha.error = getString(R.string.obrigatorio)
+                showToast(getString(R.string.preencher, "senha"))
                 false
             }
             else -> {
