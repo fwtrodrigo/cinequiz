@@ -56,8 +56,6 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLoginEntrar.setOnClickListener {
             signinWithEmail()
         }
-
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -160,11 +158,25 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun validaFormulario(email: String, senha: String): Boolean {
-        return if (email.isEmpty() || senha.isEmpty()) {
-            showToast("Email e senha devem ser informados")
-            false
-        } else {
-            true
+        return when {
+            email.isEmpty() -> {
+                binding.edtLoginEmail.requestFocus()
+                binding.edtLoginEmail.error = "Obrigatório"
+                showToast("Favor, preencher o campo de e-mail")
+                false
+            }
+
+            senha.isEmpty() -> {
+                binding.edtLoginSenha.requestFocus()
+                binding.edtLoginSenha.error = "Obrigatório"
+                showToast("Favor, preencher o campo de senha")
+                false
+            }
+            else -> {
+                binding.edtLoginEmail.error = null
+                binding.edtLoginSenha.error = null
+                true
+            }
         }
     }
 
