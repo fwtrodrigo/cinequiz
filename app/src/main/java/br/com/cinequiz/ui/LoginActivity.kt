@@ -63,7 +63,6 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        callbackManager.onActivityResult(requestCode, resultCode, data)
 
         showToast("onActivityResult:   $requestCode --- $resultCode")
 
@@ -79,6 +78,8 @@ class LoginActivity : AppCompatActivity() {
                     showToast("Google sign in failed " + it.exception)
                 }
             }
+        } else {
+            callbackManager.onActivityResult(requestCode, resultCode, data)
         }
     }
 
@@ -101,6 +102,7 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "GOOGLEsignInWithCredential:success")
+                    appLogin()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "GOOGLEsignInWithCredential:failure", task.exception)
