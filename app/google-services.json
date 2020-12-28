@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "851294246873",
+    "project_id": "cinequiz",
+    "storage_bucket": "cinequiz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:851294246873:android:84e78019fbb66e0b642bc8",
+        "android_client_info": {
+          "package_name": "br.com.cinequiz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "851294246873-0gudsbrfgvru3jjv3sghjeuh3abq301l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJIsHD43KjPexCG4uCLQJk1B6rIITvuss"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "851294246873-0gudsbrfgvru3jjv3sghjeuh3abq301l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
