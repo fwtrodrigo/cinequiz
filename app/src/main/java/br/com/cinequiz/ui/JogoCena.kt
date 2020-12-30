@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import br.com.cinequiz.R
 import br.com.cinequiz.adapters.ResultadoDialogAdapter
+import br.com.cinequiz.databinding.ActivityJogoCenaBinding
 import br.com.cinequiz.domain.Filme
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_jogo_cena.*
@@ -18,6 +19,8 @@ import kotlinx.android.synthetic.main.item_card_cena.*
 
 
 class JogoCena : AppCompatActivity() {
+
+    private lateinit var binding: ActivityJogoCenaBinding
 
     val viewModel by viewModels<JogoCenaViewModel> {
         object : ViewModelProvider.Factory {
@@ -29,7 +32,8 @@ class JogoCena : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_jogo_cena)
+        binding = ActivityJogoCenaBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         var contadorFilme = 0
         val listaFilmes = intent.getSerializableExtra("listaFilmes") as List<Filme>
@@ -44,7 +48,7 @@ class JogoCena : AppCompatActivity() {
 
         var resultadoDialog = ResultadoDialogAdapter()
 
-        includeJogoCenaBotoes.imageButtonAlternativas1.setOnClickListener {
+        binding.includeJogoCenaBotoes.imageButtonAlternativas1.setOnClickListener {
             contadorFilme++
             if(contadorFilme == listaFilmes.size){
                 resultadoDialog.show(supportFragmentManager, "resultadoDialog")
@@ -52,7 +56,6 @@ class JogoCena : AppCompatActivity() {
                 iniciarFilme(listaFilmes, contadorFilme)
             }
         }
-
 
     }
 
@@ -66,5 +69,4 @@ class JogoCena : AppCompatActivity() {
         txtAlternativa3.text = listaFilmes[contadorFilme].filmesSimilares[1].title
         txtAlternativa4.text = listaFilmes[contadorFilme].filmesSimilares[2].title
     }
-
 }

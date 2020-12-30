@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import br.com.cinequiz.R
 import br.com.cinequiz.adapters.ResultadoDialogAdapter
+import br.com.cinequiz.databinding.ActivityJogoDicaBinding
 import br.com.cinequiz.domain.Filme
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_jogo_dica.*
@@ -15,19 +16,25 @@ import kotlinx.android.synthetic.main.item_botoes_alternativas.view.*
 import kotlinx.android.synthetic.main.item_card_cena.*
 
 class JogoDica : AppCompatActivity() {
+
+    private lateinit var binding: ActivityJogoDicaBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_jogo_dica)
+        binding = ActivityJogoDicaBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val listaFilmes = intent.getSerializableExtra("listaFilmes") as List<Filme>
         var contadorFilme = 0
-        val listView = findViewById<ListView>(R.id.listviewCenaDica)
+        //val listView = findViewById<ListView>(R.id.listviewCenaDica)
+        val listView = binding.listviewCenaDica
+
 
         iniciarFilme(listaFilmes, contadorFilme, listView)
 
         var resultadoDialog = ResultadoDialogAdapter()
 
-        includeJogoDicaBotoes.imageButtonAlternativas1.setOnClickListener {
+        binding.includeJogoDicaBotoes.imageButtonAlternativas1.setOnClickListener {
             contadorFilme++
             if(contadorFilme == listaFilmes.size){
                 resultadoDialog.show(supportFragmentManager, "resultadoDialog")
