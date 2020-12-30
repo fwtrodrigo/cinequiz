@@ -3,6 +3,7 @@ package br.com.cinequiz.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import br.com.cinequiz.R
 import br.com.cinequiz.databinding.ActivityOpcoesBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -24,6 +25,18 @@ class OpcoesActivity : AppCompatActivity() {
 
         binding.toolbarOpcoes.toolbarMain.setNavigationOnClickListener {
             onBackPressed()
+        }
+
+        binding.swithOpcoesNotificacoes.setOnClickListener{
+            Toast.makeText(this, "Notificacoes", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.swithOpcoesMusica.setOnClickListener{
+            Toast.makeText(this, "Musica", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.swithOpcoesSons.setOnClickListener{
+            Toast.makeText(this, "Sons", Toast.LENGTH_SHORT).show()
         }
 
         binding.btnOpcoesSair.setOnClickListener {

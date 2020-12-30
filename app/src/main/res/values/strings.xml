@@ -32,6 +32,8 @@
     <string name="opcoes">OPÇÕES</string>
     <string name="logout">LOGOUT</string>
     <string name="notificacoes">NOTIFICAÇÕES</string>
+    <string name="musica">MUSICA</string>
+    <string name="sons">SONS</string>
     <string name="jogar_novamente">JOGAR NOVAMENTE</string>
     <string name="voltar_ao_menu">VOLTAR AO MENU</string>
     <string name="parabens">PARABÉNS!</string>
