@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import br.com.cinequiz.R
+import br.com.cinequiz.databinding.ActivitySplashScreenBinding
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,13 +13,15 @@ import kotlinx.coroutines.launch
 
 class SplashScreen : AppCompatActivity() {
 
+    private lateinit var binding: ActivitySplashScreenBinding
+
     val scope = CoroutineScope(Dispatchers.Main)
     private lateinit var  mAuth: FirebaseAuth
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash_screen)
+        binding = ActivitySplashScreenBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         mAuth = FirebaseAuth.getInstance()
         val user = mAuth.currentUser

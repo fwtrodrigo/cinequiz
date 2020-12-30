@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import br.com.cinequiz.R
+import br.com.cinequiz.databinding.ActivityMenuBinding
 import br.com.cinequiz.service.repository
 import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.item_botao_selecao_modo_cena.view.*
@@ -15,6 +16,8 @@ import kotlinx.android.synthetic.main.item_botao_selecao_modo_dicas.view.*
 import java.io.Serializable
 
 class MenuActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMenuBinding
 
     val viewModel by viewModels<MenuViewModel> {
         object : ViewModelProvider.Factory {
@@ -26,7 +29,8 @@ class MenuActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_menu)
+        binding = ActivityMenuBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         viewModel.getResults()
 
@@ -37,7 +41,7 @@ class MenuActivity : AppCompatActivity() {
             }
         }
 
-        btnMenuDicas.btnItemDica.setOnClickListener {
+        binding.btnMenuDicas.btnItemDica.setOnClickListener {
 
             val intent: Intent = Intent(this, JogoDica::class.java)
                 .putExtra("listaFilmes", viewModel.listaFilmesUtilizaveis as Serializable)
@@ -45,7 +49,7 @@ class MenuActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        btnMenuCenas.btnItemCena.setOnClickListener {
+        binding.btnMenuCenas.btnItemCena.setOnClickListener {
 
             val intent: Intent = Intent(this, JogoCena::class.java)
                 .putExtra("listaFilmes", viewModel.listaFilmesUtilizaveis as Serializable)
@@ -53,11 +57,11 @@ class MenuActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        btnMenuMedalhas.setOnClickListener {
+        binding.btnMenuMedalhas.setOnClickListener {
             startActivity(Intent(this, MedalhasActivity::class.java))
         }
 
-        btnMenuOpcoes.setOnClickListener {
+        binding.btnMenuOpcoes.setOnClickListener {
             startActivity(Intent(this, OpcoesActivity::class.java))
         }
     }

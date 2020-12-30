@@ -104,7 +104,7 @@ class CadastroActivity : AppCompatActivity() {
 
             !ehEmailValido(email) -> {
                 binding.edtCadastroEmail.requestFocus()
-                binding.edtCadastroEmail.error = getString(R.string.obrigatorio)
+                binding.edtCadastroEmail.error = getString(R.string.informe_email_valido)
                 showToast(getString(R.string.informe_email_valido))
                 false
             }
@@ -120,7 +120,7 @@ class CadastroActivity : AppCompatActivity() {
             senha.length < 6 -> {
                 resetError()
                 binding.edtCadastroSenha.requestFocus()
-                binding.edtCadastroSenha.error = getString(R.string.obrigatorio)
+                binding.edtCadastroSenha.error = getString(R.string.senha_invalida)
                 showToast(getString(R.string.tamanho_senha_invalido, 6))
                 false
             }

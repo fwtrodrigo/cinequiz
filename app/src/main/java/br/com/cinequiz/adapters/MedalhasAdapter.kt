@@ -14,7 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.cinequiz.R
 import br.com.cinequiz.domain.Medalha
 
-class MedalhasAdapter (private val listaMedalhas: ArrayList<Medalha>): RecyclerView.Adapter<MedalhasAdapter.MedalhaViewHolder>() {
+class MedalhasAdapter(private val listaMedalhas: ArrayList<Medalha>) : RecyclerView.Adapter<MedalhasAdapter.MedalhaViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MedalhasAdapter.MedalhaViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_medalha, parent, false)
         return MedalhaViewHolder(itemView)
@@ -31,7 +32,7 @@ class MedalhasAdapter (private val listaMedalhas: ArrayList<Medalha>): RecyclerV
 
     override fun getItemCount() = listaMedalhas.size
 
-    class MedalhaViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    class MedalhaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvMedalhaTit: TextView = itemView.findViewById(R.id.tvMedalhaTit)
         var tvMedalhaDesc: TextView = itemView.findViewById(R.id.tvMedalhaDesc)
         var ivMedalhaIcone: ImageView = itemView.findViewById(R.id.ivMedalhaIcone)

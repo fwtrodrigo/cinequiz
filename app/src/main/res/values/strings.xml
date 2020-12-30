@@ -46,10 +46,11 @@
     <string name="conta_sucesso">Conta criada com sucesso!</string>
     <string name="email_ja_utilizado">Este e-mail já está sendo utilizado por uma conta!</string>
     <string name="tamanho_senha_invalido">A senha deve conter pelo menos %1$d caracteres</string>
-    <string name="obrigatorio">Obrigatório</string>
-    <string name="preencher">Favor, preencher o campo de %1$s!</string>
+    <string name="senha_invalida">Senha Inválida</string>
+    <string name="obrigatorio">*Obrigatório</string>
+    <string name="preencher">Preencha o campo %1$s!</string>
     <string name="formato_email_invalido">Formato de e-mail inválido!</string>
-    <string name="informe_email_valido">Favor, informe um e-mail válido</string>
+    <string name="informe_email_valido">Informe um e-mail válido</string>
     <string name="confirmaca_invalida">A senha e a confirmação devem ser iguais!</string>
 
 </resources>
