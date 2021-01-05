@@ -40,7 +40,7 @@
             android:text="@string/digite_email_redefinir_senha"
             android:textAllCaps="true"
             android:textColor="@color/colorBranco"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <EditText

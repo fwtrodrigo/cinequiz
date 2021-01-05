@@ -14,7 +14,7 @@ import com.google.firebase.ktx.Firebase
 
 class RedefineSenhaActivity : AppCompatActivity() {
 
-    private lateinit var auth: FirebaseAuth
+   // private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityRedefineSenhaBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,18 +26,15 @@ class RedefineSenhaActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        val emailAddress = binding.edtRedefineSenhaEmail.text.toString()
-
-        Log.d("Redefine Senha", "$emailAddress isso que ta vindo do layout")
-        //val emailAddress = "colocar de forma manual"
-
         binding.btnRedefineSenha.setOnClickListener {
-            Log.d("REdefine Senha", "Antes de sendPasswordResetEmail $emailAddress")
-            Firebase.auth.sendPasswordResetEmail(emailAddress)
+
+            val email = binding.edtRedefineSenhaEmail.text.toString()
+
+            Firebase.auth.sendPasswordResetEmail(email)
                 .addOnCompleteListener { task ->
-                    Log.d("REdefine Senha", "Dentro de sendPasswordResetEmail")
+
                     if (task.isSuccessful) {
-                        showToast("Email Enviado!")
+                        showToast("Email Enviado! Redefina a senha")
                         startActivity(Intent(this, LoginActivity::class.java))
                     }
                     else {
