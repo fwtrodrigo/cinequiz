@@ -23,8 +23,8 @@ class MedalhasAdapter(private val listaMedalhas: ArrayList<Medalha>) : RecyclerV
 
     override fun onBindViewHolder(holder: MedalhasAdapter.MedalhaViewHolder, position: Int) {
         var medalha = listaMedalhas[position]
-        holder.tvMedalhaTit.text = medalha.tit
-        holder.tvMedalhaDesc.text = medalha.desc
+        holder.tvMedalhaTit.text = medalha.titulo
+        holder.tvMedalhaDesc.text = medalha.descricao
 //        holder.ivMedalhaIcone.setImageDrawable()
 
 
