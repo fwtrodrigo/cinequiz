@@ -151,10 +151,26 @@
             app:layout_constraintTop_toBottomOf="@+id/edtLoginSenha" />
 
         <TextView
+            android:id="@+id/tvLoginEsqueciMinhaSenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/esqueci_minha_senha"
+            android:textAllCaps="true"
+            android:textColor="@color/colorBranco"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnLoginEntrar" />
+
+        <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="@string/ainda_n_o_tem_uma_conta"
             android:textAllCaps="true"
@@ -164,7 +180,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnLoginEntrar" />
+            app:layout_constraintTop_toBottomOf="@+id/tvLoginEsqueciMinhaSenha" />
 
         <Button
             android:id="@+id/btnLoginCadastrar"
