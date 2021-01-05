@@ -72,6 +72,10 @@ class LoginActivity : AppCompatActivity() {
             googleSignIn()
         }
 
+        binding.tvLoginEsqueciMinhaSenha.setOnClickListener {
+            startActivity(Intent(this, RedefineSenhaActivity::class.java))
+        }
+
         binding.btnLoginCadastrar.setOnClickListener {
             startActivity(Intent(this, CadastroActivity::class.java))
         }
