@@ -64,7 +64,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        showToast("onActivityResult:   $requestCode --- $resultCode")
+        //showToast("onActivityResult:   $requestCode --- $resultCode")
 
         if (requestCode == GOOGLE_LOG_IN_RC) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
@@ -72,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
             task.addOnCompleteListener {
                 if (it.isSuccessful) {
                     val account = task.getResult(ApiException::class.java)!!
-                    showToast("logou com google firebaseAuthWithGoogle:" + account.id)
+                    showToast("Bem vindo, ${account.displayName}!")
                     firebaseAuthWithGoogle(account.idToken!!)
                 } else {
                     showToast("Google sign in failed " + it.exception)
@@ -130,7 +130,7 @@ class LoginActivity : AppCompatActivity() {
                 override fun onError(exception: FacebookException) {
                     Toast.makeText(
                         this@LoginActivity,
-                        "deu ruim: " + exception.message.toString(),
+                        "Facebook Exception - Error: " + exception.message.toString(),
                         Toast.LENGTH_LONG
                     )
                         .show()
@@ -148,6 +148,8 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "FACEBOOKsignInWithCredential:success")
+                    val user = mAuth.currentUser
+                    showToast("Bem vindo, ${user?.displayName}!")
                     appLogin()
                 } else {
                     // If sign in fails, display a message to the user.
@@ -168,7 +170,7 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener {
                 //conclusao request
             }.addOnSuccessListener {
-                showToast("Bem vindo, UserID: ${it.user?.uid}")
+                showToast("Bem vindo, Nome: ${it.user?.displayName} Email: ${it.user?.email} UserID: ${it.user?.uid} !")
                 appLogin()
 
             }.addOnFailureListener {
