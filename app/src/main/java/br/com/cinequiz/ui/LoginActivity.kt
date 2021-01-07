@@ -4,10 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import br.com.cinequiz.DAO.CinequizApplication
 import br.com.cinequiz.R
 import br.com.cinequiz.databinding.ActivityLoginBinding
+import br.com.cinequiz.domain.Usuario
 import br.com.cinequiz.utils.ehEmailValido
 import com.facebook.*
 import com.facebook.login.LoginManager
@@ -25,6 +28,10 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var callbackManager: CallbackManager
 
+    private val loginViewModel: LoginViewModel by viewModels {
+        LoginViewModelFactory((application as CinequizApplication).repository)
+    }
+
     private val TAG = "LoginActivity"
 
     private val GOOGLE_LOG_IN_RC = 1
@@ -34,6 +41,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        loginViewModel.insert(Usuario("78984",  "rodrigo"))
 
         controlaFocoEditText()
 
