@@ -2,17 +2,20 @@
     <string name="app_name">CineQuiz</string>
     <string name="logo_cine_quiz">Logo Cine Quiz</string>
     <string name="fa_a_login_com_suas_redes_sociais">Faça login com suas redes sociais</string>
+    <string name="digite_email_redefinir_senha">Digite seu email para iniciarmos a recuperação de senha.</string>
     <string name="ou_com_seu_email_e_senha">Ou com seu email e senha</string>
     <string name="log_in">Login</string>
     <string name="email">E-mail</string>
     <string name="senha">Senha</string>
     <string name="ainda_n_o_tem_uma_conta">Ainda não tem uma conta?</string>
+    <string name="esqueci_minha_senha">Esqueci Minha Senha</string>
     <string name="crie_sua_conta">Crie sua conta</string>
     <string name="nome">Nome</string>
     <string name="confirma_o">Confirmação</string>
     <string name="login_com_facebook">Login com Facebook</string>
     <string name="login_com_conta_google">Login com conta Google</string>
     <string name="entrar">Entrar</string>
+    <string name="continuar">Continuar</string>
     <string name="insira_suas_informa_es">Insira suas informações</string>
     <string name="cadastrar">Cadastrar</string>
 

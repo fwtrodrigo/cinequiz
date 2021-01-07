@@ -25,7 +25,7 @@
             android:contentDescription="@string/logo_cine_quiz"
             android:src="@drawable/logo_ingresso"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.30"
+            app:layout_constraintHeight_percent="0.25"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -60,8 +60,8 @@
 
             <ImageButton
                 android:id="@+id/facebookSignInButton"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginEnd="30dp"
                 android:background="@drawable/shape_circulo"
                 android:src="@drawable/ic_baseline_facebook_24"
@@ -69,8 +69,8 @@
 
             <ImageButton
                 android:id="@+id/googleSignInButton"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:background="@drawable/shape_circulo"
                 android:src="@drawable/ic_logo_google"
                 android:contentDescription="@string/login_com_conta_google" />
@@ -81,7 +81,7 @@
             android:id="@+id/idaa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="@string/ou_com_seu_email_e_senha"
             android:textAllCaps="true"
@@ -95,7 +95,7 @@
 
         <EditText
             android:id="@+id/edtLoginEmail"
-            android:layout_width="350dp"
+            android:layout_width="340dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
@@ -117,7 +117,7 @@
 
         <EditText
             android:id="@+id/edtLoginSenha"
-            android:layout_width="350dp"
+            android:layout_width="340dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="12dp"
@@ -151,10 +151,26 @@
             app:layout_constraintTop_toBottomOf="@+id/edtLoginSenha" />
 
         <TextView
+            android:id="@+id/tvLoginEsqueciMinhaSenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/esqueci_minha_senha"
+            android:textAllCaps="true"
+            android:textColor="@color/colorBranco"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnLoginEntrar" />
+
+        <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="35dp"
             android:gravity="center"
             android:text="@string/ainda_n_o_tem_uma_conta"
             android:textAllCaps="true"
@@ -164,7 +180,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnLoginEntrar" />
+            app:layout_constraintTop_toBottomOf="@+id/tvLoginEsqueciMinhaSenha" />
 
         <Button
             android:id="@+id/btnLoginCadastrar"
