@@ -3,6 +3,7 @@ package br.com.cinequiz.domain
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "configuracao", foreignKeys = [
@@ -13,6 +14,9 @@ import androidx.room.ForeignKey
         )]
 )
 data class Configuracao(
+
+    @PrimaryKey(autoGenerate = true)
+    var id: Int,
 
     @ColumnInfo(name = "id_usuario")
     var id_usuario: String,
