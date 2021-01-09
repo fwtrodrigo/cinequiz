@@ -1,9 +1,6 @@
 package br.com.cinequiz.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import br.com.cinequiz.DAO.UsuarioRepository
 import br.com.cinequiz.domain.Usuario
 import kotlinx.coroutines.launch
@@ -18,6 +15,9 @@ class LoginViewModel(private val repository: UsuarioRepository) : ViewModel() {
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
+
+    val listaUsuarios: LiveData<List<Usuario>> = repository.listaUsuarios.asLiveData()
+
     fun insert(usuario: Usuario) = viewModelScope.launch {
         repository.insert(usuario)
     }

@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import br.com.cinequiz.DAO.CinequizApplication
 import br.com.cinequiz.R
 import br.com.cinequiz.databinding.ActivityLoginBinding
@@ -20,6 +21,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.*
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 //851294246873-0gel4t589odrfmqa2r5vl0si8n7i68f7.apps.googleusercontent.com
 
@@ -43,6 +48,12 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         loginViewModel.insert(Usuario("78984",  "rodrigo"))
+
+        loginViewModel.listaUsuarios.observe(this, Observer { usuarios ->
+
+            Log.i("LoginActivity", usuarios.toString())
+        })
+
 
         controlaFocoEditText()
 
