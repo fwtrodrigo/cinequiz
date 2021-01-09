@@ -26,6 +26,7 @@ import kotlinx.coroutines.launch
 public abstract class CinequizRoomDatabase : RoomDatabase() {
 
     abstract fun usuarioDao(): UsuarioDao
+    abstract fun recordeDao(): RecordeDao
 
     private class CinequizDatabaseCallback(
         private val scope: CoroutineScope
@@ -41,6 +42,17 @@ public abstract class CinequizRoomDatabase : RoomDatabase() {
                     // Add sample words.
                     var usuario = Usuario("HAL9000", "ADÃO")
                     usuarioDao.insereUsuario(usuario)
+                }
+            }
+
+            INSTANCE?.let {database ->
+                scope.launch {
+                    var recordeDao = database.recordeDao()
+
+                    Log.i("CinequizRoomDatabase", "Executando CinequizDatabaseCallback para recorde")
+                    // Add sample words.
+                    var recorde = Recorde("Jogo Novo")
+                    recordeDao.insereRecorde(recorde)
                 }
             }
         }
