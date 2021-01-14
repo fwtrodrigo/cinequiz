@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import br.com.cinequiz.ui.MenuActivity
@@ -29,6 +31,8 @@ class ResultadoDialogAdapter: DialogFragment() {
 
         var btnJogarNovamente = rootView.findViewById<Button>(R.id.btnResultadoJogarNovamente)
         var btnVoltarMenu = rootView.findViewById<Button>(R.id.btnResultadoVoltarMenu)
+        var ibCompartilhar = rootView.findViewById<ImageButton>(R.id.ibCompartilhar)
+
 
         btnJogarNovamente.setOnClickListener{
             dismiss()
@@ -39,6 +43,11 @@ class ResultadoDialogAdapter: DialogFragment() {
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
             activity?.finish()
+        }
+
+        ibCompartilhar.setOnClickListener{
+            //implementar compartilhamento.
+            Toast.makeText(activity, "implementar compartilhamento", Toast.LENGTH_SHORT).show()
         }
 
         return rootView
