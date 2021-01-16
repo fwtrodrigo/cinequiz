@@ -3,6 +3,7 @@ package br.com.cinequiz.ui
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import br.com.cinequiz.R
 import br.com.cinequiz.databinding.ActivityMenuBinding
 import br.com.cinequiz.service.repository
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.item_botao_selecao_modo_cena.view.*
 import kotlinx.android.synthetic.main.item_botao_selecao_modo_dicas.view.*
@@ -64,5 +67,6 @@ class MenuActivity : AppCompatActivity() {
         binding.btnMenuOpcoes.setOnClickListener {
             startActivity(Intent(this, OpcoesActivity::class.java))
         }
+
     }
 }

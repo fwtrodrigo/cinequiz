@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.cinequiz.domain.Filme
 import br.com.cinequiz.domain.FilmeVotado
-import br.com.cinequiz.domain.PessoaFilme
 import br.com.cinequiz.service.Repository
 import kotlinx.coroutines.launch
 

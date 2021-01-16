@@ -6,15 +6,27 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import br.com.cinequiz.domain.Usuario
+import br.com.cinequiz.domain.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 // Annotates class to be a Room Database with a table (entity) of the Word class
-@Database(entities = arrayOf(Usuario::class), version = 1, exportSchema = false)
+@Database(
+    entities = arrayOf(
+        Usuario::class,
+        Contador::class,
+        Recorde::class,
+        Medalha::class,
+        Configuracao::class,
+        UsuarioContador::class,
+        UsuarioMedalha::class,
+        UsuarioRecorde::class
+    ), version = 1, exportSchema = false
+)
 public abstract class CinequizRoomDatabase : RoomDatabase() {
 
     abstract fun usuarioDao(): UsuarioDao
+    abstract fun recordeDao(): RecordeDao
 
     private class CinequizDatabaseCallback(
         private val scope: CoroutineScope
@@ -30,6 +42,17 @@ public abstract class CinequizRoomDatabase : RoomDatabase() {
                     // Add sample words.
                     var usuario = Usuario("HAL9000", "ADÃO")
                     usuarioDao.insereUsuario(usuario)
+                }
+            }
+
+            INSTANCE?.let {database ->
+                scope.launch {
+                    var recordeDao = database.recordeDao()
+
+                    Log.i("CinequizRoomDatabase", "Executando CinequizDatabaseCallback para recorde")
+                    // Add sample words.
+                    var recorde = Recorde("Jogo Novo")
+                    recordeDao.insereRecorde(recorde)
                 }
             }
         }
