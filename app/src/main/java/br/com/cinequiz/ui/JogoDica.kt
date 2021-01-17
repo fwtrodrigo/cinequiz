@@ -16,6 +16,7 @@ import br.com.cinequiz.domain.Filme
 class JogoDica : AppCompatActivity() {
 
     private lateinit var binding: ActivityJogoDicaBinding
+    val resultadoDialog = ResultadoDialogAdapter()
 
     val viewModel by viewModels<JogoDicaViewModel> {
         object : ViewModelProvider.Factory {
@@ -38,46 +39,20 @@ class JogoDica : AppCompatActivity() {
 
         novaPartida()
 
-        val resultadoDialog = ResultadoDialogAdapter()
-
         binding.includeJogoDicaBotoes.imageButtonAlternativas1.setOnClickListener {
-            viewModel.incrementaFilme()
-            if(viewModel.contadorFilme == listaFilmes.size){
-                resultadoDialog.show(supportFragmentManager, "resultadoDialog")
-            }else{
-                viewModel.resultadoResposta("btn1")
-                novaRodada()
-            }
+            selecaoAlternativa("btn1")
         }
 
         binding.includeJogoDicaBotoes.imageButtonAlternativas2.setOnClickListener {
-            viewModel.incrementaFilme()
-            if(viewModel.contadorFilme == listaFilmes.size){
-                resultadoDialog.show(supportFragmentManager, "resultadoDialog")
-            }else{
-                viewModel.resultadoResposta("btn2")
-                novaRodada()
-            }
+            selecaoAlternativa("btn2")
         }
 
         binding.includeJogoDicaBotoes.imageButtonAlternativas3.setOnClickListener {
-            viewModel.incrementaFilme()
-            if(viewModel.contadorFilme == listaFilmes.size){
-                resultadoDialog.show(supportFragmentManager, "resultadoDialog")
-            }else{
-                viewModel.resultadoResposta("btn3")
-                novaRodada()
-            }
+            selecaoAlternativa("btn3")
         }
 
         binding.includeJogoDicaBotoes.imageButtonAlternativas4.setOnClickListener {
-            viewModel.incrementaFilme()
-            if(viewModel.contadorFilme == listaFilmes.size){
-                resultadoDialog.show(supportFragmentManager, "resultadoDialog")
-            }else{
-                viewModel.resultadoResposta("btn4")
-                novaRodada()
-            }
+            selecaoAlternativa("btn4")
         }
 
         binding.itemProximaDica.btnProximaDica.setOnClickListener {
@@ -114,4 +89,13 @@ class JogoDica : AppCompatActivity() {
         viewModel.gerarAlternativas()
     }
 
+    fun selecaoAlternativa(botaoPressionado: String){
+        viewModel.incrementaFilme()
+        if(viewModel.contadorFilme == viewModel.filmes.size){
+            resultadoDialog.show(supportFragmentManager, "resultadoDialog")
+        }else{
+            viewModel.resultadoResposta(botaoPressionado)
+            novaRodada()
+        }
+    }
 }
