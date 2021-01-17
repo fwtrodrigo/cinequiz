@@ -1,15 +1,10 @@
 package br.com.cinequiz.adapters
 
-import android.content.Context
-import android.content.res.Resources
-import android.graphics.drawable.Drawable
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import br.com.cinequiz.R
 import br.com.cinequiz.domain.Medalha

@@ -2,59 +2,88 @@ package br.com.cinequiz.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.widget.ArrayAdapter
-import android.widget.ListView
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import br.com.cinequiz.R
 import br.com.cinequiz.adapters.ResultadoDialogAdapter
 import br.com.cinequiz.databinding.ActivityJogoDicaBinding
 import br.com.cinequiz.domain.Filme
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_jogo_dica.*
 import kotlinx.android.synthetic.main.item_botoes_alternativas.*
-import kotlinx.android.synthetic.main.item_botoes_alternativas.view.*
-import kotlinx.android.synthetic.main.item_card_cena.*
 
 class JogoDica : AppCompatActivity() {
 
     private lateinit var binding: ActivityJogoDicaBinding
+
+    val viewModel by viewModels<JogoDicaViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return JogoDicaViewModel(application) as T
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityJogoDicaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val listaFilmes = intent.getSerializableExtra("listaFilmes") as List<Filme>
+        val listaFilmes = intent.getSerializableExtra("listaFilmes") as ArrayList<Filme>
         var contadorFilme = 0
-        //val listView = findViewById<ListView>(R.id.listviewCenaDica)
-        val listView = binding.listviewCenaDica
 
+        if (listaFilmes != null) {
+            viewModel.filmes = listaFilmes
+        }
 
-        iniciarFilme(listaFilmes, contadorFilme, listView)
+        novaPartida()
 
-        var resultadoDialog = ResultadoDialogAdapter()
+        iniciarFilme(listaFilmes, contadorFilme)
+
+        val resultadoDialog = ResultadoDialogAdapter()
 
         binding.includeJogoDicaBotoes.imageButtonAlternativas1.setOnClickListener {
             contadorFilme++
             if(contadorFilme == listaFilmes.size){
                 resultadoDialog.show(supportFragmentManager, "resultadoDialog")
             }else{
-                iniciarFilme(listaFilmes, contadorFilme, listView)
+                iniciarFilme(listaFilmes, contadorFilme)
             }
+        }
+
+        binding.itemProximaDica.btnProximaDica.setOnClickListener {
+            viewModel.proximaDica(10)
         }
     }
 
-    fun iniciarFilme(listaFilmes: List<Filme>, contadorFilme: Int, listView: ListView){
-
-        val listaDicas = arrayOf(
-            "1 - ${listaFilmes[contadorFilme].pessoasFilme[0].name} atuou como um dos meus personagens.",
-            "2 - Fui produzido pelo estúdio ${listaFilmes[contadorFilme].production_companies[0].name}.",
-            "3 - Minha estreia foi em ${listaFilmes[contadorFilme].formataDataLancamento()}.",
-            "4 - Um dos meus personagens se chama ${listaFilmes[contadorFilme].pessoasFilme[0].character}."
+    fun novaPartida(){
+        viewModel.pontuacao.observe(
+            this,    { pontuacao ->
+                binding.itemPontuacaoCena.textViewPontosDicas.text = pontuacao.toString()
+            }
         )
 
-        val adapter = ArrayAdapter(this, R.layout.item_lista_dica, listaDicas)
-        listView.adapter = adapter
+        viewModel.listaDicas.observe(this, { listaDicas ->
+            val adapter = ArrayAdapter(this, R.layout.item_lista_dica, listaDicas)
+            listaDicas.forEach { Log.i("JogoDica", it)}
+            binding.listviewCenaDica.adapter = adapter
+
+        })
+
+        novaRodada()
+    }
+
+    fun novaRodada() {
+        viewModel.gerarDicas()
+        //gerarAlternativas()
+    }
+
+    private fun gerarAlternativas() {
+        TODO("Not yet implemented")
+    }
+
+    fun iniciarFilme(listaFilmes: List<Filme>, contadorFilme: Int){
 
         txtAlternativa1.text = listaFilmes[contadorFilme].title
         txtAlternativa2.text = listaFilmes[contadorFilme].filmesSimilares[0].title

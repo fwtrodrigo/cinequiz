@@ -25,8 +25,16 @@ data class UsuarioMedalha(
     var id: Int,
 
     @ColumnInfo(name = "id_medalha")
-    var id_medalha: Int,
+    var id_medalha: String,
 
     @ColumnInfo(name = "id_usuario")
-    var id_usuario: String
+    var id_usuario: String,
+
+    @ColumnInfo(name = "contador")
+    var contador: Int,
+
+    @ColumnInfo(name = "flag")
+    var flag: Boolean
 )
+
+data class UsuarioMedalhaJoin(var id: Int, var titulo: String, var descricao: String, var flag: Boolean)

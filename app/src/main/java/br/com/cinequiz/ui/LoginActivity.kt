@@ -8,10 +8,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import br.com.cinequiz.DAO.CinequizApplication
+import br.com.cinequiz.room.CinequizApplication
 import br.com.cinequiz.R
 import br.com.cinequiz.databinding.ActivityLoginBinding
-import br.com.cinequiz.domain.Usuario
 import br.com.cinequiz.utils.ehEmailValido
 import com.facebook.*
 import com.facebook.login.LoginManager
@@ -21,10 +20,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.*
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 //851294246873-0gel4t589odrfmqa2r5vl0si8n7i68f7.apps.googleusercontent.com
 
@@ -34,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var callbackManager: CallbackManager
 
     private val loginViewModel: LoginViewModel by viewModels {
-        LoginViewModelFactory((application as CinequizApplication).repository)
+        LoginViewModelFactory((application as CinequizApplication).repositoryUsuario)
     }
 
     private val TAG = "LoginActivity"
@@ -47,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        loginViewModel.insert(Usuario("78984",  "rodrigo"))
+        //loginViewModel.insert(Usuario("78984",  "rodrigo"))
 
         loginViewModel.listaUsuarios.observe(this, Observer { usuarios ->
 

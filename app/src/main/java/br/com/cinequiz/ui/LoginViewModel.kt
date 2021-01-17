@@ -1,8 +1,8 @@
 package br.com.cinequiz.ui
 
 import androidx.lifecycle.*
-import br.com.cinequiz.DAO.UsuarioRepository
 import br.com.cinequiz.domain.Usuario
+import br.com.cinequiz.room.repository.UsuarioRepository
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val repository: UsuarioRepository) : ViewModel() {

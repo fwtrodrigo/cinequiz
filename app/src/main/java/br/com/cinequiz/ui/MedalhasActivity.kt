@@ -1,19 +1,21 @@
 package br.com.cinequiz.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
-import br.com.cinequiz.R
-import br.com.cinequiz.adapters.MedalhasAdapter
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import br.com.cinequiz.databinding.ActivityMedalhasBinding
-import kotlinx.android.synthetic.main.activity_medalhas.*
-import kotlinx.android.synthetic.main.toolbar_main.view.*
+import br.com.cinequiz.room.CinequizApplication
 
 class MedalhasActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMedalhasBinding
 
-    private val viewModel: MedalhaViewModel by viewModels()
+
+    private val medalhaViewModel: MedalhaViewModel by viewModels {
+        MedalhaViewModelFactory((application as CinequizApplication).repositoryUsuarioMedalha)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,10 +26,16 @@ class MedalhasActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        val listaMedalhas = viewModel.getListMedalhasGson()
-        val adapter = MedalhasAdapter(listaMedalhas)
+        //val adapter = MedalhasAdapter(listaMedalhas)
+        //binding.rvMedalhas.adapter = adapter
 
-        binding.rvMedalhas.adapter = adapter
+//        medalhaViewModel.selecionaMedalhasNaoConquistadas("HAL9000").observe(this, Observer {
+//            it.forEach { Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show() }
+//        })
+
+        medalhaViewModel.selecionaMedalhasPossiveis("HAL9000").observe(this, Observer {
+            it.forEach { Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show() }
+        })
 
     }
 }

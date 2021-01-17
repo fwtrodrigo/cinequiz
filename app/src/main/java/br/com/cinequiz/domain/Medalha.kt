@@ -6,18 +6,14 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "medalha", foreignKeys = [
-        ForeignKey(
-            entity = Contador::class,
-            parentColumns = ["id"],
-            childColumns = ["id_contador"]
-        )]
+    tableName = "medalha"
 )
 
 data class Medalha(
 
-    @PrimaryKey(autoGenerate = true)
-    var id: Int,
+    @PrimaryKey(autoGenerate = false)
+    @ColumnInfo(name = "id")
+    var id: String,
 
     @ColumnInfo(name = "titulo")
     var titulo: String,
@@ -27,9 +23,6 @@ data class Medalha(
 
     @ColumnInfo(name = "requisito")
     var requisito: Int,
-
-    @ColumnInfo(name = "id_contador")
-    var id_contador: String,
 
     )
 

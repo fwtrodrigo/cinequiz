@@ -12,10 +12,6 @@ import androidx.room.PrimaryKey
             entity = Usuario::class,
             parentColumns = ["id"],
             childColumns = ["id_usuario"]
-        ), ForeignKey(
-            entity = Recorde::class,
-            parentColumns = ["id"],
-            childColumns = ["id_recorde"]
         )]
 )
 
@@ -24,12 +20,13 @@ data class UsuarioRecorde(
     @PrimaryKey(autoGenerate = true)
     var id: Int,
 
-    @ColumnInfo(name = "id_recorde")
-    var id_recorde: Int,
-
     @ColumnInfo(name = "id_usuario")
     var id_usuario: String,
 
-    @ColumnInfo(name = "popcorns")
-    var popcorns: Int
+    @ColumnInfo(name = "popcorns_cena")
+    var popcornsCena: Int,
+
+    @ColumnInfo(name = "popcorns_dica")
+    var popcornsDica: Int
+
 )

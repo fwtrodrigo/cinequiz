@@ -1,7 +1,5 @@
-package br.com.cinequiz.DAO
+package br.com.cinequiz.room.dao
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy

@@ -1,7 +1,8 @@
-package br.com.cinequiz.DAO
+package br.com.cinequiz.room.repository
 
 import androidx.annotation.WorkerThread
 import br.com.cinequiz.domain.Usuario
+import br.com.cinequiz.room.dao.UsuarioDao
 import kotlinx.coroutines.flow.Flow
 
 // Declares the DAO as a private property in the constructor. Pass in the DAO

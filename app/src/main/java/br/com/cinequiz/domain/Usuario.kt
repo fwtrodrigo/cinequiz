@@ -9,7 +9,7 @@ data class Usuario(
 
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id")
-    var id_usuario: String,
+    var id: String,
 
     @ColumnInfo(name = "nome")
     var nome: String,
