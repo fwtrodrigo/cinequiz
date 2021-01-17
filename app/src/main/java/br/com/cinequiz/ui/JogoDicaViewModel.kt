@@ -18,6 +18,9 @@ class JogoDicaViewModel(application: Application): AndroidViewModel(application)
     var listaDicasGeradas = ArrayList<String>()
     var contadorDica = 0
 
+    var listaAlternativas = MutableLiveData<ArrayList<String>>()
+    var alternativaCorreta = ""
+
     var filmes = arrayListOf<Filme>()
     var contadorFilme = 0
 
@@ -42,6 +45,22 @@ class JogoDicaViewModel(application: Application): AndroidViewModel(application)
         proximaDica(0)
     }
 
+    fun gerarAlternativas(){
+        var alternativasGeradas = arrayListOf(
+            filmes[contadorFilme].title,
+            filmes[contadorFilme].filmesSimilares[0].title,
+            filmes[contadorFilme].filmesSimilares[1].title,
+            filmes[contadorFilme].filmesSimilares[2].title
+        )
+
+        alternativasGeradas.shuffle()
+        listaAlternativas.value = alternativasGeradas
+
+        alternativasGeradas.forEachIndexed { index, alternativa ->
+            if(alternativa == filmes[contadorFilme].title) alternativaCorreta = "btn"+(index+1)
+        }
+    }
+
     fun proximaDica(pontosDescontados: Int) {
 
         if(contadorDica == listaDicasGeradas.size){
@@ -53,7 +72,29 @@ class JogoDicaViewModel(application: Application): AndroidViewModel(application)
             listaAuxiliar!!.add((listaDicasGeradas.get(contadorDica)))
             listaDicas.value = listaAuxiliar
             contadorDica++
-            pontuacao.value = pontuacao.value?.minus(pontosDescontados)
+            descontaPontuacao(pontosDescontados)
         }
     }
+
+    fun resultadoResposta(resposta: String){
+        if(resposta == alternativaCorreta){
+            Toast.makeText(context, "Acertou", Toast.LENGTH_SHORT).show()
+            aumentaPontuacao(40)
+        }else{
+            Toast.makeText(context, "Errou", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun aumentaPontuacao(pontosGanhos: Int){
+        pontuacao.value = pontuacao.value?.plus(pontosGanhos)
+    }
+
+    fun descontaPontuacao(pontosDescontados: Int){
+        pontuacao.value = pontuacao.value?.minus(pontosDescontados)
+    }
+
+    fun incrementaFilme(){
+        contadorFilme++
+    }
+
 }

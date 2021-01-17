@@ -11,7 +11,7 @@ import br.com.cinequiz.R
 import br.com.cinequiz.adapters.ResultadoDialogAdapter
 import br.com.cinequiz.databinding.ActivityJogoDicaBinding
 import br.com.cinequiz.domain.Filme
-import kotlinx.android.synthetic.main.item_botoes_alternativas.*
+
 
 class JogoDica : AppCompatActivity() {
 
@@ -31,7 +31,6 @@ class JogoDica : AppCompatActivity() {
         setContentView(binding.root)
 
         val listaFilmes = intent.getSerializableExtra("listaFilmes") as ArrayList<Filme>
-        var contadorFilme = 0
 
         if (listaFilmes != null) {
             viewModel.filmes = listaFilmes
@@ -39,16 +38,45 @@ class JogoDica : AppCompatActivity() {
 
         novaPartida()
 
-        iniciarFilme(listaFilmes, contadorFilme)
-
         val resultadoDialog = ResultadoDialogAdapter()
 
         binding.includeJogoDicaBotoes.imageButtonAlternativas1.setOnClickListener {
-            contadorFilme++
-            if(contadorFilme == listaFilmes.size){
+            viewModel.incrementaFilme()
+            if(viewModel.contadorFilme == listaFilmes.size){
                 resultadoDialog.show(supportFragmentManager, "resultadoDialog")
             }else{
-                iniciarFilme(listaFilmes, contadorFilme)
+                viewModel.resultadoResposta("btn1")
+                novaRodada()
+            }
+        }
+
+        binding.includeJogoDicaBotoes.imageButtonAlternativas2.setOnClickListener {
+            viewModel.incrementaFilme()
+            if(viewModel.contadorFilme == listaFilmes.size){
+                resultadoDialog.show(supportFragmentManager, "resultadoDialog")
+            }else{
+                viewModel.resultadoResposta("btn2")
+                novaRodada()
+            }
+        }
+
+        binding.includeJogoDicaBotoes.imageButtonAlternativas3.setOnClickListener {
+            viewModel.incrementaFilme()
+            if(viewModel.contadorFilme == listaFilmes.size){
+                resultadoDialog.show(supportFragmentManager, "resultadoDialog")
+            }else{
+                viewModel.resultadoResposta("btn3")
+                novaRodada()
+            }
+        }
+
+        binding.includeJogoDicaBotoes.imageButtonAlternativas4.setOnClickListener {
+            viewModel.incrementaFilme()
+            if(viewModel.contadorFilme == listaFilmes.size){
+                resultadoDialog.show(supportFragmentManager, "resultadoDialog")
+            }else{
+                viewModel.resultadoResposta("btn4")
+                novaRodada()
             }
         }
 
@@ -71,23 +99,19 @@ class JogoDica : AppCompatActivity() {
 
         })
 
+        viewModel.listaAlternativas.observe(this, {listaAlternativas ->
+            binding.includeJogoDicaBotoes.txtAlternativa1.text = listaAlternativas[0]
+            binding.includeJogoDicaBotoes.txtAlternativa2.text = listaAlternativas[1]
+            binding.includeJogoDicaBotoes.txtAlternativa3.text = listaAlternativas[2]
+            binding.includeJogoDicaBotoes.txtAlternativa4.text = listaAlternativas[3]
+        })
+
         novaRodada()
     }
 
     fun novaRodada() {
         viewModel.gerarDicas()
-        //gerarAlternativas()
+        viewModel.gerarAlternativas()
     }
 
-    private fun gerarAlternativas() {
-        TODO("Not yet implemented")
-    }
-
-    fun iniciarFilme(listaFilmes: List<Filme>, contadorFilme: Int){
-
-        txtAlternativa1.text = listaFilmes[contadorFilme].title
-        txtAlternativa2.text = listaFilmes[contadorFilme].filmesSimilares[0].title
-        txtAlternativa3.text = listaFilmes[contadorFilme].filmesSimilares[1].title
-        txtAlternativa4.text = listaFilmes[contadorFilme].filmesSimilares[2].title
-    }
 }
