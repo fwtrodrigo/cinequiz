@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import br.com.cinequiz.ui.MenuActivity
 import br.com.cinequiz.R
 
-class ResultadoDialogAdapter: DialogFragment() {
+class ResultadoDialogAdapter(val pontos: Int, val jogo: String): DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +33,8 @@ class ResultadoDialogAdapter: DialogFragment() {
         var btnJogarNovamente = rootView.findViewById<Button>(R.id.btnResultadoJogarNovamente)
         var btnVoltarMenu = rootView.findViewById<Button>(R.id.btnResultadoVoltarMenu)
         var ibCompartilhar = rootView.findViewById<ImageButton>(R.id.ibCompartilhar)
-
+        var txtResultadoPontos = rootView.findViewById<TextView>(R.id.txtResultadoPontos)
+        txtResultadoPontos.text = pontos.toString()
 
         btnJogarNovamente.setOnClickListener{
             dismiss()
@@ -47,9 +49,19 @@ class ResultadoDialogAdapter: DialogFragment() {
 
         ibCompartilhar.setOnClickListener{
             //implementar compartilhamento.
+            compartilhar(jogo)
             Toast.makeText(activity, "implementar compartilhamento", Toast.LENGTH_SHORT).show()
         }
 
         return rootView
+    }
+
+    private fun compartilhar(jogo: String) {
+        val titulo = "Compartilhe o seu resultado com seus amigos!"
+        val mensagem = "Eu obtive $pontos pontos no modo $jogo do CineQuiz!\nBaixe agora o app na PlayStore e teste seus conhecimentos do mundo cinematográfico!"
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, mensagem)
+        startActivity(Intent.createChooser(intent, titulo))
     }
 }

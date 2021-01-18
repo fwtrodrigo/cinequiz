@@ -16,7 +16,6 @@ import br.com.cinequiz.domain.Filme
 class JogoDica : AppCompatActivity() {
 
     private lateinit var binding: ActivityJogoDicaBinding
-    val resultadoDialog = ResultadoDialogAdapter()
 
     val viewModel by viewModels<JogoDicaViewModel> {
         object : ViewModelProvider.Factory {
@@ -92,6 +91,7 @@ class JogoDica : AppCompatActivity() {
     fun selecaoAlternativa(botaoPressionado: String){
         viewModel.incrementaFilme()
         if(viewModel.contadorFilme == viewModel.filmes.size){
+            val resultadoDialog = ResultadoDialogAdapter(viewModel.pontuacao.value!!, "dica")
             resultadoDialog.show(supportFragmentManager, "resultadoDialog")
         }else{
             viewModel.resultadoResposta(botaoPressionado)
