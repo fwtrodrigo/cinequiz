@@ -14,7 +14,7 @@ class MedalhasActivity : AppCompatActivity() {
 
 
     private val medalhaViewModel: MedalhaViewModel by viewModels {
-        MedalhaViewModelFactory((application as CinequizApplication).repositoryUsuarioMedalha)
+        MedalhaViewModelFactory((application as CinequizApplication).repositoryUsuarioMedalha, (application as CinequizApplication).repositoryUsuarioRecorde)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +25,11 @@ class MedalhasActivity : AppCompatActivity() {
         binding.toolbarMedalhas.toolbarMain.setNavigationOnClickListener {
             onBackPressed()
         }
+
+        medalhaViewModel.usuarioRecorde.observe(this, {
+            binding.tvPontosCenas.text = it.popcornsCena.toString()
+            binding.tvPontosDicas.text = it.popcornsDica.toString()
+        })
 
         //val adapter = MedalhasAdapter(listaMedalhas)
         //binding.rvMedalhas.adapter = adapter
