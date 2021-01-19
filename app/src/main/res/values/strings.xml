@@ -57,5 +57,7 @@
     <string name="formato_email_invalido">Formato de e-mail inválido!</string>
     <string name="informe_email_valido">Informe um e-mail válido</string>
     <string name="confirmaca_invalida">A senha e a confirmação devem ser iguais!</string>
+    <string name="default_notification_channel_id">Notificacoes</string>
+    <string name="fcm_message">CineQuiz</string>
 
 </resources>
