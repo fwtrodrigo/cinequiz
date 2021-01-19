@@ -8,11 +8,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.cinequiz.R
 import br.com.cinequiz.domain.Medalha
+import br.com.cinequiz.domain.UsuarioMedalhaJoin
 
-class MedalhasAdapter(private val listaMedalhas: ArrayList<Medalha>) : RecyclerView.Adapter<MedalhasAdapter.MedalhaViewHolder>() {
+class MedalhasAdapter() : RecyclerView.Adapter<MedalhasAdapter.MedalhaViewHolder>() {
+    val listaMedalhas = ArrayList<UsuarioMedalhaJoin>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MedalhasAdapter.MedalhaViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_medalha, parent, false)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): MedalhasAdapter.MedalhaViewHolder {
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_medalha, parent, false)
         return MedalhaViewHolder(itemView)
     }
 
@@ -21,8 +27,6 @@ class MedalhasAdapter(private val listaMedalhas: ArrayList<Medalha>) : RecyclerV
         holder.tvMedalhaTit.text = medalha.titulo
         holder.tvMedalhaDesc.text = medalha.descricao
 //        holder.ivMedalhaIcone.setImageDrawable()
-
-
     }
 
     override fun getItemCount() = listaMedalhas.size
@@ -30,6 +34,6 @@ class MedalhasAdapter(private val listaMedalhas: ArrayList<Medalha>) : RecyclerV
     class MedalhaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvMedalhaTit: TextView = itemView.findViewById(R.id.tvMedalhaTit)
         var tvMedalhaDesc: TextView = itemView.findViewById(R.id.tvMedalhaDesc)
-        var ivMedalhaIcone: ImageView = itemView.findViewById(R.id.ivMedalhaIcone)
+//        var ivMedalhaIcone: ImageView = itemView.findViewById(R.id.ivMedalhaIcone)
     }
 }

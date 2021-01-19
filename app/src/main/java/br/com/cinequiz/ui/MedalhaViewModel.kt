@@ -13,8 +13,6 @@ import kotlinx.coroutines.launch
 
 class MedalhaViewModel (private val usuarioMedalhaRepository: UsuarioMedalhaRepository, private val usuarioRecordeRepository: UsuarioRecordeRepository) : ViewModel() {
 
-    var usuarioRecorde: LiveData<UsuarioRecorde> = selecionaRecordeUsuario("HAL9000")
-
     fun selecionaMedalhasPossiveis(idUsuario: String) = usuarioMedalhaRepository.selecionaMedalhasPossiveis(idUsuario)
 
     fun selecionaRecordeUsuario(idUsuario: String) = usuarioRecordeRepository.get(idUsuario)
