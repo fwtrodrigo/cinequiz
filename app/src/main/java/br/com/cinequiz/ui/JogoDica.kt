@@ -5,24 +5,22 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import br.com.cinequiz.R
 import br.com.cinequiz.adapters.ResultadoDialogAdapter
 import br.com.cinequiz.databinding.ActivityJogoDicaBinding
 import br.com.cinequiz.domain.Filme
+import br.com.cinequiz.room.CinequizApplication
 
 
 class JogoDica : AppCompatActivity() {
 
     private lateinit var binding: ActivityJogoDicaBinding
 
-    val viewModel by viewModels<JogoDicaViewModel> {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return JogoDicaViewModel(application) as T
-            }
-        }
+    private val jogoDicaViewModel: JogoDicaViewModel by viewModels {
+        JogoDicaViewModelFactory(
+            application,
+            (application as CinequizApplication).repositoryUsuarioRecorde
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,8 +31,10 @@ class JogoDica : AppCompatActivity() {
         val listaFilmes = intent.getSerializableExtra("listaFilmes") as ArrayList<Filme>
 
         if (listaFilmes != null) {
-            viewModel.filmes = listaFilmes
+            jogoDicaViewModel.filmes = listaFilmes
         }
+
+
 
         novaPartida()
 
@@ -55,25 +55,30 @@ class JogoDica : AppCompatActivity() {
         }
 
         binding.itemProximaDica.btnProximaDica.setOnClickListener {
-            viewModel.proximaDica(10)
+            jogoDicaViewModel.proximaDica(10)
         }
     }
 
-    fun novaPartida(){
-        viewModel.pontuacao.observe(
-            this,    { pontuacao ->
+    fun novaPartida() {
+
+        jogoDicaViewModel.usuarioRecordeLiveData.observe(this, {
+            jogoDicaViewModel.usuarioRecorde = it
+        })
+
+        jogoDicaViewModel.pontuacao.observe(
+            this, { pontuacao ->
                 binding.itemPontuacaoCena.textViewPontosDicas.text = pontuacao.toString()
             }
         )
 
-        viewModel.listaDicas.observe(this, { listaDicas ->
+        jogoDicaViewModel.listaDicas.observe(this, { listaDicas ->
             val adapter = ArrayAdapter(this, R.layout.item_lista_dica, listaDicas)
-            listaDicas.forEach { Log.i("JogoDica", it)}
+            listaDicas.forEach { Log.i("JogoDica", it) }
             binding.listviewCenaDica.adapter = adapter
 
         })
 
-        viewModel.listaAlternativas.observe(this, {listaAlternativas ->
+        jogoDicaViewModel.listaAlternativas.observe(this, { listaAlternativas ->
             binding.includeJogoDicaBotoes.txtAlternativa1.text = listaAlternativas[0]
             binding.includeJogoDicaBotoes.txtAlternativa2.text = listaAlternativas[1]
             binding.includeJogoDicaBotoes.txtAlternativa3.text = listaAlternativas[2]
@@ -84,17 +89,20 @@ class JogoDica : AppCompatActivity() {
     }
 
     fun novaRodada() {
-        viewModel.gerarDicas()
-        viewModel.gerarAlternativas()
+        jogoDicaViewModel.gerarDicas()
+        jogoDicaViewModel.gerarAlternativas()
     }
 
-    fun selecaoAlternativa(botaoPressionado: String){
-        viewModel.incrementaFilme()
-        if(viewModel.contadorFilme == viewModel.filmes.size){
-            val resultadoDialog = ResultadoDialogAdapter(viewModel.pontuacao.value!!, "dica")
+    fun selecaoAlternativa(botaoPressionado: String) {
+        jogoDicaViewModel.incrementaFilme()
+        if (jogoDicaViewModel.contadorFilme == jogoDicaViewModel.filmes.size) {
+            val resultadoDialog =
+                ResultadoDialogAdapter(jogoDicaViewModel.pontuacao.value!!, "dica")
             resultadoDialog.show(supportFragmentManager, "resultadoDialog")
-        }else{
-            viewModel.resultadoResposta(botaoPressionado)
+            jogoDicaViewModel.update()
+
+        } else {
+            jogoDicaViewModel.resultadoResposta(botaoPressionado)
             novaRodada()
         }
     }
