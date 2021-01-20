@@ -69,6 +69,7 @@
             tools:listitem="@layout/item_lista_dica" />
 
         <include
+            android:id="@+id/itemProximaDica"
             layout="@layout/item_botao_dica"
             android:layout_width="250dp"
             android:layout_height="wrap_content"

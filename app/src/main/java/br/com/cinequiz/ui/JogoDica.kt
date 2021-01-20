@@ -2,56 +2,100 @@ package br.com.cinequiz.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.widget.ArrayAdapter
-import android.widget.ListView
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import br.com.cinequiz.R
 import br.com.cinequiz.adapters.ResultadoDialogAdapter
+import br.com.cinequiz.databinding.ActivityJogoDicaBinding
 import br.com.cinequiz.domain.Filme
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_jogo_dica.*
-import kotlinx.android.synthetic.main.item_botoes_alternativas.*
-import kotlinx.android.synthetic.main.item_botoes_alternativas.view.*
-import kotlinx.android.synthetic.main.item_card_cena.*
+
 
 class JogoDica : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_jogo_dica)
 
-        val listaFilmes = intent.getSerializableExtra("listaFilmes") as List<Filme>
-        var contadorFilme = 0
-        val listView = findViewById<ListView>(R.id.listviewCenaDica)
+    private lateinit var binding: ActivityJogoDicaBinding
+    val resultadoDialog = ResultadoDialogAdapter()
 
-        iniciarFilme(listaFilmes, contadorFilme, listView)
-
-        var resultadoDialog = ResultadoDialogAdapter()
-
-        includeJogoDicaBotoes.imageButtonAlternativas1.setOnClickListener {
-            contadorFilme++
-            if(contadorFilme == listaFilmes.size){
-                resultadoDialog.show(supportFragmentManager, "resultadoDialog")
-            }else{
-                iniciarFilme(listaFilmes, contadorFilme, listView)
+    val viewModel by viewModels<JogoDicaViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return JogoDicaViewModel(application) as T
             }
         }
     }
 
-    fun iniciarFilme(listaFilmes: List<Filme>, contadorFilme: Int, listView: ListView){
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityJogoDicaBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val listaDicas = arrayOf(
-            "1 - ${listaFilmes[contadorFilme].pessoasFilme[0].name} atuou como um dos meus personagens.",
-            "2 - Fui produzido pelo estúdio ${listaFilmes[contadorFilme].production_companies[0].name}.",
-            "3 - Minha estreia foi em ${listaFilmes[contadorFilme].formataDataLancamento()}.",
-            "4 - Um dos meus personagens se chama ${listaFilmes[contadorFilme].pessoasFilme[0].character}."
+        val listaFilmes = intent.getSerializableExtra("listaFilmes") as ArrayList<Filme>
+
+        if (listaFilmes != null) {
+            viewModel.filmes = listaFilmes
+        }
+
+        novaPartida()
+
+        binding.includeJogoDicaBotoes.imageButtonAlternativas1.setOnClickListener {
+            selecaoAlternativa("btn1")
+        }
+
+        binding.includeJogoDicaBotoes.imageButtonAlternativas2.setOnClickListener {
+            selecaoAlternativa("btn2")
+        }
+
+        binding.includeJogoDicaBotoes.imageButtonAlternativas3.setOnClickListener {
+            selecaoAlternativa("btn3")
+        }
+
+        binding.includeJogoDicaBotoes.imageButtonAlternativas4.setOnClickListener {
+            selecaoAlternativa("btn4")
+        }
+
+        binding.itemProximaDica.btnProximaDica.setOnClickListener {
+            viewModel.proximaDica(10)
+        }
+    }
+
+    fun novaPartida(){
+        viewModel.pontuacao.observe(
+            this,    { pontuacao ->
+                binding.itemPontuacaoCena.textViewPontosDicas.text = pontuacao.toString()
+            }
         )
 
-        val adapter = ArrayAdapter(this, R.layout.item_lista_dica, listaDicas)
-        listView.adapter = adapter
+        viewModel.listaDicas.observe(this, { listaDicas ->
+            val adapter = ArrayAdapter(this, R.layout.item_lista_dica, listaDicas)
+            listaDicas.forEach { Log.i("JogoDica", it)}
+            binding.listviewCenaDica.adapter = adapter
 
-        txtAlternativa1.text = listaFilmes[contadorFilme].title
-        txtAlternativa2.text = listaFilmes[contadorFilme].filmesSimilares[0].title
-        txtAlternativa3.text = listaFilmes[contadorFilme].filmesSimilares[1].title
-        txtAlternativa4.text = listaFilmes[contadorFilme].filmesSimilares[2].title
+        })
+
+        viewModel.listaAlternativas.observe(this, {listaAlternativas ->
+            binding.includeJogoDicaBotoes.txtAlternativa1.text = listaAlternativas[0]
+            binding.includeJogoDicaBotoes.txtAlternativa2.text = listaAlternativas[1]
+            binding.includeJogoDicaBotoes.txtAlternativa3.text = listaAlternativas[2]
+            binding.includeJogoDicaBotoes.txtAlternativa4.text = listaAlternativas[3]
+        })
+
+        novaRodada()
+    }
+
+    fun novaRodada() {
+        viewModel.gerarDicas()
+        viewModel.gerarAlternativas()
+    }
+
+    fun selecaoAlternativa(botaoPressionado: String){
+        viewModel.incrementaFilme()
+        if(viewModel.contadorFilme == viewModel.filmes.size){
+            resultadoDialog.show(supportFragmentManager, "resultadoDialog")
+        }else{
+            viewModel.resultadoResposta(botaoPressionado)
+            novaRodada()
+        }
     }
 }

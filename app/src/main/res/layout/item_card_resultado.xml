@@ -94,6 +94,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageButton
+        android:id="@+id/ibCompartilhar"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginEnd="30dp"

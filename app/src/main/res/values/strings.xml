@@ -2,17 +2,20 @@
     <string name="app_name">CineQuiz</string>
     <string name="logo_cine_quiz">Logo Cine Quiz</string>
     <string name="fa_a_login_com_suas_redes_sociais">Faça login com suas redes sociais</string>
+    <string name="digite_email_redefinir_senha">Digite seu email para iniciarmos a recuperação de senha.</string>
     <string name="ou_com_seu_email_e_senha">Ou com seu email e senha</string>
     <string name="log_in">Login</string>
     <string name="email">E-mail</string>
     <string name="senha">Senha</string>
     <string name="ainda_n_o_tem_uma_conta">Ainda não tem uma conta?</string>
+    <string name="esqueci_minha_senha">Esqueci Minha Senha</string>
     <string name="crie_sua_conta">Crie sua conta</string>
     <string name="nome">Nome</string>
     <string name="confirma_o">Confirmação</string>
     <string name="login_com_facebook">Login com Facebook</string>
     <string name="login_com_conta_google">Login com conta Google</string>
     <string name="entrar">Entrar</string>
+    <string name="continuar">Continuar</string>
     <string name="insira_suas_informa_es">Insira suas informações</string>
     <string name="cadastrar">Cadastrar</string>
 
@@ -32,6 +35,8 @@
     <string name="opcoes">OPÇÕES</string>
     <string name="logout">LOGOUT</string>
     <string name="notificacoes">NOTIFICAÇÕES</string>
+    <string name="musica">MUSICA</string>
+    <string name="sons">SONS</string>
     <string name="jogar_novamente">JOGAR NOVAMENTE</string>
     <string name="voltar_ao_menu">VOLTAR AO MENU</string>
     <string name="parabens">PARABÉNS!</string>
@@ -46,10 +51,13 @@
     <string name="conta_sucesso">Conta criada com sucesso!</string>
     <string name="email_ja_utilizado">Este e-mail já está sendo utilizado por uma conta!</string>
     <string name="tamanho_senha_invalido">A senha deve conter pelo menos %1$d caracteres</string>
-    <string name="obrigatorio">Obrigatório</string>
-    <string name="preencher">Favor, preencher o campo de %1$s!</string>
+    <string name="senha_invalida">Senha Inválida</string>
+    <string name="obrigatorio">*Obrigatório</string>
+    <string name="preencher">Preencha o campo %1$s!</string>
     <string name="formato_email_invalido">Formato de e-mail inválido!</string>
-    <string name="informe_email_valido">Favor, informe um e-mail válido</string>
+    <string name="informe_email_valido">Informe um e-mail válido</string>
     <string name="confirmaca_invalida">A senha e a confirmação devem ser iguais!</string>
+    <string name="default_notification_channel_id">Notificacoes</string>
+    <string name="fcm_message">CineQuiz</string>
 
 </resources>
