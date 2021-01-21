@@ -14,8 +14,7 @@ class MedalhasActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMedalhasBinding
 
-    val adapter = MedalhasAdapter()
-
+    private val adapter = MedalhasAdapter(this)
 
     private val medalhaViewModel: MedalhaViewModel by viewModels {
         MedalhaViewModelFactory(

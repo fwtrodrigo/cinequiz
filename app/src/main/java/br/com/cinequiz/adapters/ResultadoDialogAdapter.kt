@@ -14,7 +14,7 @@ import androidx.fragment.app.DialogFragment
 import br.com.cinequiz.ui.MenuActivity
 import br.com.cinequiz.R
 
-class ResultadoDialogAdapter(val pontos: Int, val jogo: String): DialogFragment() {
+class ResultadoDialogAdapter(private val pontos: Int, private val jogo: String): DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +57,7 @@ class ResultadoDialogAdapter(val pontos: Int, val jogo: String): DialogFragment(
     }
 
     private fun compartilhar(jogo: String) {
-        val titulo = "Compartilhe o seu resultado com seus amigos!"
+        val titulo = "Compartilhe o seu resultado com os seus amigos!"
         val mensagem = "Eu obtive $pontos pontos no modo $jogo do CineQuiz!\nBaixe agora o app na PlayStore e teste seus conhecimentos do mundo cinematográfico!"
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "text/plain"
