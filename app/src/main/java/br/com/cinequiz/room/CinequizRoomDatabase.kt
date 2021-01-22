@@ -36,24 +36,10 @@ public abstract class CinequizRoomDatabase : RoomDatabase() {
 
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
-            INSTANCE?.let { database ->
-                scope.launch {
-                    var usuarioDao = database.usuarioDao()
-                    var usuarioRecordeDao = database.usuarioRecordeDao()
-
-                    Log.i("CinequizRoomDatabase", "Executando CinequizDatabaseCallback")
-                    var usuario = Usuario("HAL9000", "ADÃO")
-                    usuarioDao.insereUsuario(usuario)
-
-                    var usuarioRecorde = UsuarioRecorde(0, usuario.id, 0, 0)
-                    usuarioRecordeDao.insereRecordesUsuario(usuarioRecorde)
-                }
-            }
 
             INSTANCE?.let { database ->
                 scope.launch {
                     var medalhaDao = database.medalhaDao()
-                    var usuarioMedalhaDao = database.usuarioMedalhaDao()
 
                     Log.i("CinequizRoomDatabase", "Preenchendo tabela de medalhas")
                     var medalha =
@@ -65,13 +51,7 @@ public abstract class CinequizRoomDatabase : RoomDatabase() {
                     medalhaDao.insereMedalha(medalha)
                     medalhaDao.insereMedalha(medalha2)
                     medalhaDao.insereMedalha(medalha3)
-                    var usuarioMedalha = UsuarioMedalha(0, "ANOS_80", "HAL9000", 0, false)
-                    var usuarioMedalha2 = UsuarioMedalha(0, "ANOS_90", "HAL9000", 1, false)
-                    var usuarioMedalha3 = UsuarioMedalha(0, "ANOS_00", "HAL9000", 3, true)
 
-                    usuarioMedalhaDao.insereUsuarioMedalha(usuarioMedalha)
-                    usuarioMedalhaDao.insereUsuarioMedalha(usuarioMedalha2)
-                    usuarioMedalhaDao.insereUsuarioMedalha(usuarioMedalha3)
                 }
             }
 

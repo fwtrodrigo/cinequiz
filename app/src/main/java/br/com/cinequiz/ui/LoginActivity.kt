@@ -133,7 +133,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun appLogin() {
-        implantaUsuario()
         startActivity(Intent(this, MenuActivity::class.java))
         finish()
     }
@@ -265,7 +264,4 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private  fun implantaUsuario() {
-        loginViewModel.implantaUsuario(mAuth.currentUser!!.uid, mAuth.currentUser!!.displayName.toString())
-    }
 }

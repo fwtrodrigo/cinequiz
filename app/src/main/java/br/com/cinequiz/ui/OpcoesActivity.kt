@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import br.com.cinequiz.R
 import br.com.cinequiz.databinding.ActivityOpcoesBinding
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
@@ -91,7 +90,7 @@ class OpcoesActivity : AppCompatActivity() {
             val token = task.result
 
             Log.i("MenuActivity", "token $token")
-            Toast.makeText(baseContext, "o token é $token", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(baseContext, "o token é $token", Toast.LENGTH_SHORT).show()
         })
     }
 }
