@@ -56,14 +56,22 @@ public abstract class CinequizRoomDatabase : RoomDatabase() {
                     var usuarioMedalhaDao = database.usuarioMedalhaDao()
 
                     Log.i("CinequizRoomDatabase", "Preenchendo tabela de medalhas")
-                    var medalha = Medalha("ANOS_80", "Anos 80", "Acertou 100 filmes dos anos 80", 100)
-                    var medalha2 = Medalha("ANOS_90", "Anos 90", "Acertou 100 filmes dos anos 90", 100)
-                    var medalha3 = Medalha("ANOS_00", "Anos 2000", "Acertou 100 filmes dos anos 2000", 100)
+                    var medalha =
+                        Medalha("ANOS_80", "Anos 80", "Acertou 100 filmes dos anos 80", 100)
+                    var medalha2 =
+                        Medalha("ANOS_90", "Anos 90", "Acertou 100 filmes dos anos 90", 100)
+                    var medalha3 =
+                        Medalha("ANOS_00", "Anos 2000", "Acertou 100 filmes dos anos 2000", 100)
                     medalhaDao.insereMedalha(medalha)
                     medalhaDao.insereMedalha(medalha2)
                     medalhaDao.insereMedalha(medalha3)
                     var usuarioMedalha = UsuarioMedalha(0, "ANOS_80", "HAL9000", 0, false)
+                    var usuarioMedalha2 = UsuarioMedalha(0, "ANOS_90", "HAL9000", 1, false)
+                    var usuarioMedalha3 = UsuarioMedalha(0, "ANOS_00", "HAL9000", 3, true)
+
                     usuarioMedalhaDao.insereUsuarioMedalha(usuarioMedalha)
+                    usuarioMedalhaDao.insereUsuarioMedalha(usuarioMedalha2)
+                    usuarioMedalhaDao.insereUsuarioMedalha(usuarioMedalha3)
                 }
             }
 

@@ -1,0 +1,19 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/cineSombra" />
+            <corners android:radius="40dp" />
+        </shape>
+    </item>
+
+    <item android:bottom="10px">
+        <shape android:shape="oval">
+            <solid android:color="@color/cineCorDesativado" />
+            <size
+                android:width="120dp"
+                android:height="120dp" />
+        </shape>
+
+    </item>
+</layer-list>
+
