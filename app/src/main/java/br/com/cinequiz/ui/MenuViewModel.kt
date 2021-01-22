@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class MenuViewModel(val repository: Repository) : ViewModel() {
 
-    val apiKey: String = "786772dce961ecfa81db6c7077d22816"
+    val apiKey: String = ""
 
     val listaFilmesVotados = MutableLiveData<List<FilmeVotado>>()
     val listaFilmesUtilizaveis = mutableListOf<Filme>()
