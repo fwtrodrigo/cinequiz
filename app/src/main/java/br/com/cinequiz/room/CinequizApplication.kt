@@ -13,7 +13,6 @@ class CinequizApplication : Application() {
     val database by lazy { CinequizRoomDatabase.getDatabase(this, applicationScope) }
     val repositoryUsuario by lazy { UsuarioRepository(database.usuarioDao()) }
     val repositoryMedalha by lazy { MedalhaRepository(database.medalhaDao()) }
-    val repositoryConfiguracao by lazy { ConfiguracaoRepository(database.configuracaoDao()) }
     val repositoryUsuarioRecorde by lazy { UsuarioRecordeRepository(database.usuarioRecordeDao()) }
     val repositoryUsuarioMedalha by lazy { UsuarioMedalhaRepository(database.usuarioMedalhaDao()) }
 }

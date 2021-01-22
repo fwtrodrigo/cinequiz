@@ -1,6 +1,7 @@
 package br.com.cinequiz.ui
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.toolbar_main.view.*
 class OpcoesActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOpcoesBinding
-
+    private lateinit var prefs: SharedPreferences
     private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,28 +27,50 @@ class OpcoesActivity : AppCompatActivity() {
 
         mAuth = FirebaseAuth.getInstance()
 
+        var idUsuario = mAuth.currentUser?.uid
+        prefs = getSharedPreferences("userPrefs_$idUsuario", MODE_PRIVATE)
+        val editor = prefs.edit()
+        binding.swithOpcoesNotificacoes.isChecked = prefs.getBoolean("notificacoes", true)
+        binding.swithOpcoesMusica.isChecked = prefs.getBoolean("musica", true)
+        binding.swithOpcoesSons.isChecked = prefs.getBoolean("sons", true)
+
+
         binding.toolbarOpcoes.toolbarMain.setNavigationOnClickListener {
             onBackPressed()
         }
 
-        binding.swithOpcoesNotificacoes.setOnClickListener {
-            var notificacao = binding.swithOpcoesNotificacoes.isChecked
+        binding.swithOpcoesNotificacoes.setOnCheckedChangeListener{compoundButton, onSwitch->
+            if (onSwitch){
+                editor.putBoolean("notificacoes", true).apply()
+                Toast.makeText(this, "Notificações ativadas", Toast.LENGTH_SHORT).show()
 
-            Log.i("OpcoesActivity", "ver o valor de notificacoes que é: $notificacao")
-
-            if (notificacao) {
-                Toast.makeText(this, "Notificação ON", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Notificação OFF", Toast.LENGTH_SHORT).show()
+            }else{
+                editor.putBoolean("notificacoes", false).apply()
+                Toast.makeText(this, "Notificações desativadas.", Toast.LENGTH_SHORT).show()
             }
         }
 
-        binding.swithOpcoesMusica.setOnClickListener{
-            Toast.makeText(this, "Musica", Toast.LENGTH_SHORT).show()
+
+        binding.swithOpcoesMusica.setOnCheckedChangeListener{compoundButton, onSwitch->
+            if (onSwitch){
+                editor.putBoolean("musica", true).apply()
+                Toast.makeText(this, "Músicas ativadas", Toast.LENGTH_SHORT).show()
+
+            }else{
+                editor.putBoolean("musica", false).apply()
+                Toast.makeText(this, "Músicas desativadas.", Toast.LENGTH_SHORT).show()
+            }
         }
 
-        binding.swithOpcoesSons.setOnClickListener{
-            Toast.makeText(this, "Sons", Toast.LENGTH_SHORT).show()
+        binding.swithOpcoesSons.setOnCheckedChangeListener{compoundButton, onSwitch->
+            if (onSwitch){
+                editor.putBoolean("sons", true).apply()
+                Toast.makeText(this, "Sons ativados", Toast.LENGTH_SHORT).show()
+
+            }else{
+                editor.putBoolean("sons", false).apply()
+                Toast.makeText(this, "Sons desativados.", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.btnOpcoesSair.setOnClickListener {

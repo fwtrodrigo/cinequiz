@@ -1,5 +1,6 @@
 package br.com.cinequiz.ui
 
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class MenuViewModel(val repository: Repository) : ViewModel() {
 
-    val apiKey: String = ""
+    val apiKey: String = "786772dce961ecfa81db6c7077d22816"
 
     val listaFilmesVotados = MutableLiveData<List<FilmeVotado>>()
     val listaFilmesUtilizaveis = mutableListOf<Filme>()
@@ -94,5 +95,20 @@ class MenuViewModel(val repository: Repository) : ViewModel() {
             else -> true
         }
     }
+
+    fun inicializaPreferencias(prefs: SharedPreferences){
+        if (prefs.getBoolean("firstrun", true)) {
+            val editor = prefs.edit()
+            editor.putBoolean("notificacoes", true)
+            editor.putBoolean("musica", true)
+            editor.putBoolean("sons", true)
+            editor.putBoolean("firstrun", false)
+            editor.apply()
+        }
+    }
+
 }
+
+
+
 

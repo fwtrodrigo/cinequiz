@@ -19,7 +19,6 @@ import kotlinx.coroutines.launch
     entities = arrayOf(
         Usuario::class,
         Medalha::class,
-        Configuracao::class,
         UsuarioMedalha::class,
         UsuarioRecorde::class
     ), version = 1, exportSchema = false
@@ -28,7 +27,6 @@ public abstract class CinequizRoomDatabase : RoomDatabase() {
 
     abstract fun usuarioDao(): UsuarioDao
     abstract fun medalhaDao(): MedalhaDao
-    abstract fun configuracaoDao(): ConfiguracaoDao
     abstract fun usuarioRecordeDao(): UsuarioRecordeDao
     abstract fun usuarioMedalhaDao(): UsuarioMedalhaDao
 
@@ -41,15 +39,11 @@ public abstract class CinequizRoomDatabase : RoomDatabase() {
             INSTANCE?.let { database ->
                 scope.launch {
                     var usuarioDao = database.usuarioDao()
-                    var configuracaoDao = database.configuracaoDao()
                     var usuarioRecordeDao = database.usuarioRecordeDao()
 
                     Log.i("CinequizRoomDatabase", "Executando CinequizDatabaseCallback")
                     var usuario = Usuario("HAL9000", "ADÃO")
                     usuarioDao.insereUsuario(usuario)
-
-                    var configuracao = Configuracao(0, usuario.id, true, true, true)
-                    configuracaoDao.insereconfiguracao(configuracao)
 
                     var usuarioRecorde = UsuarioRecorde(0, usuario.id, 0, 0)
                     usuarioRecordeDao.insereRecordesUsuario(usuarioRecorde)
