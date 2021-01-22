@@ -19,7 +19,6 @@ import kotlinx.coroutines.launch
     entities = arrayOf(
         Usuario::class,
         Medalha::class,
-        Configuracao::class,
         UsuarioMedalha::class,
         UsuarioRecorde::class
     ), version = 1, exportSchema = false
@@ -28,7 +27,6 @@ public abstract class CinequizRoomDatabase : RoomDatabase() {
 
     abstract fun usuarioDao(): UsuarioDao
     abstract fun medalhaDao(): MedalhaDao
-    abstract fun configuracaoDao(): ConfiguracaoDao
     abstract fun usuarioRecordeDao(): UsuarioRecordeDao
     abstract fun usuarioMedalhaDao(): UsuarioMedalhaDao
 
@@ -41,15 +39,11 @@ public abstract class CinequizRoomDatabase : RoomDatabase() {
             INSTANCE?.let { database ->
                 scope.launch {
                     var usuarioDao = database.usuarioDao()
-                    var configuracaoDao = database.configuracaoDao()
                     var usuarioRecordeDao = database.usuarioRecordeDao()
 
                     Log.i("CinequizRoomDatabase", "Executando CinequizDatabaseCallback")
                     var usuario = Usuario("HAL9000", "ADÃO")
                     usuarioDao.insereUsuario(usuario)
-
-                    var configuracao = Configuracao(0, usuario.id, true, true, true )
-                    configuracaoDao.insereconfiguracao(configuracao)
 
                     var usuarioRecorde = UsuarioRecorde(0, usuario.id, 0, 0)
                     usuarioRecordeDao.insereRecordesUsuario(usuarioRecorde)
@@ -62,14 +56,22 @@ public abstract class CinequizRoomDatabase : RoomDatabase() {
                     var usuarioMedalhaDao = database.usuarioMedalhaDao()
 
                     Log.i("CinequizRoomDatabase", "Preenchendo tabela de medalhas")
-                    var medalha = Medalha("ANOS_80", "Anos 80", "Acertou 100 filmes dos anos 80", 100)
-                    var medalha2 = Medalha("ANOS_90", "Anos 90", "Acertou 100 filmes dos anos 90", 100)
-                    var medalha3 = Medalha("ANOS_00", "Anos 2000", "Acertou 100 filmes dos anos 2000", 100)
+                    var medalha =
+                        Medalha("ANOS_80", "Anos 80", "Acertou 100 filmes dos anos 80", 100)
+                    var medalha2 =
+                        Medalha("ANOS_90", "Anos 90", "Acertou 100 filmes dos anos 90", 100)
+                    var medalha3 =
+                        Medalha("ANOS_00", "Anos 2000", "Acertou 100 filmes dos anos 2000", 100)
                     medalhaDao.insereMedalha(medalha)
                     medalhaDao.insereMedalha(medalha2)
                     medalhaDao.insereMedalha(medalha3)
                     var usuarioMedalha = UsuarioMedalha(0, "ANOS_80", "HAL9000", 0, false)
+                    var usuarioMedalha2 = UsuarioMedalha(0, "ANOS_90", "HAL9000", 1, false)
+                    var usuarioMedalha3 = UsuarioMedalha(0, "ANOS_00", "HAL9000", 3, true)
+
                     usuarioMedalhaDao.insereUsuarioMedalha(usuarioMedalha)
+                    usuarioMedalhaDao.insereUsuarioMedalha(usuarioMedalha2)
+                    usuarioMedalhaDao.insereUsuarioMedalha(usuarioMedalha3)
                 }
             }
 

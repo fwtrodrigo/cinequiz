@@ -2,16 +2,40 @@ package br.com.cinequiz.ui
 
 
 import android.app.Application
+import android.util.Log
 import android.view.Gravity
 import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import br.com.cinequiz.domain.Filme
+import br.com.cinequiz.domain.UsuarioRecorde
+import br.com.cinequiz.room.CinequizApplication
+import br.com.cinequiz.room.CinequizRoomDatabase
+import br.com.cinequiz.room.repository.UsuarioMedalhaRepository
+import br.com.cinequiz.room.repository.UsuarioRecordeRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 
-class JogoDicaViewModel(application: Application): AndroidViewModel(application)  {
+class JogoDicaViewModel(
+    application: Application,
+    private val usuarioRecordeRepository: UsuarioRecordeRepository
+) : AndroidViewModel(application) {
     private val context = getApplication<Application>().applicationContext
 
+    var usuarioRecordeLiveData: LiveData<UsuarioRecorde> = usuarioRecordeRepository.get("HAL9000")
+
+    fun update() = viewModelScope.launch {
+        val p = usuarioRecorde.popcornsDica
+        Log.i("JOGODICAVIEWMODEL", usuarioRecorde.toString())
+        if (p < pontuacao.value!!) {
+            usuarioRecordeRepository.atualizaPontuacaoDica("HAL9000", pontuacao.value!!)
+        }
+    }
+
+    lateinit var usuarioRecorde : UsuarioRecorde
     val pontuacao = MutableLiveData<Int>(150)
 
     var listaDicas = MutableLiveData<ArrayList<String>>()
@@ -25,7 +49,7 @@ class JogoDicaViewModel(application: Application): AndroidViewModel(application)
     var contadorFilme = 0
 
 
-    fun gerarDicas(){
+    fun gerarDicas() {
 
         contadorDica = 0
 
@@ -38,14 +62,14 @@ class JogoDicaViewModel(application: Application): AndroidViewModel(application)
         )
 
         listaDicasGeradas.shuffle()
-        for (i in 0 until listaDicasGeradas.size){
-            listaDicasGeradas[i] = (i+1).toString() + " - " + listaDicasGeradas[i]
+        for (i in 0 until listaDicasGeradas.size) {
+            listaDicasGeradas[i] = (i + 1).toString() + " - " + listaDicasGeradas[i]
         }
 
         proximaDica(0)
     }
 
-    fun gerarAlternativas(){
+    fun gerarAlternativas() {
         var alternativasGeradas = arrayListOf(
             filmes[contadorFilme].title,
             filmes[contadorFilme].filmesSimilares[0].title,
@@ -57,17 +81,17 @@ class JogoDicaViewModel(application: Application): AndroidViewModel(application)
         listaAlternativas.value = alternativasGeradas
 
         alternativasGeradas.forEachIndexed { index, alternativa ->
-            if(alternativa == filmes[contadorFilme].title) alternativaCorreta = "btn"+(index+1)
+            if (alternativa == filmes[contadorFilme].title) alternativaCorreta = "btn" + (index + 1)
         }
     }
 
     fun proximaDica(pontosDescontados: Int) {
 
-        if(contadorDica == listaDicasGeradas.size){
+        if (contadorDica == listaDicasGeradas.size) {
             val toast = Toast.makeText(context, "Sem dicas disponíveis", Toast.LENGTH_SHORT)
             toast.setGravity(Gravity.TOP, 0, 450)
             toast.show()
-        }else{
+        } else {
             var listaAuxiliar = listaDicas.value
             listaAuxiliar!!.add((listaDicasGeradas.get(contadorDica)))
             listaDicas.value = listaAuxiliar
@@ -76,25 +100,38 @@ class JogoDicaViewModel(application: Application): AndroidViewModel(application)
         }
     }
 
-    fun resultadoResposta(resposta: String){
-        if(resposta == alternativaCorreta){
+    fun resultadoResposta(resposta: String) {
+        if (resposta == alternativaCorreta) {
             Toast.makeText(context, "Acertou", Toast.LENGTH_SHORT).show()
             aumentaPontuacao(40)
-        }else{
+        } else {
             Toast.makeText(context, "Errou", Toast.LENGTH_SHORT).show()
         }
     }
 
-    fun aumentaPontuacao(pontosGanhos: Int){
+    fun aumentaPontuacao(pontosGanhos: Int) {
         pontuacao.value = pontuacao.value?.plus(pontosGanhos)
     }
 
-    fun descontaPontuacao(pontosDescontados: Int){
+    fun descontaPontuacao(pontosDescontados: Int) {
         pontuacao.value = pontuacao.value?.minus(pontosDescontados)
     }
 
-    fun incrementaFilme(){
+    fun incrementaFilme() {
         contadorFilme++
     }
 
+}
+
+class JogoDicaViewModelFactory(
+    val application: Application,
+    private val repository: UsuarioRecordeRepository
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(JogoDicaViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return JogoDicaViewModel(application, repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
 }

@@ -12,6 +12,7 @@ import br.com.cinequiz.R
 import br.com.cinequiz.databinding.ActivityMenuBinding
 import br.com.cinequiz.service.repository
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.item_botao_selecao_modo_cena.view.*
@@ -19,7 +20,7 @@ import kotlinx.android.synthetic.main.item_botao_selecao_modo_dicas.view.*
 import java.io.Serializable
 
 class MenuActivity : AppCompatActivity() {
-
+    private lateinit var mAuth: FirebaseAuth
     private lateinit var binding: ActivityMenuBinding
 
     val viewModel by viewModels<MenuViewModel> {
@@ -36,6 +37,10 @@ class MenuActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel.getResults()
+
+        mAuth = FirebaseAuth.getInstance()
+        var idUsuario = mAuth.currentUser?.uid
+        viewModel.inicializaPreferencias(getSharedPreferences("userPrefs_$idUsuario", MODE_PRIVATE))
 
         viewModel.listaFilmesVotados.observe(this) {
             for (filme in it) {

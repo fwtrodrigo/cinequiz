@@ -15,5 +15,6 @@
     <color name="cineRosa">#E94B91</color>
     <color name="cineSombra">#8f000000</color>
     <color name="cineSombraAzul">#73366DB4</color>
+    <color name="cineCorDesativado">#73FDFDFD</color>
 
 </resources>
