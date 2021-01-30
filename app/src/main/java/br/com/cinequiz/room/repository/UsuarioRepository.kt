@@ -1,7 +1,9 @@
 package br.com.cinequiz.room.repository
 
 import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
 import br.com.cinequiz.domain.Usuario
+import br.com.cinequiz.domain.UsuarioRecorde
 import br.com.cinequiz.room.dao.UsuarioDao
 import kotlinx.coroutines.flow.Flow
 
@@ -20,5 +22,9 @@ class UsuarioRepository(private val usuarioDao: UsuarioDao) {
     @WorkerThread
     suspend fun insert(usuario: Usuario) {
         usuarioDao.insereUsuario(usuario)
+    }
+
+    fun selecionaPorID(idUsuario: String): LiveData<Usuario> {
+        return usuarioDao.selecionaPorID(idUsuario)
     }
 }

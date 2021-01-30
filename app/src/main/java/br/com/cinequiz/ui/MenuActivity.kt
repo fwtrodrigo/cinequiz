@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import br.com.cinequiz.R
 import br.com.cinequiz.databinding.ActivityMenuBinding
+import br.com.cinequiz.room.CinequizApplication
 import br.com.cinequiz.service.repository
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
@@ -23,12 +24,14 @@ class MenuActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var binding: ActivityMenuBinding
 
-    val viewModel by viewModels<MenuViewModel> {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return MenuViewModel(repository) as T
-            }
-        }
+    private val menuViewModel: MenuViewModel by viewModels {
+        MenuViewModelFactory(
+            repository,
+            (application as CinequizApplication).repositoryUsuario,
+            (application as CinequizApplication).repositoryMedalha,
+            (application as CinequizApplication).repositoryUsuarioMedalha,
+            (application as CinequizApplication).repositoryUsuarioRecorde,
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,15 +39,16 @@ class MenuActivity : AppCompatActivity() {
         binding = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.getResults()
+        menuViewModel.getResults()
 
         mAuth = FirebaseAuth.getInstance()
-        var idUsuario = mAuth.currentUser?.uid
-        viewModel.inicializaPreferencias(getSharedPreferences("userPrefs_$idUsuario", MODE_PRIVATE))
+        var usuarioId = mAuth.currentUser!!.uid
+        var usuarioNome = mAuth.currentUser!!.displayName
+        menuViewModel.inicializaUsuario(getSharedPreferences("userPrefs_$usuarioId", MODE_PRIVATE), usuarioId, usuarioNome.toString())
 
-        viewModel.listaFilmesVotados.observe(this) {
+        menuViewModel.listaFilmesVotados.observe(this) {
             for (filme in it) {
-                viewModel.getFilme(filme.id)
+                menuViewModel.getFilme(filme.id)
                 Log.i("listaFilmesVotados", filme.id.toString() )
             }
         }
@@ -52,7 +56,7 @@ class MenuActivity : AppCompatActivity() {
         binding.btnMenuDicas.btnItemDica.setOnClickListener {
 
             val intent: Intent = Intent(this, JogoDica::class.java)
-                .putExtra("listaFilmes", viewModel.listaFilmesUtilizaveis as Serializable)
+                .putExtra("listaFilmes", menuViewModel.listaFilmesUtilizaveis as Serializable)
 
             startActivity(intent)
         }
@@ -60,7 +64,7 @@ class MenuActivity : AppCompatActivity() {
         binding.btnMenuCenas.btnItemCena.setOnClickListener {
 
             val intent: Intent = Intent(this, JogoCena::class.java)
-                .putExtra("listaFilmes", viewModel.listaFilmesUtilizaveis as Serializable)
+                .putExtra("listaFilmes", menuViewModel.listaFilmesUtilizaveis as Serializable)
 
             startActivity(intent)
         }

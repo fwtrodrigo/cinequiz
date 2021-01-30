@@ -12,6 +12,7 @@ import br.com.cinequiz.room.CinequizApplication
 import br.com.cinequiz.room.CinequizRoomDatabase
 import br.com.cinequiz.room.repository.UsuarioMedalhaRepository
 import br.com.cinequiz.room.repository.UsuarioRecordeRepository
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -25,13 +26,14 @@ class JogoDicaViewModel(
 ) : AndroidViewModel(application) {
     private val context = getApplication<Application>().applicationContext
 
-    var usuarioRecordeLiveData: LiveData<UsuarioRecorde> = usuarioRecordeRepository.get("HAL9000")
+    var usuarioId = FirebaseAuth.getInstance().currentUser!!.uid
+    var usuarioRecordeLiveData: LiveData<UsuarioRecorde> = usuarioRecordeRepository.get(usuarioId)
 
     fun update() = viewModelScope.launch {
         val p = usuarioRecorde.popcornsDica
         Log.i("JOGODICAVIEWMODEL", usuarioRecorde.toString())
         if (p < pontuacao.value!!) {
-            usuarioRecordeRepository.atualizaPontuacaoDica("HAL9000", pontuacao.value!!)
+            usuarioRecordeRepository.atualizaPontuacaoDica(usuarioId, pontuacao.value!!)
         }
     }
 

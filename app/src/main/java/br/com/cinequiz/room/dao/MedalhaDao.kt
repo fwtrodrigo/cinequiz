@@ -1,5 +1,6 @@
 package br.com.cinequiz.room.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -12,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 interface MedalhaDao {
 
     @Query("SELECT * FROM medalha")
-    fun selecionaTodasMedalhas(): Flow<List<Medalha>>
+    fun selecionaTodasMedalhas(): LiveData<List<Medalha>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insereMedalha(medalha: Medalha)
