@@ -1,15 +1,19 @@
 package br.com.cinequiz.ui
 
 import android.util.Log
-import androidx.lifecycle.*
-import br.com.cinequiz.domain.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import br.com.cinequiz.domain.Filme
+import br.com.cinequiz.domain.FilmeVotado
 import br.com.cinequiz.service.Repository
 import kotlinx.coroutines.launch
 
 class LoadingViewModel(
     val repository: Repository,
 
-) : ViewModel() {
+    ) : ViewModel() {
 
     val apiKey: String = "786772dce961ecfa81db6c7077d22816"
 
@@ -94,12 +98,21 @@ class LoadingViewModel(
             else -> true
         }
     }
+
+    companion object Jogo {
+        val ID_JOGO_DICA = 0
+        val ID_JOGO_CENA = 1
+        val QUANTIDADE_INICIAL_FILMES_DICA = 10
+        val QUANTIDADE_INICIAL_FILMES_CENA = 50
+        val CHAVE_JOGO = "id_jogo"
+        val CHAVE_QUANTIDADE_FILMES = "quantidade_filmes"
+    }
 }
 
 class LoadingViewModelFactory(
     private val repository: Repository,
 
-) : ViewModelProvider.Factory {
+    ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LoadingViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")

@@ -7,10 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import br.com.cinequiz.databinding.ActivityMenuBinding
 import br.com.cinequiz.room.CinequizApplication
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_menu.*
-import kotlinx.android.synthetic.main.item_botao_selecao_modo_cena.view.*
-import kotlinx.android.synthetic.main.item_botao_selecao_modo_dicas.view.*
-import java.io.Serializable
 
 class MenuActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
@@ -33,17 +29,29 @@ class MenuActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
         var usuarioId = mAuth.currentUser!!.uid
         var usuarioNome = mAuth.currentUser!!.displayName
-        menuViewModel.inicializaUsuario(getSharedPreferences("userPrefs_$usuarioId", MODE_PRIVATE), usuarioId, usuarioNome.toString())
+        menuViewModel.inicializaUsuario(
+            getSharedPreferences("userPrefs_$usuarioId", MODE_PRIVATE),
+            usuarioId,
+            usuarioNome.toString()
+        )
 
         binding.btnMenuDicas.btnItemDica.setOnClickListener {
-
             val intent = Intent(this, LoadingActivity::class.java)
+            intent.putExtra(LoadingViewModel.CHAVE_JOGO, LoadingViewModel.ID_JOGO_CENA)
+            intent.putExtra(
+                LoadingViewModel.CHAVE_QUANTIDADE_FILMES,
+                LoadingViewModel.QUANTIDADE_INICIAL_FILMES_DICA
+            )
             startActivity(intent)
         }
 
         binding.btnMenuCenas.btnItemCena.setOnClickListener {
-
             val intent = Intent(this, LoadingActivity::class.java)
+            intent.putExtra(LoadingViewModel.CHAVE_JOGO, LoadingViewModel.ID_JOGO_CENA)
+            intent.putExtra(
+                LoadingViewModel.CHAVE_QUANTIDADE_FILMES,
+                LoadingViewModel.QUANTIDADE_INICIAL_FILMES_CENA
+            )
             startActivity(intent)
         }
 
