@@ -2,19 +2,11 @@ package br.com.cinequiz.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import br.com.cinequiz.R
 import br.com.cinequiz.databinding.ActivityMenuBinding
 import br.com.cinequiz.room.CinequizApplication
-import br.com.cinequiz.service.repository
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.item_botao_selecao_modo_cena.view.*
 import kotlinx.android.synthetic.main.item_botao_selecao_modo_dicas.view.*
@@ -26,7 +18,6 @@ class MenuActivity : AppCompatActivity() {
 
     private val menuViewModel: MenuViewModel by viewModels {
         MenuViewModelFactory(
-            repository,
             (application as CinequizApplication).repositoryUsuario,
             (application as CinequizApplication).repositoryMedalha,
             (application as CinequizApplication).repositoryUsuarioMedalha,
@@ -39,33 +30,20 @@ class MenuActivity : AppCompatActivity() {
         binding = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        menuViewModel.getResults()
-
         mAuth = FirebaseAuth.getInstance()
         var usuarioId = mAuth.currentUser!!.uid
         var usuarioNome = mAuth.currentUser!!.displayName
         menuViewModel.inicializaUsuario(getSharedPreferences("userPrefs_$usuarioId", MODE_PRIVATE), usuarioId, usuarioNome.toString())
 
-        menuViewModel.listaFilmesVotados.observe(this) {
-            for (filme in it) {
-                menuViewModel.getFilme(filme.id)
-                Log.i("listaFilmesVotados", filme.id.toString() )
-            }
-        }
-
         binding.btnMenuDicas.btnItemDica.setOnClickListener {
 
-            val intent: Intent = Intent(this, JogoDica::class.java)
-                .putExtra("listaFilmes", menuViewModel.listaFilmesUtilizaveis as Serializable)
-
+            val intent = Intent(this, LoadingActivity::class.java)
             startActivity(intent)
         }
 
         binding.btnMenuCenas.btnItemCena.setOnClickListener {
 
-            val intent: Intent = Intent(this, JogoCena::class.java)
-                .putExtra("listaFilmes", menuViewModel.listaFilmesUtilizaveis as Serializable)
-
+            val intent = Intent(this, LoadingActivity::class.java)
             startActivity(intent)
         }
 

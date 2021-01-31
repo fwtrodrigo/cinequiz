@@ -34,8 +34,6 @@ class JogoDica : AppCompatActivity() {
             jogoDicaViewModel.filmes = listaFilmes
         }
 
-
-
         novaPartida()
 
         binding.includeJogoDicaBotoes.imageButtonAlternativas1.setOnClickListener {

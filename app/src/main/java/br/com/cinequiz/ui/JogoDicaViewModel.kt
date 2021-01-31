@@ -8,16 +8,9 @@ import android.widget.Toast
 import androidx.lifecycle.*
 import br.com.cinequiz.domain.Filme
 import br.com.cinequiz.domain.UsuarioRecorde
-import br.com.cinequiz.room.CinequizApplication
-import br.com.cinequiz.room.CinequizRoomDatabase
-import br.com.cinequiz.room.repository.UsuarioMedalhaRepository
 import br.com.cinequiz.room.repository.UsuarioRecordeRepository
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 
 class JogoDicaViewModel(

@@ -13,6 +13,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import br.com.cinequiz.ui.MenuActivity
 import br.com.cinequiz.R
+import br.com.cinequiz.ui.JogoDica
+import br.com.cinequiz.ui.LoadingActivity
+import java.io.Serializable
 
 class ResultadoDialogAdapter(private val pontos: Int, private val jogo: String): DialogFragment() {
 
@@ -37,7 +40,8 @@ class ResultadoDialogAdapter(private val pontos: Int, private val jogo: String):
         txtResultadoPontos.text = pontos.toString()
 
         btnJogarNovamente.setOnClickListener{
-            dismiss()
+            val intent = Intent(activity, LoadingActivity::class.java)
+            startActivity(intent)
         }
 
         btnVoltarMenu.setOnClickListener{
