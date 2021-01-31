@@ -37,7 +37,7 @@ class MenuActivity : AppCompatActivity() {
 
         binding.btnMenuDicas.btnItemDica.setOnClickListener {
             val intent = Intent(this, LoadingActivity::class.java)
-            intent.putExtra(LoadingViewModel.CHAVE_JOGO, LoadingViewModel.ID_JOGO_CENA)
+            intent.putExtra(LoadingViewModel.CHAVE_JOGO, LoadingViewModel.ID_JOGO_DICA)
             intent.putExtra(
                 LoadingViewModel.CHAVE_QUANTIDADE_FILMES,
                 LoadingViewModel.QUANTIDADE_INICIAL_FILMES_DICA

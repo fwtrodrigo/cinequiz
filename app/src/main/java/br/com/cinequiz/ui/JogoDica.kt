@@ -95,7 +95,7 @@ class JogoDica : AppCompatActivity() {
         jogoDicaViewModel.incrementaFilme()
         if (jogoDicaViewModel.contadorFilme == jogoDicaViewModel.filmes.size) {
             val resultadoDialog =
-                ResultadoDialogAdapter(jogoDicaViewModel.pontuacao.value!!, "dica")
+                ResultadoDialogAdapter(jogoDicaViewModel.pontuacao.value!!, "dica", LoadingViewModel.ID_JOGO_DICA)
             resultadoDialog.show(supportFragmentManager, "resultadoDialog")
             jogoDicaViewModel.update()
 

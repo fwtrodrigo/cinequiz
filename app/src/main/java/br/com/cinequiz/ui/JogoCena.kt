@@ -46,7 +46,7 @@ class JogoCena : AppCompatActivity() {
 
         iniciarFilme(listaFilmes, contadorFilme)
 
-        var resultadoDialog = ResultadoDialogAdapter(10, "Cena")
+        var resultadoDialog = ResultadoDialogAdapter(10, "Cena", LoadingViewModel.ID_JOGO_CENA)
 
         binding.includeJogoCenaBotoes.imageButtonAlternativas1.setOnClickListener {
             contadorFilme++

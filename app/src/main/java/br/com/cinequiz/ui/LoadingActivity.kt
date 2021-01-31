@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import br.com.cinequiz.R
+import br.com.cinequiz.domain.Filme
 import br.com.cinequiz.service.repository
 import java.io.Serializable
 
@@ -46,10 +47,15 @@ class LoadingActivity : AppCompatActivity() {
                 }
 
                 val intent: Intent = Intent(this, a)
+                val listaFilmes = mutableListOf<Filme>()
+                listaFilmes.addAll(loadingViewModel.listaFilmesUtilizaveis.subList(0, requisitoQuantidadeFilmes))
+                listaFilmes.shuffle()
+
+                Log.i("qdtFilmes", listaFilmes.size.toString())
 
                 intent.putExtra(
                     "listaFilmes",
-                    loadingViewModel.listaFilmesUtilizaveis as Serializable
+                    listaFilmes as Serializable
                 )
 
                 startActivity(intent)

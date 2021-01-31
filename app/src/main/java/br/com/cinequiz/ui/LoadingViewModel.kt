@@ -26,7 +26,7 @@ class LoadingViewModel(
 
                 listaFilmesVotados.value = repository.getFilmesVotados(
                     apiKey,
-                    (1..100).random(),
+                    (1..150).random(),
                     "pt-BR"
                 ).listaFilmesVotados
 
@@ -86,6 +86,7 @@ class LoadingViewModel(
     private fun filtroFilmeUtilizavel(filme: Filme): Boolean {
 
         return when {
+            listaFilmesUtilizaveis.contains(filme) -> false
             filme.equals(null) -> false
             filme.title.isEmpty() -> false
             filme.production_companies.isEmpty() -> false
@@ -95,6 +96,7 @@ class LoadingViewModel(
             filme.imagensFilme[0].file_path.isEmpty() -> false
             filme.filmesSimilares.isEmpty() -> false
             filme.filmesSimilares[0].title.isEmpty() -> false
+            filme.title.equals(filme.filmesSimilares[0].title, ignoreCase = true) -> false
             else -> true
         }
     }

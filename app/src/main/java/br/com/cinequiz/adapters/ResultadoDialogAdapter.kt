@@ -11,13 +11,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
-import br.com.cinequiz.ui.MenuActivity
 import br.com.cinequiz.R
-import br.com.cinequiz.ui.JogoDica
 import br.com.cinequiz.ui.LoadingActivity
-import java.io.Serializable
+import br.com.cinequiz.ui.LoadingViewModel
+import br.com.cinequiz.ui.MenuActivity
 
-class ResultadoDialogAdapter(private val pontos: Int, private val jogo: String): DialogFragment() {
+class ResultadoDialogAdapter(
+    private val pontos: Int,
+    private val jogo: String,
+    private val idJogo: Int
+) : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +33,10 @@ class ResultadoDialogAdapter(private val pontos: Int, private val jogo: String):
         savedInstanceState: Bundle?
     ): View? {
         var rootView: View = inflater.inflate(R.layout.layout_resultado_jogo, container, false)
-        dialog?.window?.setLayout(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT)
+        dialog?.window?.setLayout(
+            ConstraintLayout.LayoutParams.MATCH_PARENT,
+            ConstraintLayout.LayoutParams.MATCH_PARENT
+        )
         dialog?.window?.setBackgroundDrawableResource(R.color.cineSombraAzul)
 
         var btnJogarNovamente = rootView.findViewById<Button>(R.id.btnResultadoJogarNovamente)
@@ -39,19 +45,34 @@ class ResultadoDialogAdapter(private val pontos: Int, private val jogo: String):
         var txtResultadoPontos = rootView.findViewById<TextView>(R.id.txtResultadoPontos)
         txtResultadoPontos.text = pontos.toString()
 
-        btnJogarNovamente.setOnClickListener{
-            val intent = Intent(activity, LoadingActivity::class.java)
+        btnJogarNovamente.setOnClickListener {
+
+            val intent = if (idJogo == LoadingViewModel.ID_JOGO_DICA) {
+                Intent(activity, LoadingActivity::class.java)
+                    .putExtra(LoadingViewModel.CHAVE_JOGO, LoadingViewModel.ID_JOGO_DICA)
+                    .putExtra(
+                        LoadingViewModel.CHAVE_QUANTIDADE_FILMES,
+                        LoadingViewModel.QUANTIDADE_INICIAL_FILMES_DICA
+                    )
+            } else {
+                Intent(activity, LoadingActivity::class.java)
+                    .putExtra(LoadingViewModel.CHAVE_JOGO, LoadingViewModel.ID_JOGO_CENA)
+                    .putExtra(
+                        LoadingViewModel.CHAVE_QUANTIDADE_FILMES,
+                        LoadingViewModel.QUANTIDADE_INICIAL_FILMES_CENA
+                    )
+            }
             startActivity(intent)
         }
 
-        btnVoltarMenu.setOnClickListener{
+        btnVoltarMenu.setOnClickListener {
             var intent = Intent(activity, MenuActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
             activity?.finish()
         }
 
-        ibCompartilhar.setOnClickListener{
+        ibCompartilhar.setOnClickListener {
             //implementar compartilhamento.
             compartilhar(jogo)
             Toast.makeText(activity, "implementar compartilhamento", Toast.LENGTH_SHORT).show()
@@ -62,7 +83,8 @@ class ResultadoDialogAdapter(private val pontos: Int, private val jogo: String):
 
     private fun compartilhar(jogo: String) {
         val titulo = "Compartilhe o seu resultado com os seus amigos!"
-        val mensagem = "Eu obtive $pontos pontos no modo $jogo do CineQuiz!\nBaixe agora o app na PlayStore e teste seus conhecimentos do mundo cinematográfico!"
+        val mensagem =
+            "Eu obtive $pontos pontos no modo $jogo do CineQuiz!\nBaixe agora o app na PlayStore e teste seus conhecimentos do mundo cinematográfico!"
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "text/plain"
         intent.putExtra(android.content.Intent.EXTRA_TEXT, mensagem)
