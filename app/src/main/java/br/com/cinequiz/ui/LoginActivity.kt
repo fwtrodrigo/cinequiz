@@ -8,9 +8,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import br.com.cinequiz.room.CinequizApplication
 import br.com.cinequiz.R
 import br.com.cinequiz.databinding.ActivityLoginBinding
+import br.com.cinequiz.room.CinequizApplication
 import br.com.cinequiz.utils.ehEmailValido
 import com.facebook.*
 import com.facebook.login.LoginManager
@@ -29,7 +29,12 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var callbackManager: CallbackManager
 
     private val loginViewModel: LoginViewModel by viewModels {
-        LoginViewModelFactory((application as CinequizApplication).repositoryUsuario)
+        LoginViewModelFactory(
+            (application as CinequizApplication).repositoryUsuario,
+            (application as CinequizApplication).repositoryMedalha,
+            (application as CinequizApplication).repositoryUsuarioMedalha,
+            (application as CinequizApplication).repositoryUsuarioRecorde,
+        )
     }
 
     private val TAG = "LoginActivity"
@@ -44,11 +49,9 @@ class LoginActivity : AppCompatActivity() {
 
         //loginViewModel.insert(Usuario("78984",  "rodrigo"))
 
-        loginViewModel.listaUsuarios.observe(this, Observer { usuarios ->
-
+        loginViewModel.selectMedalhas().observe(this, Observer { usuarios ->
             Log.i("LoginActivity", usuarios.toString())
         })
-
 
         controlaFocoEditText()
 
@@ -191,7 +194,6 @@ class LoginActivity : AppCompatActivity() {
             }.addOnSuccessListener {
                 showToast("Bem vindo, Nome: ${it.user?.displayName} Email: ${it.user?.email} UserID: ${it.user?.uid} !")
                 appLogin()
-
             }.addOnFailureListener {
                 if (it is FirebaseAuthInvalidCredentialsException) {
                     showToast("Usuário e/ou senha inválidos.")
@@ -261,4 +263,5 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+
 }

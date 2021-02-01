@@ -9,6 +9,7 @@ import br.com.cinequiz.adapters.MedalhasAdapter
 import br.com.cinequiz.databinding.ActivityMedalhasBinding
 import br.com.cinequiz.domain.UsuarioMedalhaJoin
 import br.com.cinequiz.room.CinequizApplication
+import com.google.firebase.auth.FirebaseAuth
 
 class MedalhasActivity : AppCompatActivity() {
 
@@ -28,18 +29,20 @@ class MedalhasActivity : AppCompatActivity() {
         binding = ActivityMedalhasBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val idUsuario = FirebaseAuth.getInstance().currentUser!!.uid
+
         binding.rvMedalhas.adapter = adapter
 
         binding.toolbarMedalhas.toolbarMain.setNavigationOnClickListener {
             onBackPressed()
         }
 
-        medalhaViewModel.selecionaRecordeUsuario("HAL9000").observe(this, {
+        medalhaViewModel.selecionaRecordeUsuario(idUsuario).observe(this, {
             binding.tvPontosCenas.text = it.popcornsCena.toString()
             binding.tvPontosDicas.text = it.popcornsDica.toString()
         })
 
-        medalhaViewModel.selecionaMedalhasPossiveis("HAL9000").observe(this, Observer {
+        medalhaViewModel.selecionaMedalhasPossiveis(idUsuario).observe(this, Observer {
             it.forEach { medalha ->
                 adapter.listaMedalhas.add(medalha)
                 adapter.notifyItemInserted(adapter.listaMedalhas.lastIndex)
