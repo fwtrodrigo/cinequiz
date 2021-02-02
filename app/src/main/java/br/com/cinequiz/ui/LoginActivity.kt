@@ -202,6 +202,23 @@ class LoginActivity : AppCompatActivity() {
                 if (it is FirebaseAuthInvalidUserException) {
                     showToast("Usuário e/ou senha inválidos.")
                 }
+
+                if (it is FirebaseAuthActionCodeException) {
+                    showToast("O serviço de autenticação falhou. Tente novamente.")
+                }
+
+                if (it is FirebaseAuthEmailException) {
+                    showToast("Não foi possível enviar o e-mail. Tente novamente.")
+                }
+
+                if (it is FirebaseAuthUserCollisionException) {
+                        showToast("Você já fez login usando o mesmo e-mail em outra rede social. Tente novamente.")
+                }
+
+                if (it is FirebaseAuthWebException) {
+                        showToast("O serviço de autenticação falhou. Tente novamente.")
+                }
+
             }
     }
 
