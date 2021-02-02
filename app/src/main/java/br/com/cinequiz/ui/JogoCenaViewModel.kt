@@ -8,6 +8,7 @@ import android.util.Log
 import br.com.cinequiz.R
 import androidx.lifecycle.*
 import br.com.cinequiz.domain.Filme
+import br.com.cinequiz.domain.Parametros
 import br.com.cinequiz.domain.UsuarioRecorde
 import br.com.cinequiz.room.repository.UsuarioRecordeRepository
 import com.google.firebase.auth.FirebaseAuth
@@ -43,7 +44,7 @@ class JogoCenaViewModel(
 
     val cronometroFinalizado = MutableLiveData<Boolean>()
     val cronometro = MutableLiveData<String>()
-    val time: Long = 30000
+    val time: Long = Parametros.TEMPO_JOGO_CENA
     var timer = Timer(time)
 
     var animacaoResposta = MutableLiveData<Int>()
@@ -92,11 +93,11 @@ class JogoCenaViewModel(
     fun resultadoResposta(resposta: String) {
         if (resposta == alternativaCorreta) {
             //Toast.makeText(context, "Acertou", Toast.LENGTH_SHORT).show()
-                animacaoResposta.value = 1
-            aumentaPontuacao(10)
+                animacaoResposta.value = Parametros.ID_RESPOSTA_CORRETA
+            aumentaPontuacao(Parametros.PONTUACAO_ACERTO_JOGO_CENA)
         } else {
             //Toast.makeText(context, "Errou", Toast.LENGTH_SHORT).show()
-            animacaoResposta.value = 0
+            animacaoResposta.value = Parametros.ID_RESPOSTA_ERRADA
         }
     }
 
@@ -123,7 +124,7 @@ class JogoCenaViewModel(
             this.millisUntilFinished = millisUntilFinished
             val passTime = time + millisUntilFinished
             val f = DecimalFormat("00")
-            val sec = passTime / 1000 % 30
+            val sec = passTime / 1000 % Parametros.CONTADOR_JOGO_CENA
             cronometro.value = f.format(sec).toString()
         }
 

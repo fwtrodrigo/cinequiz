@@ -48,8 +48,8 @@ class JogoCena : AppCompatActivity() {
 
         animacaoRespostaCorreta = binding.itemCardCena.animacaoRespostaCorreta
         animacaoRespostaErrada = binding.itemCardCena.animacaoRespostaErrada
-        inicializaAnimacao(animacaoRespostaCorreta, 1)
-        inicializaAnimacao(animacaoRespostaErrada, 0)
+        inicializaAnimacao(animacaoRespostaCorreta, Parametros.ID_RESPOSTA_CORRETA)
+        inicializaAnimacao(animacaoRespostaErrada, Parametros.ID_RESPOSTA_ERRADA)
 
         JogoCenaViewModel.inicializaAudios()
         JogoCenaViewModel.filmes = listaFilmes
