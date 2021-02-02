@@ -22,4 +22,8 @@ class UsuarioRecordeRepository(private val usuarioRecordeDao: UsuarioRecordeDao)
         usuarioRecordeDao.atualizaPontuacaoDica(usuarioId, pontuacao)
     }
 
+    suspend fun atualizaPontuacaoCena(usuarioId: String, pontuacao: Int) {
+        usuarioRecordeDao.atualizaPontuacaoCena(usuarioId, pontuacao)
+    }
+
 }
