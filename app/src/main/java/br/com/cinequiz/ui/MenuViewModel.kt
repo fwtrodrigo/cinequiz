@@ -1,8 +1,10 @@
 package br.com.cinequiz.ui
 
 import android.content.SharedPreferences
+import android.media.MediaPlayer
 import android.util.Log
 import androidx.lifecycle.*
+import br.com.cinequiz.R
 import br.com.cinequiz.domain.*
 import br.com.cinequiz.room.repository.MedalhaRepository
 import br.com.cinequiz.room.repository.UsuarioMedalhaRepository
@@ -16,8 +18,8 @@ class MenuViewModel(
     private val medalhaRepository: MedalhaRepository,
     private val usuarioMedalhaRepository: UsuarioMedalhaRepository,
     private val usuarioRecordeRepository: UsuarioRecordeRepository
-    ) : ViewModel() {
 
+    ) : ViewModel() {
 
     fun inicializaUsuario(prefs: SharedPreferences, usuarioId: String, usuarioNome: String){
         if (prefs.getBoolean("firstrun", true)) {

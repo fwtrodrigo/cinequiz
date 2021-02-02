@@ -3,7 +3,10 @@ package br.com.cinequiz.ui
 
 import android.animation.Animator
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
@@ -62,18 +65,22 @@ class JogoCena : AppCompatActivity() {
 
 
         binding.includeJogoCenaBotoes.imageButtonAlternativas1.setOnClickListener {
+            vibrarBotão()
             selecaoAlternativa("btn1")
         }
 
         binding.includeJogoCenaBotoes.imageButtonAlternativas2.setOnClickListener {
+            vibrarBotão()
             selecaoAlternativa("btn2")
         }
 
         binding.includeJogoCenaBotoes.imageButtonAlternativas3.setOnClickListener {
+            vibrarBotão()
             selecaoAlternativa("btn3")
         }
 
         binding.includeJogoCenaBotoes.imageButtonAlternativas4.setOnClickListener {
+            vibrarBotão()
             selecaoAlternativa("btn4")
         }
 
@@ -188,6 +195,16 @@ class JogoCena : AppCompatActivity() {
     fun executaAnimacao(animacao: LottieAnimationView) {
         animacao.visibility = View.VISIBLE
         animacao.playAnimation()
+    }
+
+    fun vibrarBotão() {
+        val vibrator = this.getSystemService(VIBRATOR_SERVICE) as Vibrator
+
+        if (Build.VERSION.SDK_INT >= 26) {
+            vibrator.vibrate(VibrationEffect.createOneShot(150, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            vibrator.vibrate(150)
+        }
     }
 
 }

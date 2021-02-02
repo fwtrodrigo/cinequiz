@@ -2,7 +2,10 @@ package br.com.cinequiz.ui
 
 import android.animation.Animator
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
@@ -65,22 +68,27 @@ class JogoDica : AppCompatActivity() {
         novaPartida()
 
         binding.includeJogoDicaBotoes.imageButtonAlternativas1.setOnClickListener {
+            vibrarBotão()
             selecaoAlternativa("btn1")
         }
 
         binding.includeJogoDicaBotoes.imageButtonAlternativas2.setOnClickListener {
+            vibrarBotão()
             selecaoAlternativa("btn2")
         }
 
         binding.includeJogoDicaBotoes.imageButtonAlternativas3.setOnClickListener {
+            vibrarBotão()
             selecaoAlternativa("btn3")
         }
 
         binding.includeJogoDicaBotoes.imageButtonAlternativas4.setOnClickListener {
+            vibrarBotão()
             selecaoAlternativa("btn4")
         }
 
         binding.itemProximaDica.btnProximaDica.setOnClickListener {
+            vibrarBotão()
             jogoDicaViewModel.proximaDica(Parametros.PONTUACAO_PROXIMA_DICA_JOGO_DICA)
         }
     }
@@ -206,6 +214,16 @@ class JogoDica : AppCompatActivity() {
     fun executaAnimacao(animacao: LottieAnimationView) {
         animacao.visibility = View.VISIBLE
         animacao.playAnimation()
+    }
+
+    fun vibrarBotão() {
+        val vibrator = this.getSystemService(VIBRATOR_SERVICE) as Vibrator
+
+        if (Build.VERSION.SDK_INT >= 26) {
+            vibrator.vibrate(VibrationEffect.createOneShot(150, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            vibrator.vibrate(150)
+        }
     }
 
 }

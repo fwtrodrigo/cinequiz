@@ -53,6 +53,7 @@ class JogoDicaViewModel(
 
     fun inicializaAudios(){
         musicaJogoDica = MediaPlayer.create(context, R.raw.modo_dica_musica)
+        musicaJogoDica.isLooping = true
         somRespostaCorreta = MediaPlayer.create(context, R.raw.resposta_correta_som)
         somRespostaErrada = MediaPlayer.create(context, R.raw.resposta_errada_som)
     }
