@@ -9,6 +9,7 @@ import br.com.cinequiz.R
 import br.com.cinequiz.adapters.ResultadoDialogAdapter
 import br.com.cinequiz.databinding.ActivityJogoDicaBinding
 import br.com.cinequiz.domain.Filme
+import br.com.cinequiz.domain.Parametros
 import br.com.cinequiz.room.CinequizApplication
 
 
@@ -28,7 +29,7 @@ class JogoDica : AppCompatActivity() {
         binding = ActivityJogoDicaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val listaFilmes = intent.getSerializableExtra("listaFilmes") as ArrayList<Filme>
+        val listaFilmes = intent.getSerializableExtra(Parametros.CHAVE_LISTA_FILMES) as ArrayList<Filme>
 
         if (listaFilmes != null) {
             jogoDicaViewModel.filmes = listaFilmes
@@ -95,7 +96,7 @@ class JogoDica : AppCompatActivity() {
         jogoDicaViewModel.incrementaFilme()
         if (jogoDicaViewModel.contadorFilme == jogoDicaViewModel.filmes.size) {
             val resultadoDialog =
-                ResultadoDialogAdapter(jogoDicaViewModel.pontuacao.value!!, "dica", LoadingViewModel.ID_JOGO_DICA)
+                ResultadoDialogAdapter(jogoDicaViewModel.pontuacao.value!!, "dica", Parametros.ID_JOGO_DICA)
             resultadoDialog.show(supportFragmentManager, "resultadoDialog")
             jogoDicaViewModel.update()
 

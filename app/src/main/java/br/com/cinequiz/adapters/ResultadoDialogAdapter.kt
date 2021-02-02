@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import br.com.cinequiz.R
+import br.com.cinequiz.domain.Parametros
 import br.com.cinequiz.ui.LoadingActivity
 import br.com.cinequiz.ui.LoadingViewModel
 import br.com.cinequiz.ui.MenuActivity
@@ -47,19 +48,19 @@ class ResultadoDialogAdapter(
 
         btnJogarNovamente.setOnClickListener {
 
-            val intent = if (idJogo == LoadingViewModel.ID_JOGO_DICA) {
+            val intent = if (idJogo == Parametros.ID_JOGO_DICA) {
                 Intent(activity, LoadingActivity::class.java)
-                    .putExtra(LoadingViewModel.CHAVE_JOGO, LoadingViewModel.ID_JOGO_DICA)
+                    .putExtra(Parametros.CHAVE_JOGO, Parametros.ID_JOGO_DICA)
                     .putExtra(
-                        LoadingViewModel.CHAVE_QUANTIDADE_FILMES,
-                        LoadingViewModel.QUANTIDADE_INICIAL_FILMES_DICA
+                        Parametros.CHAVE_QUANTIDADE_FILMES,
+                        Parametros.QUANTIDADE_INICIAL_FILMES_DICA
                     )
             } else {
                 Intent(activity, LoadingActivity::class.java)
-                    .putExtra(LoadingViewModel.CHAVE_JOGO, LoadingViewModel.ID_JOGO_CENA)
+                    .putExtra(Parametros.CHAVE_JOGO, Parametros.ID_JOGO_CENA)
                     .putExtra(
-                        LoadingViewModel.CHAVE_QUANTIDADE_FILMES,
-                        LoadingViewModel.QUANTIDADE_INICIAL_FILMES_CENA
+                        Parametros.CHAVE_QUANTIDADE_FILMES,
+                        Parametros.QUANTIDADE_INICIAL_FILMES_CENA
                     )
             }
             startActivity(intent)

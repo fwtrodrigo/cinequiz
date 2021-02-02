@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import br.com.cinequiz.R
 import br.com.cinequiz.domain.Filme
+import br.com.cinequiz.domain.Parametros
 import br.com.cinequiz.service.repository
 import java.io.Serializable
 
@@ -22,9 +23,9 @@ class LoadingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loading)
 
-        val idJogo = intent.getIntExtra("id_jogo", LoadingViewModel.ID_JOGO_DICA)
+        val idJogo = intent.getIntExtra("id_jogo", Parametros.ID_JOGO_DICA)
         val requisitoQuantidadeFilmes =
-            intent.getIntExtra("quantidade_filmes", LoadingViewModel.QUANTIDADE_INICIAL_FILMES_DICA)
+            intent.getIntExtra("quantidade_filmes", Parametros.QUANTIDADE_INICIAL_FILMES_DICA)
 
         loadingViewModel.getResults()
 
@@ -40,7 +41,7 @@ class LoadingActivity : AppCompatActivity() {
 
             } else {
 
-                val a = if (idJogo == LoadingViewModel.ID_JOGO_DICA) {
+                val a = if (idJogo == Parametros.ID_JOGO_DICA) {
                     JogoDica::class.java
                 } else {
                     JogoCena::class.java
@@ -54,7 +55,7 @@ class LoadingActivity : AppCompatActivity() {
                 Log.i("qdtFilmes", listaFilmes.size.toString())
 
                 intent.putExtra(
-                    "listaFilmes",
+                    Parametros.CHAVE_LISTA_FILMES,
                     listaFilmes as Serializable
                 )
 

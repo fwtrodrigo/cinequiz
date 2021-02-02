@@ -12,6 +12,7 @@ import br.com.cinequiz.R
 import br.com.cinequiz.adapters.ResultadoDialogAdapter
 import br.com.cinequiz.databinding.ActivityJogoCenaBinding
 import br.com.cinequiz.domain.Filme
+import br.com.cinequiz.domain.Parametros
 import br.com.cinequiz.room.CinequizApplication
 import com.airbnb.lottie.LottieAnimationView
 import com.google.firebase.auth.FirebaseAuth
@@ -38,7 +39,8 @@ class JogoCena : AppCompatActivity() {
         binding = ActivityJogoCenaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val listaFilmes = intent.getSerializableExtra("listaFilmes") as ArrayList<Filme>
+        val listaFilmes =
+            intent.getSerializableExtra(Parametros.CHAVE_LISTA_FILMES) as ArrayList<Filme>
 
         mAuth = FirebaseAuth.getInstance()
         val idUsuario = mAuth.currentUser?.uid
@@ -142,7 +144,7 @@ class JogoCena : AppCompatActivity() {
             ResultadoDialogAdapter(
                 JogoCenaViewModel.pontuacao.value!!,
                 "cena",
-                LoadingViewModel.ID_JOGO_CENA
+                Parametros.ID_JOGO_CENA
             )
         resultadoDialog.show(supportFragmentManager, "resultadoDialog")
         JogoCenaViewModel.update()

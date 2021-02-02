@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import br.com.cinequiz.databinding.ActivityMenuBinding
+import br.com.cinequiz.domain.Parametros
 import br.com.cinequiz.room.CinequizApplication
 import com.google.firebase.auth.FirebaseAuth
 
@@ -37,20 +38,20 @@ class MenuActivity : AppCompatActivity() {
 
         binding.btnMenuDicas.btnItemDica.setOnClickListener {
             val intent = Intent(this, LoadingActivity::class.java)
-            intent.putExtra(LoadingViewModel.CHAVE_JOGO, LoadingViewModel.ID_JOGO_DICA)
+            intent.putExtra(Parametros.CHAVE_JOGO, Parametros.ID_JOGO_DICA)
             intent.putExtra(
-                LoadingViewModel.CHAVE_QUANTIDADE_FILMES,
-                LoadingViewModel.QUANTIDADE_INICIAL_FILMES_DICA
+                Parametros.CHAVE_QUANTIDADE_FILMES,
+                Parametros.QUANTIDADE_INICIAL_FILMES_DICA
             )
             startActivity(intent)
         }
 
         binding.btnMenuCenas.btnItemCena.setOnClickListener {
             val intent = Intent(this, LoadingActivity::class.java)
-            intent.putExtra(LoadingViewModel.CHAVE_JOGO, LoadingViewModel.ID_JOGO_CENA)
+            intent.putExtra(Parametros.CHAVE_JOGO, Parametros.ID_JOGO_CENA)
             intent.putExtra(
-                LoadingViewModel.CHAVE_QUANTIDADE_FILMES,
-                LoadingViewModel.QUANTIDADE_INICIAL_FILMES_CENA
+                Parametros.CHAVE_QUANTIDADE_FILMES,
+                Parametros.QUANTIDADE_INICIAL_FILMES_CENA
             )
             startActivity(intent)
         }
