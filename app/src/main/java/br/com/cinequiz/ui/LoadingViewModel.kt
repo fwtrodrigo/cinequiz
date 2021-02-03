@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import br.com.cinequiz.BuildConfig
 import br.com.cinequiz.domain.Filme
 import br.com.cinequiz.domain.FilmeVotado
 import br.com.cinequiz.service.Repository
@@ -15,7 +16,7 @@ class LoadingViewModel(
 
     ) : ViewModel() {
 
-    val apiKey: String = ""
+        val apiKey: String = BuildConfig.API_KEY
 
     val listaFilmesVotados = MutableLiveData<List<FilmeVotado>>()
     val listaFilmesUtilizaveis = mutableListOf<Filme>()
