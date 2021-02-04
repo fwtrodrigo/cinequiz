@@ -39,7 +39,7 @@ class JogoCenaViewModel(
     var listaAlternativas = MutableLiveData<ArrayList<String>>()
     var alternativaCorreta = ""
 
-    var filmes = arrayListOf<Filme>()
+    var filmes = mutableListOf<Filme>()
     var contadorFilme = 0
 
     val cronometroFinalizado = MutableLiveData<Boolean>()
@@ -60,6 +60,10 @@ class JogoCenaViewModel(
 
     fun tocarMusica(){
         musicaJogoCena.start()
+    }
+
+    fun pausarMusica(){
+        musicaJogoCena.pause()
     }
 
     fun tocarRespostaCorreta(){

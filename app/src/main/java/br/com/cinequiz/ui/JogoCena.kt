@@ -12,10 +12,11 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import br.com.cinequiz.R
+import br.com.cinequiz.adapters.CancelaJogoDialogAdapter
 import br.com.cinequiz.adapters.ResultadoDialogAdapter
 import br.com.cinequiz.databinding.ActivityJogoCenaBinding
-import br.com.cinequiz.domain.Filme
 import br.com.cinequiz.domain.Parametros
+import br.com.cinequiz.domain.SingletonListaFilmes
 import br.com.cinequiz.room.CinequizApplication
 import com.airbnb.lottie.LottieAnimationView
 import com.google.firebase.auth.FirebaseAuth
@@ -42,8 +43,7 @@ class JogoCena : AppCompatActivity() {
         binding = ActivityJogoCenaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val listaFilmes =
-            intent.getSerializableExtra(Parametros.CHAVE_LISTA_FILMES) as ArrayList<Filme>
+        val listaFilmes = SingletonListaFilmes.filmes
 
         mAuth = FirebaseAuth.getInstance()
         val idUsuario = mAuth.currentUser?.uid
@@ -136,9 +136,21 @@ class JogoCena : AppCompatActivity() {
     }
 
     fun selecaoAlternativa(botaoPressionado: String) {
-        JogoCenaViewModel.incrementaFilme()
-        JogoCenaViewModel.resultadoResposta(botaoPressionado)
-        novaRodada()
+
+        if (JogoCenaViewModel.contadorFilme >= (JogoCenaViewModel.filmes.size - 1)) {
+
+            binding.includeJogoCenaBotoes.imageButtonAlternativas1.isClickable = false
+            binding.includeJogoCenaBotoes.imageButtonAlternativas2.isClickable = false
+            binding.includeJogoCenaBotoes.imageButtonAlternativas3.isClickable = false
+            binding.includeJogoCenaBotoes.imageButtonAlternativas4.isClickable = false
+
+            encerraPartida()
+
+        }else{
+            JogoCenaViewModel.incrementaFilme()
+            JogoCenaViewModel.resultadoResposta(botaoPressionado)
+            novaRodada()
+        }
     }
 
     fun encerraPartida() {
@@ -151,8 +163,10 @@ class JogoCena : AppCompatActivity() {
             ResultadoDialogAdapter(
                 JogoCenaViewModel.pontuacao.value!!,
                 "cena",
-                Parametros.ID_JOGO_CENA
+                Parametros.ID_JOGO_CENA,
+                prefs
             )
+        resultadoDialog.isCancelable = false
         resultadoDialog.show(supportFragmentManager, "resultadoDialog")
         JogoCenaViewModel.update()
     }
@@ -205,6 +219,13 @@ class JogoCena : AppCompatActivity() {
         } else {
             vibrator.vibrate(150)
         }
+    }
+
+    override fun onBackPressed() {
+
+        val cancelaJogoDialog = CancelaJogoDialogAdapter(JogoCenaViewModel.musicaJogoCena)
+        cancelaJogoDialog.isCancelable = false
+        cancelaJogoDialog.show(supportFragmentManager, "cancelaJogoDialog")
     }
 
 }

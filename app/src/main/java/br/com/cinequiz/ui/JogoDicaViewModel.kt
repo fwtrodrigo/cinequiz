@@ -43,7 +43,7 @@ class JogoDicaViewModel(
     var listaAlternativas = MutableLiveData<ArrayList<String>>()
     var alternativaCorreta = ""
 
-    var filmes = arrayListOf<Filme>()
+    var filmes = mutableListOf<Filme>()
     var contadorFilme = 0
 
     var animacaoResposta = MutableLiveData<Int>()
@@ -80,10 +80,12 @@ class JogoDicaViewModel(
 
         listaDicas.value = arrayListOf()
         listaDicasGeradas = arrayListOf(
-            "${filmes[contadorFilme].pessoasFilme[0].name} atuou como um dos meus personagens.",
+            "${filmes[contadorFilme].pessoasFilme[0].name} foi um dos meus atores.",
+            "${filmes[contadorFilme].pessoasFilme[1].name} fez parte do meu elenco.",
             "Fui produzido pelo estúdio ${filmes[contadorFilme].production_companies[0].name}.",
             "Minha estreia foi em ${filmes[contadorFilme].formataDataLancamento()}.",
-            "Um dos meus personagens se chama ${filmes[contadorFilme].pessoasFilme[0].character}."
+            "Tenho uma personagem chamada ${filmes[contadorFilme].pessoasFilme[0].character}.",
+            "${filmes[contadorFilme].pessoasFilme[1].character} foi uma das minhas personagens.",
         )
 
         listaDicasGeradas.shuffle()

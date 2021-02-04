@@ -12,10 +12,12 @@ import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import br.com.cinequiz.R
+import br.com.cinequiz.adapters.CancelaJogoDialogAdapter
 import br.com.cinequiz.adapters.ResultadoDialogAdapter
 import br.com.cinequiz.databinding.ActivityJogoDicaBinding
 import br.com.cinequiz.domain.Filme
 import br.com.cinequiz.domain.Parametros
+import br.com.cinequiz.domain.SingletonListaFilmes
 import br.com.cinequiz.room.CinequizApplication
 import com.airbnb.lottie.LottieAnimationView
 import com.google.firebase.auth.FirebaseAuth
@@ -46,8 +48,7 @@ class JogoDica : AppCompatActivity() {
         binding = ActivityJogoDicaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val listaFilmes =
-            intent.getSerializableExtra(Parametros.CHAVE_LISTA_FILMES) as ArrayList<Filme>
+        val listaFilmes = SingletonListaFilmes.filmes
 
         mAuth = FirebaseAuth.getInstance()
         val idUsuario = mAuth.currentUser?.uid
@@ -119,6 +120,7 @@ class JogoDica : AppCompatActivity() {
             val adapter = ArrayAdapter(this, R.layout.item_lista_dica, listaDicas)
             listaDicas.forEach { Log.i("JogoDica", it) }
             binding.listviewCenaDica.adapter = adapter
+            binding.listviewCenaDica.setSelection(binding.listviewCenaDica.getAdapter().getCount()-1);
 
         })
 
@@ -140,7 +142,12 @@ class JogoDica : AppCompatActivity() {
     fun selecaoAlternativa(botaoPressionado: String) {
         jogoDicaViewModel.incrementaFilme()
 
-        if (jogoDicaViewModel.contadorFilme == jogoDicaViewModel.filmes.size) {
+        if (jogoDicaViewModel.contadorFilme >= jogoDicaViewModel.filmes.size) {
+
+            binding.includeJogoDicaBotoes.imageButtonAlternativas1.isClickable = false
+            binding.includeJogoDicaBotoes.imageButtonAlternativas2.isClickable = false
+            binding.includeJogoDicaBotoes.imageButtonAlternativas3.isClickable = false
+            binding.includeJogoDicaBotoes.imageButtonAlternativas4.isClickable = false
 
             jogoDicaViewModel.resultadoResposta(botaoPressionado)
 
@@ -153,8 +160,10 @@ class JogoDica : AppCompatActivity() {
                     ResultadoDialogAdapter(
                         jogoDicaViewModel.pontuacao.value!!,
                         "dica",
-                        Parametros.ID_JOGO_DICA
+                        Parametros.ID_JOGO_DICA,
+                        prefs
                     )
+                resultadoDialog.isCancelable = false
                 resultadoDialog.show(supportFragmentManager, "resultadoDialog")
                 jogoDicaViewModel.update()
 
@@ -224,6 +233,13 @@ class JogoDica : AppCompatActivity() {
         } else {
             vibrator.vibrate(150)
         }
+    }
+
+    override fun onBackPressed() {
+
+        val cancelaJogoDialog = CancelaJogoDialogAdapter(jogoDicaViewModel.musicaJogoDica)
+        cancelaJogoDialog.isCancelable = false
+        cancelaJogoDialog.show(supportFragmentManager, "cancelaJogoDialog")
     }
 
 }

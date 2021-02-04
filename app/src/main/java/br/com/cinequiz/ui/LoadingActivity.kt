@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import br.com.cinequiz.R
 import br.com.cinequiz.domain.Filme
 import br.com.cinequiz.domain.Parametros
+import br.com.cinequiz.domain.SingletonListaFilmes
 import br.com.cinequiz.service.repository
 import java.io.Serializable
 
@@ -41,23 +42,19 @@ class LoadingActivity : AppCompatActivity() {
 
             } else {
 
-                val a = if (idJogo == Parametros.ID_JOGO_DICA) {
+                val jogoSelecionado = if (idJogo == Parametros.ID_JOGO_DICA) {
                     JogoDica::class.java
                 } else {
                     JogoCena::class.java
                 }
 
-                val intent: Intent = Intent(this, a)
+                val intent: Intent = Intent(this, jogoSelecionado)
                 val listaFilmes = mutableListOf<Filme>()
                 listaFilmes.addAll(loadingViewModel.listaFilmesUtilizaveis.subList(0, requisitoQuantidadeFilmes))
                 listaFilmes.shuffle()
 
-                Log.i("qdtFilmes", listaFilmes.size.toString())
-
-                intent.putExtra(
-                    Parametros.CHAVE_LISTA_FILMES,
-                    listaFilmes as Serializable
-                )
+                SingletonListaFilmes.filmes = mutableListOf()
+                SingletonListaFilmes.filmes = listaFilmes
 
                 startActivity(intent)
                 finish()
