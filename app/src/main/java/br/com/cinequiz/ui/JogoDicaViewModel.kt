@@ -84,8 +84,8 @@ class JogoDicaViewModel(
             "${filmes[contadorFilme].pessoasFilme[1].name} fez parte do meu elenco.",
             "Fui produzido pelo estúdio ${filmes[contadorFilme].production_companies[0].name}.",
             "Minha estreia foi em ${filmes[contadorFilme].formataDataLancamento()}.",
-            "Tenho uma personagem chamada ${filmes[contadorFilme].pessoasFilme[0].character}.",
-            "${filmes[contadorFilme].pessoasFilme[1].character} foi uma das minhas personagens.",
+            "Tenho um personagem chamado ${filmes[contadorFilme].pessoasFilme[0].character}.",
+            "${filmes[contadorFilme].pessoasFilme[1].character} foi um dos meus personagens.",
         )
 
         listaDicasGeradas.shuffle()
