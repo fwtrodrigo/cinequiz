@@ -94,5 +94,5 @@ data class PessoaFilme(
     val gender: Int,
     val known_for_department: String,
     val name: String,
-    val character: String
+    val character: String,
 ) : Serializable

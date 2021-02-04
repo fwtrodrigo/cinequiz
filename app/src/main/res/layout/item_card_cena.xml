@@ -16,5 +16,21 @@
         android:scaleType="centerCrop"
         android:src="@drawable/img_detona_ralph"/>
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animacaoRespostaCorreta"
+        android:layout_width="match_parent"
+        android:layout_height="290dp"
+        android:background="@color/cineVerde"
+        android:visibility="invisible"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animacaoRespostaErrada"
+        android:layout_width="match_parent"
+        android:layout_height="290dp"
+        android:background="@color/cineVermelho"
+        android:visibility="invisible"/>
+
+
+
 </androidx.cardview.widget.CardView>
 

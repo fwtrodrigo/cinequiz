@@ -24,6 +24,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            it.buildConfigField "String", "API_KEY", keys.apiKey
+        }
+
+        debug {
+            it.buildConfigField "String", "API_KEY", keys.apiKey
         }
     }
     compileOptions {
@@ -69,5 +74,6 @@ dependencies {
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 
 }

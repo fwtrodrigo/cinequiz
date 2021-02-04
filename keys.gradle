@@ -1,0 +1,18 @@
+// Define como carregar as informações do arquivo local
+def getStringFromFile(fileName, property) {
+    Properties props = new Properties()
+
+    props.load(project.rootProject.file(fileName).newDataInputStream())
+
+    return props[property].toString()
+}
+
+
+// Indica keys.properties como o arquivo para recuperação dos valores
+def getStringFromKeysFile(property) {
+    return getStringFromFile('keys.properties', property).toString()
+}
+
+
+// Expõe a chave definida no keys.properties como uma variável para uso em todo o projeto
+ext.keys = ["apiKey": getStringFromKeysFile('api.key'),]
