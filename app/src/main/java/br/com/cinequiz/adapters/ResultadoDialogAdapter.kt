@@ -100,7 +100,6 @@ class ResultadoDialogAdapter(
                     }
                 })
                 somItemSelecionado.start()
-                somAplausos.stop()
             }
 
             var intent = Intent(activity, MenuActivity::class.java)
