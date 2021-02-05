@@ -2,8 +2,6 @@ package br.com.cinequiz.room
 
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.Observer
-import androidx.lifecycle.asLiveData
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -11,7 +9,6 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import br.com.cinequiz.domain.*
 import br.com.cinequiz.room.dao.*
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 // Annotates class to be a Room Database with a table (entity) of the Word class
@@ -39,22 +36,52 @@ public abstract class CinequizRoomDatabase : RoomDatabase() {
 
             INSTANCE?.let { database ->
                 scope.launch {
-                    var medalhaDao = database.medalhaDao()
-
-                    Log.i("CinequizRoomDatabase", "Preenchendo tabela de medalhas")
-                    var medalha =
-                        Medalha("ANOS_80", "Anos 80", "Acertou 100 filmes dos anos 80", 100)
-                    var medalha2 =
-                        Medalha("ANOS_90", "Anos 90", "Acertou 100 filmes dos anos 90", 100)
-                    var medalha3 =
-                        Medalha("ANOS_00", "Anos 2000", "Acertou 100 filmes dos anos 2000", 100)
-                    medalhaDao.insereMedalha(medalha)
-                    medalhaDao.insereMedalha(medalha2)
-                    medalhaDao.insereMedalha(medalha3)
-
+                    inicializaMedalhas(database)
                 }
             }
+        }
 
+        private suspend fun inicializaMedalhas(database: CinequizRoomDatabase) {
+            var medalhaDao = database.medalhaDao()
+
+            Log.i("CinequizRoomDatabase", "Preenchendo tabela de medalhas")
+            var medalha1 =
+                Medalha("TOTAL_500", "Woody Allen", "Acertou 500 filmes", 500)
+            var medalha2 =
+                Medalha("TOTAL_1500", "Martin Scorsese", "Acertou 1500 filmes", 1500)
+            var medalha3 =
+                Medalha("TOTAL_3000", "Steven Spielberg", "Acertou 3000 filmes", 3000)
+            var medalha4 =
+                Medalha("CENA_200", "Mad Max", "Acertou 200 filmes no modo Cena", 200)
+            var medalha5 =
+                Medalha("CENA_1000", "Velozes e Furiosos", "Acertou 1000 filmes no modo Cena", 1000)
+            var medalha6 =
+                Medalha("DICA_200", "Professor Xavier", "Acertou 200 filmes do modo Dica", 200)
+            var medalha7 =
+                Medalha("DICA_1000", "Tony Stark", "Acertou 1000 filmes do modo Dica", 1000)
+            var medalha8 =
+                Medalha("ANOS_70", "Mestre Yoda", "Acertou 200 filmes dos anos 70", 200)
+            var medalha9 =
+                Medalha("ANOS_80", "Rambo", "Acertou 100 filmes dos anos 80", 100)
+            var medalha10 =
+                Medalha("ANOS_90", "Rei Leão", "Acertou 200 filmes dos anos 90", 200)
+            var medalha11 =
+                Medalha("ANOS_00", "O Senhor dos Anéis", "Acertou 300 filmes dos anos 2000", 300)
+            var medalha12 =
+                Medalha("ANOS_10", "Saga Vingadores", "Acertou 400 filmes dos anos 2010", 400)
+
+            medalhaDao.insereMedalha(medalha1)
+            medalhaDao.insereMedalha(medalha2)
+            medalhaDao.insereMedalha(medalha3)
+            medalhaDao.insereMedalha(medalha4)
+            medalhaDao.insereMedalha(medalha5)
+            medalhaDao.insereMedalha(medalha6)
+            medalhaDao.insereMedalha(medalha7)
+            medalhaDao.insereMedalha(medalha8)
+            medalhaDao.insereMedalha(medalha9)
+            medalhaDao.insereMedalha(medalha10)
+            medalhaDao.insereMedalha(medalha11)
+            medalhaDao.insereMedalha(medalha12)
         }
     }
 

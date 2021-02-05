@@ -6,8 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import br.com.cinequiz.domain.Medalha
-import br.com.cinequiz.domain.Usuario
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MedalhaDao {
@@ -17,4 +15,8 @@ interface MedalhaDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insereMedalha(medalha: Medalha)
+
+    @Query("SELECT * FROM medalha WHERE id = :idMedalha")
+    suspend fun selecionaPorId(idMedalha: String): Medalha
+
 }

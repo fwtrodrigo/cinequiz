@@ -14,6 +14,10 @@ class UsuarioMedalhaRepository(private val usuarioMedalhaDao: UsuarioMedalhaDao)
         return usuarioMedalhaDao.selecionaMedalhasPossiveis(idUsuario)
     }
 
+    suspend fun selecionaMedalhasDisponiveis(idUsuario: String): List<UsuarioMedalhaJoin> {
+        return usuarioMedalhaDao.selecionaMedalhasDisponiveis(idUsuario)
+    }
+
     fun selecionaMedalhasNaoConquistadas(idUsuario: String): LiveData<List<UsuarioMedalha>> {
         return usuarioMedalhaDao.selecionaMedalhasNaoConquistadas(idUsuario)
     }
@@ -25,11 +29,24 @@ class UsuarioMedalhaRepository(private val usuarioMedalhaDao: UsuarioMedalhaDao)
         usuarioMedalhaDao.insereUsuarioMedalha(usuarioMedalha)
     }
 
-    suspend fun atualizaContadorMedalha(idUsuario: String, pontuacao: Int){
-        usuarioMedalhaDao.atualizaContadorMedalha(idUsuario, pontuacao)
+    suspend fun atualizaContadorMedalha(idUsuario: String, pontuacao: Int, idMedalha: String) {
+        usuarioMedalhaDao.atualizaContadorMedalha(idUsuario, pontuacao, idMedalha)
     }
 
-    suspend fun atualizaFlagMedalha(idUsuario: String, flag: Boolean){
-        usuarioMedalhaDao.atualizaFlagMedalha(idUsuario,flag)
+    suspend fun atualizaContadorMedalha(
+        idUsuario: String,
+        pontuacao: Int,
+        idMedalha: String,
+        flag: Boolean
+    ) {
+        usuarioMedalhaDao.atualizaContadorMedalha(idUsuario, pontuacao, idMedalha, flag)
+    }
+
+    suspend fun atualizaFlagMedalha(idUsuario: String, flag: Boolean, idMedalha: String) {
+        usuarioMedalhaDao.atualizaFlagMedalha(idUsuario, flag, idMedalha)
+    }
+
+    suspend fun selecionaContadorMedalha(idUsuario: String, idMedalha: String): UsuarioMedalha {
+        return usuarioMedalhaDao.selecionaContadorMedalha(idUsuario, idMedalha)
     }
 }

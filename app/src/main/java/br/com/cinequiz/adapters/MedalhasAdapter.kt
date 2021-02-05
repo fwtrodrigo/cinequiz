@@ -1,20 +1,22 @@
 package br.com.cinequiz.adapters
 
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.content.Intent
-import android.os.Bundle
-import androidx.core.content.ContextCompat.startActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import br.com.cinequiz.R
 import br.com.cinequiz.domain.UsuarioMedalhaJoin
 
-class MedalhasAdapter(private val context: Context) : RecyclerView.Adapter<MedalhasAdapter.MedalhaViewHolder>() {
-    val listaMedalhas = ArrayList<UsuarioMedalhaJoin>()
+class MedalhasAdapter(
+    private val context: Context,
+    var listaMedalhas: ArrayList<UsuarioMedalhaJoin>
+) : RecyclerView.Adapter<MedalhasAdapter.MedalhaViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -30,13 +32,27 @@ class MedalhasAdapter(private val context: Context) : RecyclerView.Adapter<Medal
         holder.tvMedalhaTit.text = medalha.titulo
         holder.tvMedalhaDesc.text = medalha.descricao
 
+        Log.d("MEDALHAS ADAPTER", medalha.toString())
+
         if (!medalha.flag) {
+            Log.d("MEDALHAS ADAPTER", "ENTROU AQUI . ${medalha.titulo} . ${medalha.flag}")
             holder.constraintLayoutItemMedalha.setBackgroundResource(R.drawable.shape_fundo_medalha_desativado)
             holder.btShare.setImageResource(R.drawable.ic_btn_share_desativado)
             holder.btShare.setBackgroundResource(R.drawable.shape_circulo_desativado)
+            holder.btShare.isClickable = false
             holder.ivMedalhaFundo.setImageResource(R.drawable.img_fundo_medalha_desativado)
             return
+        } else {
+            Log.d("MEDALHAS ADAPTER", "ENTROU AQUI . ${medalha.titulo} . ${medalha.flag}")
+            holder.constraintLayoutItemMedalha.setBackgroundResource(R.drawable.shape_fundo_medalha)
+            holder.btShare.setBackgroundResource(R.drawable.shape_circulo_laranja)
+            holder.btShare.setImageResource(R.drawable.ic_compartilhar_temp)
+            val drawable = AppCompatResources.getDrawable(context, R.drawable.ic_btn_share)
+            holder.btShare.setImageDrawable(drawable)
+            holder.btShare.isClickable = true
+            holder.ivMedalhaFundo.setImageResource(R.drawable.img_fundo_medalha)
         }
+
 
         holder.btShare.setOnClickListener {
             compartilhar(medalha.titulo)
