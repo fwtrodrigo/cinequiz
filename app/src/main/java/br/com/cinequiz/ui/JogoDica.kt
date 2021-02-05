@@ -2,6 +2,7 @@ package br.com.cinequiz.ui
 
 import android.animation.Animator
 import android.content.SharedPreferences
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
@@ -158,6 +159,7 @@ class JogoDica : AppCompatActivity() {
                 delay(600)
 
                 encerraPartida()
+                jogoDicaViewModel.liberaAudios()
 
                 val resultadoDialog =
                     ResultadoDialogAdapter(

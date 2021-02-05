@@ -31,7 +31,7 @@ class JogoCena : AppCompatActivity() {
     private lateinit var animacaoRespostaCorreta: LottieAnimationView
     private lateinit var animacaoRespostaErrada: LottieAnimationView
 
-    private val JogoCenaViewModel: JogoCenaViewModel by viewModels {
+    private val jogoCenaViewModel: JogoCenaViewModel by viewModels {
         JogoCenaViewModelFactory(
             application,
             (application as CinequizApplication).repositoryUsuarioRecorde
@@ -54,11 +54,11 @@ class JogoCena : AppCompatActivity() {
         inicializaAnimacao(animacaoRespostaCorreta, Parametros.ID_RESPOSTA_CORRETA)
         inicializaAnimacao(animacaoRespostaErrada, Parametros.ID_RESPOSTA_ERRADA)
 
-        JogoCenaViewModel.inicializaAudios()
-        JogoCenaViewModel.filmes = listaFilmes
+        jogoCenaViewModel.inicializaAudios()
+        jogoCenaViewModel.filmes = listaFilmes
 
         if (prefs.getBoolean("musica", true)) {
-            JogoCenaViewModel.tocarMusica()
+            jogoCenaViewModel.tocarMusica()
         }
 
         novaPartida()
@@ -88,39 +88,39 @@ class JogoCena : AppCompatActivity() {
 
     fun novaPartida() {
 
-        JogoCenaViewModel.timer.start()
+        jogoCenaViewModel.timer.start()
 
-        JogoCenaViewModel.cronometroFinalizado.observe(this, {
+        jogoCenaViewModel.cronometroFinalizado.observe(this, {
             if (it == true) {
                 encerraPartida()
             }
         })
 
-        JogoCenaViewModel.animacaoResposta.observe(this, { resposta ->
+        jogoCenaViewModel.animacaoResposta.observe(this, { resposta ->
             if (resposta == 1) {
-                if (prefs.getBoolean("sons", true)) JogoCenaViewModel.tocarRespostaCorreta()
+                if (prefs.getBoolean("sons", true)) jogoCenaViewModel.tocarRespostaCorreta()
                 executaAnimacao(animacaoRespostaCorreta)
             } else {
-                if (prefs.getBoolean("sons", true)) JogoCenaViewModel.tocarRespostaErrada()
+                if (prefs.getBoolean("sons", true)) jogoCenaViewModel.tocarRespostaErrada()
                 executaAnimacao(animacaoRespostaErrada)
             }
         })
 
-        JogoCenaViewModel.usuarioRecordeLiveData.observe(this, {
-            JogoCenaViewModel.usuarioRecorde = it
+        jogoCenaViewModel.usuarioRecordeLiveData.observe(this, {
+            jogoCenaViewModel.usuarioRecorde = it
         })
 
-        JogoCenaViewModel.pontuacao.observe(
+        jogoCenaViewModel.pontuacao.observe(
             this, { pontuacao ->
                 binding.itemPontuacaoJogoCena.tvJogoCenaPontos.text = pontuacao.toString()
             }
         )
 
-        JogoCenaViewModel.cronometro.observe(this, {
+        jogoCenaViewModel.cronometro.observe(this, {
             binding.itemPontuacaoJogoCena.tvJogoCenaTempo.text = it.toString()
         })
 
-        JogoCenaViewModel.listaAlternativas.observe(this, { listaAlternativas ->
+        jogoCenaViewModel.listaAlternativas.observe(this, { listaAlternativas ->
             binding.includeJogoCenaBotoes.txtAlternativa1.text = listaAlternativas[0]
             binding.includeJogoCenaBotoes.txtAlternativa2.text = listaAlternativas[1]
             binding.includeJogoCenaBotoes.txtAlternativa3.text = listaAlternativas[2]
@@ -131,13 +131,13 @@ class JogoCena : AppCompatActivity() {
     }
 
     fun carregaCena() {
-        Picasso.get().load("https://image.tmdb.org/t/p/w500" + JogoCenaViewModel.gerarCenas())
+        Picasso.get().load("https://image.tmdb.org/t/p/w500" + jogoCenaViewModel.gerarCenas())
             .into(binding.itemCardCena.imgFilmeCena)
     }
 
     fun selecaoAlternativa(botaoPressionado: String) {
 
-        if (JogoCenaViewModel.contadorFilme >= (JogoCenaViewModel.filmes.size - 1)) {
+        if (jogoCenaViewModel.contadorFilme >= (jogoCenaViewModel.filmes.size - 1)) {
 
             binding.includeJogoCenaBotoes.imageButtonAlternativas1.isClickable = false
             binding.includeJogoCenaBotoes.imageButtonAlternativas2.isClickable = false
@@ -147,8 +147,8 @@ class JogoCena : AppCompatActivity() {
             encerraPartida()
 
         }else{
-            JogoCenaViewModel.incrementaFilme()
-            JogoCenaViewModel.resultadoResposta(botaoPressionado)
+            jogoCenaViewModel.incrementaFilme()
+            jogoCenaViewModel.resultadoResposta(botaoPressionado)
             novaRodada()
         }
     }
@@ -156,24 +156,25 @@ class JogoCena : AppCompatActivity() {
     fun encerraPartida() {
 
         if (prefs.getBoolean("musica", true)) {
-            JogoCenaViewModel.pararMusica()
+            jogoCenaViewModel.pararMusica()
         }
 
+        jogoCenaViewModel.liberaAudios()
         val resultadoDialog =
             ResultadoDialogAdapter(
-                JogoCenaViewModel.pontuacao.value!!,
+                jogoCenaViewModel.pontuacao.value!!,
                 "cena",
                 Parametros.ID_JOGO_CENA,
                 prefs
             )
         resultadoDialog.isCancelable = false
         resultadoDialog.show(supportFragmentManager, "resultadoDialog")
-        JogoCenaViewModel.update()
+        jogoCenaViewModel.update()
     }
 
     fun novaRodada() {
         carregaCena()
-        JogoCenaViewModel.gerarAlternativas()
+        jogoCenaViewModel.gerarAlternativas()
     }
 
     fun inicializaAnimacao(animacao: LottieAnimationView, codAnimacao: Int) {
@@ -223,7 +224,7 @@ class JogoCena : AppCompatActivity() {
 
     override fun onBackPressed() {
 
-        val cancelaJogoDialog = CancelaJogoDialogAdapter(JogoCenaViewModel.musicaJogoCena)
+        val cancelaJogoDialog = CancelaJogoDialogAdapter(jogoCenaViewModel.musicaJogoCena)
         cancelaJogoDialog.isCancelable = false
         cancelaJogoDialog.show(supportFragmentManager, "cancelaJogoDialog")
     }

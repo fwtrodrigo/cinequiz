@@ -78,6 +78,12 @@ class JogoCenaViewModel(
         musicaJogoCena.stop()
     }
 
+    fun liberaAudios(){
+        musicaJogoCena.release()
+        somRespostaCorreta.release()
+        somRespostaErrada.release()
+    }
+
     fun gerarAlternativas() {
         val alternativasGeradas = arrayListOf(
             filmes[contadorFilme].title,

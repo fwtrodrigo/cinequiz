@@ -23,6 +23,7 @@ class Parametros {
         val PONTUACAO_INICIAL_JOGO_DICA = 150
         val QUANTIDADE_INICIAL_FILMES_DICA = 40
         val PONTUACAO_ACERTO_JOGO_DICA = 40
+        val PONTUACAO_ERRO_JOGO_DICA = 10
         val PONTUACAO_PROXIMA_DICA_JOGO_DICA = 10
 
         //id medalhas
