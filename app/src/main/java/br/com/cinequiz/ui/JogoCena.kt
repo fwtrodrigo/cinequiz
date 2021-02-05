@@ -241,6 +241,10 @@ class JogoCena : AppCompatActivity() {
         cancelaJogoDialog.show(supportFragmentManager, "cancelaJogoDialog")
     }
 
-    private val buttonClick = AlphaAnimation(1f, 1.8f)
+    private val buttonClick = AlphaAnimation(1f, 0.8f)
+
+    fun onClick(v: View) {
+        v.startAnimation(buttonClick)
+    }
 
 }

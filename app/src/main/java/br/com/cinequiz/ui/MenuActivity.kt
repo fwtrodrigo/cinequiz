@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.util.Log
+import android.view.View
+import android.view.animation.AlphaAnimation
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import br.com.cinequiz.R
@@ -53,6 +55,7 @@ class MenuActivity : AppCompatActivity() {
         binding.btnMenuDicas.btnItemDica.setOnClickListener {
             executaSomItemMenu()
             vibrarBotão()
+            it.startAnimation(buttonClick)
             val intent = Intent(this, LoadingActivity::class.java)
             intent.putExtra(Parametros.CHAVE_JOGO, Parametros.ID_JOGO_DICA)
             intent.putExtra(
@@ -65,6 +68,7 @@ class MenuActivity : AppCompatActivity() {
         binding.btnMenuCenas.btnItemCena.setOnClickListener {
             executaSomItemMenu()
             vibrarBotão()
+            it.startAnimation(buttonClick)
             val intent = Intent(this, LoadingActivity::class.java)
             intent.putExtra(Parametros.CHAVE_JOGO, Parametros.ID_JOGO_CENA)
             intent.putExtra(
@@ -109,4 +113,11 @@ class MenuActivity : AppCompatActivity() {
             vibrator.vibrate(150)
         }
     }
+
+    private val buttonClick = AlphaAnimation(1f, 0.8f)
+
+    fun onClick(v: View) {
+        v.startAnimation(buttonClick)
+    }
+
 }

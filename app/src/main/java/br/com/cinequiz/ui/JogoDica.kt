@@ -247,4 +247,8 @@ class JogoDica : AppCompatActivity() {
 
     private val buttonClick = AlphaAnimation(1f, 0.8f)
 
+    fun onClick(v: View) {
+        v.startAnimation(buttonClick)
+    }
+
 }
