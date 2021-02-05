@@ -4,21 +4,19 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import br.com.cinequiz.R
 import br.com.cinequiz.domain.Parametros
 import br.com.cinequiz.ui.LoadingActivity
 import br.com.cinequiz.ui.MenuActivity
-import com.google.firebase.auth.FirebaseAuth
+
 
 
 class ResultadoDialogAdapter(
@@ -110,7 +108,6 @@ class ResultadoDialogAdapter(
         ibCompartilhar.setOnClickListener {
             //implementar compartilhamento.
             compartilhar(jogo)
-            Toast.makeText(activity, "implementar compartilhamento", Toast.LENGTH_SHORT).show()
         }
 
         return rootView

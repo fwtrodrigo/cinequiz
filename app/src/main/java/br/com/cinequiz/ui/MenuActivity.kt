@@ -75,12 +75,12 @@ class MenuActivity : AppCompatActivity() {
         }
 
         binding.btnMenuMedalhas.setOnClickListener {
-            somItemSelecionado.start()
+            if(prefs.getBoolean("sons", true)) somItemSelecionado.start()
             startActivity(Intent(this, MedalhasActivity::class.java))
         }
 
         binding.btnMenuOpcoes.setOnClickListener {
-            somItemSelecionado.start()
+            if(prefs.getBoolean("sons", true)) somItemSelecionado.start()
             startActivity(Intent(this, OpcoesActivity::class.java))
         }
     }
@@ -109,5 +109,4 @@ class MenuActivity : AppCompatActivity() {
             vibrator.vibrate(150)
         }
     }
-
 }

@@ -39,6 +39,7 @@ class MedalhasAdapter(
             holder.constraintLayoutItemMedalha.setBackgroundResource(R.drawable.shape_fundo_medalha_desativado)
             holder.btShare.setImageResource(R.drawable.ic_btn_share_desativado)
             holder.btShare.setBackgroundResource(R.drawable.shape_circulo_desativado)
+            holder.btShare.isClickable = false
             holder.ivMedalhaFundo.setImageResource(R.drawable.img_fundo_medalha_desativado)
             return
         } else {
@@ -48,6 +49,7 @@ class MedalhasAdapter(
             holder.btShare.setImageResource(R.drawable.ic_compartilhar_temp)
             val drawable = AppCompatResources.getDrawable(context, R.drawable.ic_btn_share)
             holder.btShare.setImageDrawable(drawable)
+            holder.btShare.isClickable = true
             holder.ivMedalhaFundo.setImageResource(R.drawable.img_fundo_medalha)
         }
 
