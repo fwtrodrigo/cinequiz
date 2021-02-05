@@ -63,4 +63,7 @@ class LoadingActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onBackPressed() {
+    }
 }

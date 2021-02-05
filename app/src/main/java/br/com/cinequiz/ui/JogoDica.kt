@@ -158,7 +158,6 @@ class JogoDica : AppCompatActivity() {
             scope.launch {
                 delay(600)
 
-                encerraPartida()
                 jogoDicaViewModel.liberaAudios()
 
                 val resultadoDialog =
@@ -177,13 +176,6 @@ class JogoDica : AppCompatActivity() {
         } else {
             jogoDicaViewModel.resultadoResposta(botaoPressionado)
             novaRodada()
-        }
-    }
-
-    fun encerraPartida() {
-
-        if (prefs.getBoolean("musica", true)) {
-            jogoDicaViewModel.pararMusica()
         }
     }
 

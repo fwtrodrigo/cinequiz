@@ -21,6 +21,9 @@ import br.com.cinequiz.room.CinequizApplication
 import com.airbnb.lottie.LottieAnimationView
 import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class JogoCena : AppCompatActivity() {
@@ -34,7 +37,9 @@ class JogoCena : AppCompatActivity() {
     private val jogoCenaViewModel: JogoCenaViewModel by viewModels {
         JogoCenaViewModelFactory(
             application,
-            (application as CinequizApplication).repositoryUsuarioRecorde
+            (application as CinequizApplication).repositoryUsuarioRecorde,
+            (application as CinequizApplication).repositoryUsuarioMedalha,
+            (application as CinequizApplication).repositoryMedalha
         )
     }
 
@@ -146,7 +151,8 @@ class JogoCena : AppCompatActivity() {
 
             encerraPartida()
 
-        }else{
+
+        } else {
             jogoCenaViewModel.incrementaFilme()
             jogoCenaViewModel.resultadoResposta(botaoPressionado)
             novaRodada()
@@ -154,10 +160,6 @@ class JogoCena : AppCompatActivity() {
     }
 
     fun encerraPartida() {
-
-        if (prefs.getBoolean("musica", true)) {
-            jogoCenaViewModel.pararMusica()
-        }
 
         jogoCenaViewModel.liberaAudios()
         val resultadoDialog =
@@ -170,6 +172,11 @@ class JogoCena : AppCompatActivity() {
         resultadoDialog.isCancelable = false
         resultadoDialog.show(supportFragmentManager, "resultadoDialog")
         jogoCenaViewModel.update()
+
+        val scope = CoroutineScope(Dispatchers.Main)
+        scope.launch {
+            jogoCenaViewModel.atualizaContadoresUsuario()
+        }
     }
 
     fun novaRodada() {

@@ -14,6 +14,10 @@ class UsuarioMedalhaRepository(private val usuarioMedalhaDao: UsuarioMedalhaDao)
         return usuarioMedalhaDao.selecionaMedalhasPossiveis(idUsuario)
     }
 
+    suspend fun selecionaMedalhasDisponiveis(idUsuario: String): List<UsuarioMedalhaJoin> {
+        return usuarioMedalhaDao.selecionaMedalhasDisponiveis(idUsuario)
+    }
+
     fun selecionaMedalhasNaoConquistadas(idUsuario: String): LiveData<List<UsuarioMedalha>> {
         return usuarioMedalhaDao.selecionaMedalhasNaoConquistadas(idUsuario)
     }
