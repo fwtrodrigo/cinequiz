@@ -87,10 +87,6 @@ class JogoDicaViewModel(
         somRespostaErrada.start()
     }
 
-    fun pararMusica() {
-        musicaJogoDica.stop()
-    }
-
     fun gerarDicas() {
 
         contadorDica = 0
