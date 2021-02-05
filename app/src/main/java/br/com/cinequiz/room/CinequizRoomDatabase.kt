@@ -68,7 +68,7 @@ public abstract class CinequizRoomDatabase : RoomDatabase() {
             var medalha11 =
                 Medalha("ANOS_00", "O Senhor dos Anéis", "Acertou 300 filmes dos anos 2000", 300)
             var medalha12 =
-                Medalha("ANOS_10", "Vingadores: Ultimato", "Acertou 400 filmes dos anos 2010", 400)
+                Medalha("ANOS_10", "Saga Vingadores", "Acertou 400 filmes dos anos 2010", 400)
 
             medalhaDao.insereMedalha(medalha1)
             medalhaDao.insereMedalha(medalha2)
