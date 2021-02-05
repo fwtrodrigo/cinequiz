@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import br.com.cinequiz.R
@@ -41,7 +42,7 @@ class MenuActivity : AppCompatActivity() {
         var usuarioNome = mAuth.currentUser!!.displayName
 
         prefs = getSharedPreferences("userPrefs_$usuarioId", MODE_PRIVATE)
-        somItemSelecionado = MediaPlayer.create(this, R.raw.item_menu_som)
+        inicializaAudio()
 
         menuViewModel.inicializaUsuario(
             getSharedPreferences("userPrefs_$usuarioId", MODE_PRIVATE),
@@ -74,18 +75,29 @@ class MenuActivity : AppCompatActivity() {
         }
 
         binding.btnMenuMedalhas.setOnClickListener {
-            executaSomItemMenu()
+            somItemSelecionado.start()
             startActivity(Intent(this, MedalhasActivity::class.java))
         }
 
         binding.btnMenuOpcoes.setOnClickListener {
-            executaSomItemMenu()
+            somItemSelecionado.start()
             startActivity(Intent(this, OpcoesActivity::class.java))
         }
     }
 
+    fun inicializaAudio(){
+        somItemSelecionado = MediaPlayer.create(this, R.raw.item_menu_som)
+    }
+
     fun executaSomItemMenu(){
-        if(prefs.getBoolean("sons", true)) somItemSelecionado.start()
+        if(prefs.getBoolean("sons", true)) {
+            somItemSelecionado.setOnCompletionListener (object: MediaPlayer.OnCompletionListener{
+                override fun onCompletion(p0: MediaPlayer?) {
+                    somItemSelecionado.release()
+                }
+            })
+            somItemSelecionado.start()
+        }
     }
 
     fun vibrarBotão() {

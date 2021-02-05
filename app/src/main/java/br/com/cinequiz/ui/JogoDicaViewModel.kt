@@ -58,8 +58,18 @@ class JogoDicaViewModel(
         somRespostaErrada = MediaPlayer.create(context, R.raw.resposta_errada_som)
     }
 
+    fun liberaAudios(){
+        musicaJogoDica.release()
+        somRespostaCorreta.release()
+        somRespostaErrada.release()
+    }
+
     fun tocarMusica(){
-        musicaJogoDica.start()
+        musicaJogoDica.setOnPreparedListener(object : MediaPlayer.OnPreparedListener {
+            override fun onPrepared(som: MediaPlayer) {
+                som.start();
+            }
+        })
     }
 
     fun tocarRespostaCorreta(){
@@ -80,12 +90,10 @@ class JogoDicaViewModel(
 
         listaDicas.value = arrayListOf()
         listaDicasGeradas = arrayListOf(
-            "${filmes[contadorFilme].pessoasFilme[0].name} foi um dos meus atores.",
-            "${filmes[contadorFilme].pessoasFilme[1].name} fez parte do meu elenco.",
+            "${filmes[contadorFilme].pessoasFilme[0].name} fez parte do meu elenco.",
             "Fui produzido pelo estúdio ${filmes[contadorFilme].production_companies[0].name}.",
             "Minha estreia foi em ${filmes[contadorFilme].formataDataLancamento()}.",
             "Tenho uma personagem chamada ${filmes[contadorFilme].pessoasFilme[0].character}.",
-            "${filmes[contadorFilme].pessoasFilme[1].character} foi uma das minhas personagens.",
         )
 
         listaDicasGeradas.shuffle()
@@ -93,7 +101,7 @@ class JogoDicaViewModel(
             listaDicasGeradas[i] = (i + 1).toString() + " - " + listaDicasGeradas[i]
         }
 
-        proximaDica(Parametros.PONTUACAO_PROXIMA_DICA_JOGO_DICA)
+        proximaDica(0)
     }
 
     fun gerarAlternativas() {
@@ -132,6 +140,7 @@ class JogoDicaViewModel(
             animacaoResposta.value = Parametros.ID_RESPOSTA_CORRETA
             aumentaPontuacao(Parametros.PONTUACAO_ACERTO_JOGO_DICA)
         } else {
+            descontaPontuacao(Parametros.PONTUACAO_ERRO_JOGO_DICA)
             animacaoResposta.value = Parametros.ID_RESPOSTA_ERRADA
         }
     }

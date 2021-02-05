@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,6 +65,11 @@ class ResultadoDialogAdapter(
         btnJogarNovamente.setOnClickListener {
 
             if (prefs.getBoolean("sons", true)){
+                somItemSelecionado.setOnCompletionListener (object: MediaPlayer.OnCompletionListener{
+                    override fun onCompletion(p0: MediaPlayer?) {
+                        somItemSelecionado.release()
+                    }
+                })
                 somItemSelecionado.start()
                 somAplausos.stop()
             }
@@ -88,6 +94,11 @@ class ResultadoDialogAdapter(
 
         btnVoltarMenu.setOnClickListener {
             if (prefs.getBoolean("sons", true)){
+                somItemSelecionado.setOnCompletionListener (object: MediaPlayer.OnCompletionListener{
+                    override fun onCompletion(p0: MediaPlayer?) {
+                        somItemSelecionado.release()
+                    }
+                })
                 somItemSelecionado.start()
                 somAplausos.stop()
             }
@@ -107,26 +118,16 @@ class ResultadoDialogAdapter(
         return rootView
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onStart() {
         if (prefs.getBoolean("sons", true)){
-            somAplausos.setOnPreparedListener(object : MediaPlayer.OnPreparedListener {
-                override fun onPrepared(somAplausos: MediaPlayer) {
-                    somAplausos.start();
+            somAplausos.setOnCompletionListener (object: MediaPlayer.OnCompletionListener{
+                override fun onCompletion(p0: MediaPlayer?) {
+                    somAplausos.release()
                 }
             })
+            somAplausos.start()
         }
-
-
-    }
-
-    private fun executarSom(som: MediaPlayer) {
-        som.setOnPreparedListener(object : MediaPlayer.OnPreparedListener {
-            override fun onPrepared(som: MediaPlayer) {
-                som.start();
-            }
-        })
+        super.onStart()
     }
 
     private fun compartilhar(jogo: String) {
