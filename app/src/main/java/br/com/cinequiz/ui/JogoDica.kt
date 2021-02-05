@@ -9,6 +9,7 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.util.Log
 import android.view.View
+import android.view.animation.AlphaAnimation
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -245,9 +246,5 @@ class JogoDica : AppCompatActivity() {
     }
 
     private val buttonClick = AlphaAnimation(1f, 0.8f)
-
-    fun onClick(v: View) {
-        v.startAnimation(buttonClick)
-    }
 
 }

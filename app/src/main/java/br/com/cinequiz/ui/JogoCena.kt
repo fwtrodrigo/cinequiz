@@ -243,8 +243,4 @@ class JogoCena : AppCompatActivity() {
 
     private val buttonClick = AlphaAnimation(1f, 1.8f)
 
-    fun onClick(v: View) {
-        v.startAnimation(buttonClick)
-    }
-
 }
