@@ -39,4 +39,9 @@ interface UsuarioMedalhaDao {
     )
     suspend fun selecionaContadorMedalha(idUsuario: String, idMedalha: String): UsuarioMedalha
 
+    @Query(
+        "SELECT um.id, m.titulo, m.descricao, um.flag FROM usuario_medalha um INNER JOIN medalha m ON um.id_medalha = m.id WHERE um.id_usuario = :idUsuario"
+    )
+    suspend fun selecionaMedalhasDisponiveis(idUsuario: String): List<UsuarioMedalhaJoin>
+
 }

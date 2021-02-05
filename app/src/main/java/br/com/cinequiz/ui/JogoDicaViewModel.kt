@@ -65,13 +65,13 @@ class JogoDicaViewModel(
         somRespostaErrada = MediaPlayer.create(context, R.raw.resposta_errada_som)
     }
 
-    fun liberaAudios(){
+    fun liberaAudios() {
         musicaJogoDica.release()
         somRespostaCorreta.release()
         somRespostaErrada.release()
     }
 
-    fun tocarMusica(){
+    fun tocarMusica() {
         musicaJogoDica.setOnPreparedListener(object : MediaPlayer.OnPreparedListener {
             override fun onPrepared(som: MediaPlayer) {
                 som.start();
@@ -99,7 +99,7 @@ class JogoDicaViewModel(
             "Tenho um personagem chamado ${filmes[contadorFilme].pessoasFilme[0].character}.",
             "${filmes[contadorFilme].pessoasFilme[1].character} foi um dos meus personagens.",
 
-        )
+            )
 
         listaDicasGeradas.shuffle()
         for (i in 0 until listaDicasGeradas.size) {

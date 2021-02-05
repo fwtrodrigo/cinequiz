@@ -17,7 +17,9 @@ class MedalhaViewModel (private val usuarioMedalhaRepository: UsuarioMedalhaRepo
 
     fun selecionaRecordeUsuario(idUsuario: String) = usuarioRecordeRepository.get(idUsuario)
 
-
+    suspend fun selecionaMedalhasDisponiveis(idUsuario: String): List<UsuarioMedalhaJoin> {
+        return usuarioMedalhaRepository.selecionaMedalhasDisponiveis(idUsuario)
+    }
 }
 
 class MedalhaViewModelFactory(private val umRepository: UsuarioMedalhaRepository, private val urRepository: UsuarioRecordeRepository) : ViewModelProvider.Factory {
