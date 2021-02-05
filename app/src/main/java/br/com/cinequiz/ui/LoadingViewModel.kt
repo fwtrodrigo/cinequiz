@@ -93,6 +93,9 @@ class LoadingViewModel(
             filme.production_companies.isEmpty() -> false
             filme.release_date.isEmpty() -> false
             filme.pessoasFilme.isEmpty() -> false
+            filme.pessoasFilme[0].name.isEmpty() -> false
+            filme.pessoasFilme[1].name.isEmpty() -> false
+            filme.pessoasFilme[1].character.isEmpty() -> false
             filme.imagensFilme.isEmpty() -> false
             filme.imagensFilme[0].file_path.isEmpty() -> false
             filme.filmesSimilares.isEmpty() -> false

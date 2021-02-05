@@ -15,7 +15,6 @@ import br.com.cinequiz.R
 import br.com.cinequiz.adapters.CancelaJogoDialogAdapter
 import br.com.cinequiz.adapters.ResultadoDialogAdapter
 import br.com.cinequiz.databinding.ActivityJogoDicaBinding
-import br.com.cinequiz.domain.Filme
 import br.com.cinequiz.domain.Parametros
 import br.com.cinequiz.domain.SingletonListaFilmes
 import br.com.cinequiz.room.CinequizApplication
@@ -39,7 +38,9 @@ class JogoDica : AppCompatActivity() {
     private val jogoDicaViewModel: JogoDicaViewModel by viewModels {
         JogoDicaViewModelFactory(
             application,
-            (application as CinequizApplication).repositoryUsuarioRecorde
+            (application as CinequizApplication).repositoryUsuarioRecorde,
+            (application as CinequizApplication).repositoryUsuarioMedalha,
+            (application as CinequizApplication).repositoryMedalha,
         )
     }
 
@@ -120,7 +121,9 @@ class JogoDica : AppCompatActivity() {
             val adapter = ArrayAdapter(this, R.layout.item_lista_dica, listaDicas)
             listaDicas.forEach { Log.i("JogoDica", it) }
             binding.listviewCenaDica.adapter = adapter
-            binding.listviewCenaDica.setSelection(binding.listviewCenaDica.getAdapter().getCount()-1);
+            binding.listviewCenaDica.setSelection(
+                binding.listviewCenaDica.getAdapter().getCount() - 1
+            );
 
         })
 
@@ -166,7 +169,7 @@ class JogoDica : AppCompatActivity() {
                 resultadoDialog.isCancelable = false
                 resultadoDialog.show(supportFragmentManager, "resultadoDialog")
                 jogoDicaViewModel.update()
-
+                jogoDicaViewModel.atualizaContadoresUsuario()
             }
 
         } else {
@@ -188,7 +191,7 @@ class JogoDica : AppCompatActivity() {
 
             override fun onAnimationStart(animation: Animator?) {
 
-                if(codAnimacao == Parametros.ID_RESPOSTA_ERRADA) {
+                if (codAnimacao == Parametros.ID_RESPOSTA_ERRADA) {
                     binding.layoutDicas.setBackgroundResource(R.drawable.shape_card_fundo_dica_vermelho)
                 }
                 Log.i("ANIMATION", "INICIANDO ANIMACAO")
@@ -200,7 +203,7 @@ class JogoDica : AppCompatActivity() {
 
             override fun onAnimationEnd(animation: Animator?) {
 
-                if(codAnimacao == Parametros.ID_RESPOSTA_ERRADA) {
+                if (codAnimacao == Parametros.ID_RESPOSTA_ERRADA) {
                     binding.layoutDicas.setBackgroundResource(R.drawable.shape_card_fundo_dica)
                 }
                 animacao.visibility = View.GONE

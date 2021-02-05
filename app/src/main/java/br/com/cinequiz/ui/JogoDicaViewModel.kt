@@ -8,9 +8,12 @@ import android.view.Gravity
 import android.widget.Toast
 import androidx.lifecycle.*
 import br.com.cinequiz.R
+import br.com.cinequiz.domain.ContadorFilmes
 import br.com.cinequiz.domain.Filme
 import br.com.cinequiz.domain.Parametros
 import br.com.cinequiz.domain.UsuarioRecorde
+import br.com.cinequiz.room.repository.MedalhaRepository
+import br.com.cinequiz.room.repository.UsuarioMedalhaRepository
 import br.com.cinequiz.room.repository.UsuarioRecordeRepository
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
@@ -18,12 +21,16 @@ import kotlinx.coroutines.launch
 
 class JogoDicaViewModel(
     application: Application,
-    private val usuarioRecordeRepository: UsuarioRecordeRepository
+    private val usuarioRecordeRepository: UsuarioRecordeRepository,
+    private val usuarioMedalhaRepository: UsuarioMedalhaRepository,
+    private val medalhaRepository: MedalhaRepository
 ) : AndroidViewModel(application) {
     private val context = getApplication<Application>().applicationContext
+    private val totaisAcertos = ContadorFilmes()
 
     var usuarioId = FirebaseAuth.getInstance().currentUser!!.uid
     var usuarioRecordeLiveData: LiveData<UsuarioRecorde> = usuarioRecordeRepository.get(usuarioId)
+
 
     fun update() = viewModelScope.launch {
         val p = usuarioRecorde.popcornsDica
@@ -33,7 +40,7 @@ class JogoDicaViewModel(
         }
     }
 
-    lateinit var usuarioRecorde : UsuarioRecorde
+    lateinit var usuarioRecorde: UsuarioRecorde
     val pontuacao = MutableLiveData<Int>(Parametros.PONTUACAO_INICIAL_JOGO_DICA)
 
     var listaDicas = MutableLiveData<ArrayList<String>>()
@@ -51,26 +58,26 @@ class JogoDicaViewModel(
     var somRespostaCorreta = MediaPlayer()
     var somRespostaErrada = MediaPlayer()
 
-    fun inicializaAudios(){
+    fun inicializaAudios() {
         musicaJogoDica = MediaPlayer.create(context, R.raw.modo_dica_musica)
         musicaJogoDica.isLooping = true
         somRespostaCorreta = MediaPlayer.create(context, R.raw.resposta_correta_som)
         somRespostaErrada = MediaPlayer.create(context, R.raw.resposta_errada_som)
     }
 
-    fun tocarMusica(){
+    fun tocarMusica() {
         musicaJogoDica.start()
     }
 
-    fun tocarRespostaCorreta(){
+    fun tocarRespostaCorreta() {
         somRespostaCorreta.start()
     }
 
-    fun tocarRespostaErrada(){
+    fun tocarRespostaErrada() {
         somRespostaErrada.start()
     }
 
-    fun pararMusica(){
+    fun pararMusica() {
         musicaJogoDica.stop()
     }
 
@@ -131,6 +138,7 @@ class JogoDicaViewModel(
         if (resposta == alternativaCorreta) {
             animacaoResposta.value = Parametros.ID_RESPOSTA_CORRETA
             aumentaPontuacao(Parametros.PONTUACAO_ACERTO_JOGO_DICA)
+            totaisAcertos.atualizaPontuacao(filmes[contadorFilme - 1])
         } else {
             animacaoResposta.value = Parametros.ID_RESPOSTA_ERRADA
         }
@@ -148,16 +156,112 @@ class JogoDicaViewModel(
         contadorFilme++
     }
 
+    suspend fun atualizaContadoresUsuario() {
+        if (totaisAcertos.totalAcertos > 0) {
+            atualizaContadorMedalha(Parametros.CONTADOR_TOTAL_500, totaisAcertos.totalAcertos)
+            atualizaContadorMedalha(Parametros.CONTADOR_TOTAL_1500, totaisAcertos.totalAcertos)
+            atualizaContadorMedalha(Parametros.CONTADOR_TOTAL_3000, totaisAcertos.totalAcertos)
+            atualizaContadorMedalha(Parametros.CONTADOR_DICA_200, totaisAcertos.totalAcertos)
+            atualizaContadorMedalha(Parametros.CONTADOR_DICA_1000, totaisAcertos.totalAcertos)
+            Log.d("ENTROU NOS TOTAIS", "TOTAIS")
+        }
+
+        if (totaisAcertos.totalAnos70 > 0) {
+            atualizaContadorMedalha(Parametros.CONTADOR_ANOS_70, totaisAcertos.totalAnos70)
+            Log.d("ENTROU NOS 70", "ANOS 70")
+        }
+
+        if (totaisAcertos.totalAnos80 > 0) {
+            atualizaContadorMedalha(Parametros.CONTADOR_ANOS_80, totaisAcertos.totalAnos80)
+            Log.d("ENTROU NOS 80", "ANOS 80")
+        }
+
+        if (totaisAcertos.totalAnos90 > 0) {
+            atualizaContadorMedalha(Parametros.CONTADOR_ANOS_90, totaisAcertos.totalAnos90)
+            Log.d("ENTROU NOS 90", "ANOS 90")
+        }
+
+        if (totaisAcertos.totalAnos00 > 0) {
+            atualizaContadorMedalha(Parametros.CONTADOR_ANOS_00, totaisAcertos.totalAnos00)
+            Log.d("ENTROU NOS 00", "ANOS 00")
+        }
+
+        if (totaisAcertos.totalAnos10 > 0) {
+            atualizaContadorMedalha(Parametros.CONTADOR_ANOS_10, totaisAcertos.totalAnos10)
+            Log.d("ENTROU NOS 10", "ANOS 10")
+        }
+
+        if (totaisAcertos.totalAcertos == 0) {
+            Log.d("ATUALIZACONTADOR", "NAO TEVE ACERTO")
+        }
+    }
+
+    private suspend fun atualizaContadorMedalha(idMedalha: String, acertos: Int) {
+
+        val contador = usuarioMedalhaRepository.selecionaContadorMedalha(
+            usuarioId,
+            idMedalha
+        )
+
+        if (contador != null) {
+
+            val totalBD = contador.contador
+            Log.d("TOTALBD", totalBD.toString())
+            val totalPartida = acertos ?: 0
+            val totalAtual = totalPartida + totalBD
+            Log.d("TOTALATUAL", totalAtual.toString())
+
+            controleGanhoMedalha(totalAtual, idMedalha)
+        }
+
+    }
+
+
+    private suspend fun controleGanhoMedalha(totalAtual: Int, idMedalha: String) {
+
+        val medalha = medalhaRepository.selecionaPorId(idMedalha)
+
+        if (medalha == null) {
+            return
+        }
+
+        val requisito = medalha.requisito
+
+        if (totalAtual >= requisito) {
+            usuarioMedalhaRepository.atualizaContadorMedalha(
+                usuarioId,
+                totalAtual,
+                idMedalha,
+                true
+            )
+
+        } else {
+            usuarioMedalhaRepository.atualizaContadorMedalha(
+                usuarioId,
+                totalAtual,
+                idMedalha,
+            )
+        }
+    }
+
+
 }
 
 class JogoDicaViewModelFactory(
     val application: Application,
-    private val repository: UsuarioRecordeRepository
+    private val usuarioRecordeRepository: UsuarioRecordeRepository,
+    private val usuarioMedalhaRepository: UsuarioMedalhaRepository,
+    private val medalhaRepository: MedalhaRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(JogoDicaViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return JogoDicaViewModel(application, repository) as T
+            return JogoDicaViewModel(
+                application,
+                usuarioRecordeRepository,
+                usuarioMedalhaRepository,
+                medalhaRepository
+            ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
