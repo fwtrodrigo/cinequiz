@@ -74,10 +74,6 @@ class JogoCenaViewModel(
         somRespostaErrada.start()
     }
 
-    fun pararMusica(){
-        musicaJogoCena.stop()
-    }
-
     fun liberaAudios(){
         musicaJogoCena.release()
         somRespostaCorreta.release()

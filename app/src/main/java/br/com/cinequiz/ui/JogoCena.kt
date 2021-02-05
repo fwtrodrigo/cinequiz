@@ -155,10 +155,6 @@ class JogoCena : AppCompatActivity() {
 
     fun encerraPartida() {
 
-        if (prefs.getBoolean("musica", true)) {
-            jogoCenaViewModel.pararMusica()
-        }
-
         jogoCenaViewModel.liberaAudios()
         val resultadoDialog =
             ResultadoDialogAdapter(

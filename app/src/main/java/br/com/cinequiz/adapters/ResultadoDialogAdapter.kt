@@ -71,7 +71,6 @@ class ResultadoDialogAdapter(
                     }
                 })
                 somItemSelecionado.start()
-                somAplausos.stop()
             }
 
             val intent = if (idJogo == Parametros.ID_JOGO_DICA) {
