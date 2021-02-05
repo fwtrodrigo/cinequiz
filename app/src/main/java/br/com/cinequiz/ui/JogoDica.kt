@@ -72,26 +72,31 @@ class JogoDica : AppCompatActivity() {
 
         binding.includeJogoDicaBotoes.imageButtonAlternativas1.setOnClickListener {
             vibrarBotão()
+            it.startAnimation(buttonClick)
             selecaoAlternativa("btn1")
         }
 
         binding.includeJogoDicaBotoes.imageButtonAlternativas2.setOnClickListener {
             vibrarBotão()
+            it.startAnimation(buttonClick)
             selecaoAlternativa("btn2")
         }
 
         binding.includeJogoDicaBotoes.imageButtonAlternativas3.setOnClickListener {
             vibrarBotão()
+            it.startAnimation(buttonClick)
             selecaoAlternativa("btn3")
         }
 
         binding.includeJogoDicaBotoes.imageButtonAlternativas4.setOnClickListener {
             vibrarBotão()
+            it.startAnimation(buttonClick)
             selecaoAlternativa("btn4")
         }
 
         binding.itemProximaDica.btnProximaDica.setOnClickListener {
             vibrarBotão()
+            it.startAnimation(buttonClick)
             jogoDicaViewModel.proximaDica(Parametros.PONTUACAO_PROXIMA_DICA_JOGO_DICA)
         }
     }
@@ -237,6 +242,12 @@ class JogoDica : AppCompatActivity() {
         val cancelaJogoDialog = CancelaJogoDialogAdapter(jogoDicaViewModel.musicaJogoDica)
         cancelaJogoDialog.isCancelable = false
         cancelaJogoDialog.show(supportFragmentManager, "cancelaJogoDialog")
+    }
+
+    private val buttonClick = AlphaAnimation(1f, 0.8f)
+
+    fun onClick(v: View) {
+        v.startAnimation(buttonClick)
     }
 
 }

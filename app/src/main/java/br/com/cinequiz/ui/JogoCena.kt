@@ -9,6 +9,7 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.util.Log
 import android.view.View
+import android.view.animation.AlphaAnimation
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import br.com.cinequiz.R
@@ -71,21 +72,25 @@ class JogoCena : AppCompatActivity() {
 
         binding.includeJogoCenaBotoes.imageButtonAlternativas1.setOnClickListener {
             vibrarBotão()
+            it.startAnimation(buttonClick)
             selecaoAlternativa("btn1")
         }
 
         binding.includeJogoCenaBotoes.imageButtonAlternativas2.setOnClickListener {
             vibrarBotão()
+            it.startAnimation(buttonClick)
             selecaoAlternativa("btn2")
         }
 
         binding.includeJogoCenaBotoes.imageButtonAlternativas3.setOnClickListener {
             vibrarBotão()
+            it.startAnimation(buttonClick)
             selecaoAlternativa("btn3")
         }
 
         binding.includeJogoCenaBotoes.imageButtonAlternativas4.setOnClickListener {
             vibrarBotão()
+            it.startAnimation(buttonClick)
             selecaoAlternativa("btn4")
         }
 
@@ -234,6 +239,12 @@ class JogoCena : AppCompatActivity() {
         val cancelaJogoDialog = CancelaJogoDialogAdapter(jogoCenaViewModel.musicaJogoCena)
         cancelaJogoDialog.isCancelable = false
         cancelaJogoDialog.show(supportFragmentManager, "cancelaJogoDialog")
+    }
+
+    private val buttonClick = AlphaAnimation(1f, 1.8f)
+
+    fun onClick(v: View) {
+        v.startAnimation(buttonClick)
     }
 
 }
