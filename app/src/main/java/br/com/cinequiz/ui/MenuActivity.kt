@@ -55,7 +55,6 @@ class MenuActivity : AppCompatActivity() {
         binding.btnMenuDicas.btnItemDica.setOnClickListener {
             executaSomItemMenu()
             vibrarBotão()
-            it.startAnimation(buttonClick)
             val intent = Intent(this, LoadingActivity::class.java)
             intent.putExtra(Parametros.CHAVE_JOGO, Parametros.ID_JOGO_DICA)
             intent.putExtra(
@@ -68,7 +67,6 @@ class MenuActivity : AppCompatActivity() {
         binding.btnMenuCenas.btnItemCena.setOnClickListener {
             executaSomItemMenu()
             vibrarBotão()
-            it.startAnimation(buttonClick)
             val intent = Intent(this, LoadingActivity::class.java)
             intent.putExtra(Parametros.CHAVE_JOGO, Parametros.ID_JOGO_CENA)
             intent.putExtra(
@@ -112,12 +110,6 @@ class MenuActivity : AppCompatActivity() {
         } else {
             vibrator.vibrate(150)
         }
-    }
-
-    private val buttonClick = AlphaAnimation(1f, 0.8f)
-
-    fun onClick(v: View) {
-        v.startAnimation(buttonClick)
     }
 
 }
