@@ -1,33 +1,41 @@
 package br.com.cinequiz.ui
 
 
-import androidx.appcompat.app.AppCompatActivity
+import android.animation.Animator
+import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatActivity
 import br.com.cinequiz.R
+import br.com.cinequiz.adapters.CancelaJogoDialogAdapter
 import br.com.cinequiz.adapters.ResultadoDialogAdapter
 import br.com.cinequiz.databinding.ActivityJogoCenaBinding
-import br.com.cinequiz.domain.Filme
+import br.com.cinequiz.domain.Parametros
+import br.com.cinequiz.domain.SingletonListaFilmes
+import br.com.cinequiz.room.CinequizApplication
+import com.airbnb.lottie.LottieAnimationView
+import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_jogo_cena.*
-import kotlinx.android.synthetic.main.item_botoes_alternativas.*
-import kotlinx.android.synthetic.main.item_botoes_alternativas.view.*
-import kotlinx.android.synthetic.main.item_card_cena.*
 
 
 class JogoCena : AppCompatActivity() {
 
     private lateinit var binding: ActivityJogoCenaBinding
+    private lateinit var prefs: SharedPreferences
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var animacaoRespostaCorreta: LottieAnimationView
+    private lateinit var animacaoRespostaErrada: LottieAnimationView
 
-    val viewModel by viewModels<JogoCenaViewModel> {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return JogoCenaViewModel() as T
-            }
-        }
+    private val jogoCenaViewModel: JogoCenaViewModel by viewModels {
+        JogoCenaViewModelFactory(
+            application,
+            (application as CinequizApplication).repositoryUsuarioRecorde
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,38 +43,190 @@ class JogoCena : AppCompatActivity() {
         binding = ActivityJogoCenaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var contadorFilme = 0
-        val listaFilmes = intent.getSerializableExtra("listaFilmes") as List<Filme>
+        val listaFilmes = SingletonListaFilmes.filmes
 
-        Log.d("JOGOCENA2", listaFilmes.toString())
+        mAuth = FirebaseAuth.getInstance()
+        val idUsuario = mAuth.currentUser?.uid
+        prefs = getSharedPreferences("userPrefs_$idUsuario", MODE_PRIVATE)
 
-        if (listaFilmes != null) {
-            viewModel.filmes.value = listaFilmes
+        animacaoRespostaCorreta = binding.itemCardCena.animacaoRespostaCorreta
+        animacaoRespostaErrada = binding.itemCardCena.animacaoRespostaErrada
+        inicializaAnimacao(animacaoRespostaCorreta, Parametros.ID_RESPOSTA_CORRETA)
+        inicializaAnimacao(animacaoRespostaErrada, Parametros.ID_RESPOSTA_ERRADA)
+
+        jogoCenaViewModel.inicializaAudios()
+        jogoCenaViewModel.filmes = listaFilmes
+
+        if (prefs.getBoolean("musica", true)) {
+            jogoCenaViewModel.tocarMusica()
         }
 
-        iniciarFilme(listaFilmes, contadorFilme)
+        novaPartida()
 
-        var resultadoDialog = ResultadoDialogAdapter(10, "Cena")
 
         binding.includeJogoCenaBotoes.imageButtonAlternativas1.setOnClickListener {
-            contadorFilme++
-            if(contadorFilme == listaFilmes.size){
-                resultadoDialog.show(supportFragmentManager, "resultadoDialog")
-            }else{
-                iniciarFilme(listaFilmes, contadorFilme)
-            }
+            vibrarBotão()
+            selecaoAlternativa("btn1")
+        }
+
+        binding.includeJogoCenaBotoes.imageButtonAlternativas2.setOnClickListener {
+            vibrarBotão()
+            selecaoAlternativa("btn2")
+        }
+
+        binding.includeJogoCenaBotoes.imageButtonAlternativas3.setOnClickListener {
+            vibrarBotão()
+            selecaoAlternativa("btn3")
+        }
+
+        binding.includeJogoCenaBotoes.imageButtonAlternativas4.setOnClickListener {
+            vibrarBotão()
+            selecaoAlternativa("btn4")
         }
 
     }
 
-    fun iniciarFilme(listaFilmes: List<Filme>, contadorFilme: Int){
+    fun novaPartida() {
 
-        Picasso.get().load("https://image.tmdb.org/t/p/w500" + listaFilmes[contadorFilme].imagensFilme[0].file_path)
-            .into(imgFilmeCena)
+        jogoCenaViewModel.timer.start()
 
-        txtAlternativa1.text = listaFilmes[contadorFilme].title
-        txtAlternativa2.text = listaFilmes[contadorFilme].filmesSimilares[0].title
-        txtAlternativa3.text = listaFilmes[contadorFilme].filmesSimilares[1].title
-        txtAlternativa4.text = listaFilmes[contadorFilme].filmesSimilares[2].title
+        jogoCenaViewModel.cronometroFinalizado.observe(this, {
+            if (it == true) {
+                encerraPartida()
+            }
+        })
+
+        jogoCenaViewModel.animacaoResposta.observe(this, { resposta ->
+            if (resposta == 1) {
+                if (prefs.getBoolean("sons", true)) jogoCenaViewModel.tocarRespostaCorreta()
+                executaAnimacao(animacaoRespostaCorreta)
+            } else {
+                if (prefs.getBoolean("sons", true)) jogoCenaViewModel.tocarRespostaErrada()
+                executaAnimacao(animacaoRespostaErrada)
+            }
+        })
+
+        jogoCenaViewModel.usuarioRecordeLiveData.observe(this, {
+            jogoCenaViewModel.usuarioRecorde = it
+        })
+
+        jogoCenaViewModel.pontuacao.observe(
+            this, { pontuacao ->
+                binding.itemPontuacaoJogoCena.tvJogoCenaPontos.text = pontuacao.toString()
+            }
+        )
+
+        jogoCenaViewModel.cronometro.observe(this, {
+            binding.itemPontuacaoJogoCena.tvJogoCenaTempo.text = it.toString()
+        })
+
+        jogoCenaViewModel.listaAlternativas.observe(this, { listaAlternativas ->
+            binding.includeJogoCenaBotoes.txtAlternativa1.text = listaAlternativas[0]
+            binding.includeJogoCenaBotoes.txtAlternativa2.text = listaAlternativas[1]
+            binding.includeJogoCenaBotoes.txtAlternativa3.text = listaAlternativas[2]
+            binding.includeJogoCenaBotoes.txtAlternativa4.text = listaAlternativas[3]
+        })
+
+        novaRodada()
     }
+
+    fun carregaCena() {
+        Picasso.get().load("https://image.tmdb.org/t/p/w500" + jogoCenaViewModel.gerarCenas())
+            .into(binding.itemCardCena.imgFilmeCena)
+    }
+
+    fun selecaoAlternativa(botaoPressionado: String) {
+
+        if (jogoCenaViewModel.contadorFilme >= (jogoCenaViewModel.filmes.size - 1)) {
+
+            binding.includeJogoCenaBotoes.imageButtonAlternativas1.isClickable = false
+            binding.includeJogoCenaBotoes.imageButtonAlternativas2.isClickable = false
+            binding.includeJogoCenaBotoes.imageButtonAlternativas3.isClickable = false
+            binding.includeJogoCenaBotoes.imageButtonAlternativas4.isClickable = false
+
+            encerraPartida()
+
+        }else{
+            jogoCenaViewModel.incrementaFilme()
+            jogoCenaViewModel.resultadoResposta(botaoPressionado)
+            novaRodada()
+        }
+    }
+
+    fun encerraPartida() {
+
+        if (prefs.getBoolean("musica", true)) {
+            jogoCenaViewModel.pararMusica()
+        }
+
+        jogoCenaViewModel.liberaAudios()
+        val resultadoDialog =
+            ResultadoDialogAdapter(
+                jogoCenaViewModel.pontuacao.value!!,
+                "cena",
+                Parametros.ID_JOGO_CENA,
+                prefs
+            )
+        resultadoDialog.isCancelable = false
+        resultadoDialog.show(supportFragmentManager, "resultadoDialog")
+        jogoCenaViewModel.update()
+    }
+
+    fun novaRodada() {
+        carregaCena()
+        jogoCenaViewModel.gerarAlternativas()
+    }
+
+    fun inicializaAnimacao(animacao: LottieAnimationView, codAnimacao: Int) {
+
+        animacao.addAnimatorListener(object : Animator.AnimatorListener {
+
+            override fun onAnimationStart(animation: Animator?) {
+                Log.i("ANIMATION", "INICIANDO ANIMACAO")
+            }
+
+            override fun onAnimationRepeat(animation: Animator?) {
+                Log.i("ANIMATION", "REPETINDO ANIMACAO")
+            }
+
+            override fun onAnimationEnd(animation: Animator?) {
+                Log.i("ANIMATION", "FINALIZANDO ANIMACAO")
+                animacao.visibility = View.GONE
+            }
+
+            override fun onAnimationCancel(animation: Animator?) {
+                Log.i("ANIMATION", "CANCELANDO ANIMACAO")
+            }
+        })
+
+        if (codAnimacao == 1) {
+            animacao.setAnimation(R.raw.correct_animation)
+        } else {
+            animacao.setAnimation(R.raw.wrong_animation)
+        }
+        animacao.speed = 1.8F
+    }
+
+    fun executaAnimacao(animacao: LottieAnimationView) {
+        animacao.visibility = View.VISIBLE
+        animacao.playAnimation()
+    }
+
+    fun vibrarBotão() {
+        val vibrator = this.getSystemService(VIBRATOR_SERVICE) as Vibrator
+
+        if (Build.VERSION.SDK_INT >= 26) {
+            vibrator.vibrate(VibrationEffect.createOneShot(150, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            vibrator.vibrate(150)
+        }
+    }
+
+    override fun onBackPressed() {
+
+        val cancelaJogoDialog = CancelaJogoDialogAdapter(jogoCenaViewModel.musicaJogoCena)
+        cancelaJogoDialog.isCancelable = false
+        cancelaJogoDialog.show(supportFragmentManager, "cancelaJogoDialog")
+    }
+
 }

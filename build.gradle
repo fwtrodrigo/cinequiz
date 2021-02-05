@@ -1,5 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+    apply from: project.rootProject.file("keys.gradle")
     ext.kotlin_version = "1.4.10"
     repositories {
         google()
@@ -31,5 +32,6 @@ ext {
 
     roomVersion = '2.2.5'
     lifecycle_version = "2.2.0"
+    lottieVersion = "3.6.0"
 
 }

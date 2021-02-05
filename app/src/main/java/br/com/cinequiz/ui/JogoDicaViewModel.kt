@@ -2,22 +2,18 @@ package br.com.cinequiz.ui
 
 
 import android.app.Application
+import android.media.MediaPlayer
 import android.util.Log
 import android.view.Gravity
 import android.widget.Toast
 import androidx.lifecycle.*
+import br.com.cinequiz.R
 import br.com.cinequiz.domain.Filme
+import br.com.cinequiz.domain.Parametros
 import br.com.cinequiz.domain.UsuarioRecorde
-import br.com.cinequiz.room.CinequizApplication
-import br.com.cinequiz.room.CinequizRoomDatabase
-import br.com.cinequiz.room.repository.UsuarioMedalhaRepository
 import br.com.cinequiz.room.repository.UsuarioRecordeRepository
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 
 class JogoDicaViewModel(
@@ -38,7 +34,7 @@ class JogoDicaViewModel(
     }
 
     lateinit var usuarioRecorde : UsuarioRecorde
-    val pontuacao = MutableLiveData<Int>(150)
+    val pontuacao = MutableLiveData<Int>(Parametros.PONTUACAO_INICIAL_JOGO_DICA)
 
     var listaDicas = MutableLiveData<ArrayList<String>>()
     var listaDicasGeradas = ArrayList<String>()
@@ -47,9 +43,46 @@ class JogoDicaViewModel(
     var listaAlternativas = MutableLiveData<ArrayList<String>>()
     var alternativaCorreta = ""
 
-    var filmes = arrayListOf<Filme>()
+    var filmes = mutableListOf<Filme>()
     var contadorFilme = 0
 
+    var animacaoResposta = MutableLiveData<Int>()
+    var musicaJogoDica = MediaPlayer()
+    var somRespostaCorreta = MediaPlayer()
+    var somRespostaErrada = MediaPlayer()
+
+    fun inicializaAudios(){
+        musicaJogoDica = MediaPlayer.create(context, R.raw.modo_dica_musica)
+        musicaJogoDica.isLooping = true
+        somRespostaCorreta = MediaPlayer.create(context, R.raw.resposta_correta_som)
+        somRespostaErrada = MediaPlayer.create(context, R.raw.resposta_errada_som)
+    }
+
+    fun liberaAudios(){
+        musicaJogoDica.release()
+        somRespostaCorreta.release()
+        somRespostaErrada.release()
+    }
+
+    fun tocarMusica(){
+        musicaJogoDica.setOnPreparedListener(object : MediaPlayer.OnPreparedListener {
+            override fun onPrepared(som: MediaPlayer) {
+                som.start();
+            }
+        })
+    }
+
+    fun tocarRespostaCorreta(){
+        somRespostaCorreta.start()
+    }
+
+    fun tocarRespostaErrada(){
+        somRespostaErrada.start()
+    }
+
+    fun pararMusica(){
+        musicaJogoDica.stop()
+    }
 
     fun gerarDicas() {
 
@@ -57,10 +90,10 @@ class JogoDicaViewModel(
 
         listaDicas.value = arrayListOf()
         listaDicasGeradas = arrayListOf(
-            "${filmes[contadorFilme].pessoasFilme[0].name} atuou como um dos meus personagens.",
+            "${filmes[contadorFilme].pessoasFilme[0].name} fez parte do meu elenco.",
             "Fui produzido pelo estúdio ${filmes[contadorFilme].production_companies[0].name}.",
             "Minha estreia foi em ${filmes[contadorFilme].formataDataLancamento()}.",
-            "Um dos meus personagens se chama ${filmes[contadorFilme].pessoasFilme[0].character}."
+            "Tenho uma personagem chamada ${filmes[contadorFilme].pessoasFilme[0].character}.",
         )
 
         listaDicasGeradas.shuffle()
@@ -104,10 +137,11 @@ class JogoDicaViewModel(
 
     fun resultadoResposta(resposta: String) {
         if (resposta == alternativaCorreta) {
-            Toast.makeText(context, "Acertou", Toast.LENGTH_SHORT).show()
-            aumentaPontuacao(40)
+            animacaoResposta.value = Parametros.ID_RESPOSTA_CORRETA
+            aumentaPontuacao(Parametros.PONTUACAO_ACERTO_JOGO_DICA)
         } else {
-            Toast.makeText(context, "Errou", Toast.LENGTH_SHORT).show()
+            descontaPontuacao(Parametros.PONTUACAO_ERRO_JOGO_DICA)
+            animacaoResposta.value = Parametros.ID_RESPOSTA_ERRADA
         }
     }
 

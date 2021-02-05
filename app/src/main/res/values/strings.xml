@@ -59,5 +59,7 @@
     <string name="confirmaca_invalida">A senha e a confirmação devem ser iguais!</string>
     <string name="default_notification_channel_id">Notificacoes</string>
     <string name="fcm_message">CineQuiz</string>
+    <string name="string_continuar">CONTINUAR</string>
+    <string name="pontuacao_perdida">TEM CERTEZA QUE DESEJA VOLTAR? TODA A PONTUAÇÃO SERÁ PERDIDA.</string>
 
 </resources>

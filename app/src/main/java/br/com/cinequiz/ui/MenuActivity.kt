@@ -1,32 +1,30 @@
 package br.com.cinequiz.ui
 
 import android.content.Intent
+import android.content.SharedPreferences
+import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import br.com.cinequiz.R
 import br.com.cinequiz.databinding.ActivityMenuBinding
+import br.com.cinequiz.domain.Parametros
 import br.com.cinequiz.room.CinequizApplication
-import br.com.cinequiz.service.repository
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.messaging.FirebaseMessaging
-import kotlinx.android.synthetic.main.activity_menu.*
-import kotlinx.android.synthetic.main.item_botao_selecao_modo_cena.view.*
-import kotlinx.android.synthetic.main.item_botao_selecao_modo_dicas.view.*
-import java.io.Serializable
 
 class MenuActivity : AppCompatActivity() {
+
     private lateinit var mAuth: FirebaseAuth
     private lateinit var binding: ActivityMenuBinding
+    private lateinit var prefs: SharedPreferences
+    private var somItemSelecionado = MediaPlayer()
 
     private val menuViewModel: MenuViewModel by viewModels {
         MenuViewModelFactory(
-            repository,
             (application as CinequizApplication).repositoryUsuario,
             (application as CinequizApplication).repositoryMedalha,
             (application as CinequizApplication).repositoryUsuarioMedalha,
@@ -39,43 +37,77 @@ class MenuActivity : AppCompatActivity() {
         binding = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        menuViewModel.getResults()
-
         mAuth = FirebaseAuth.getInstance()
         var usuarioId = mAuth.currentUser!!.uid
         var usuarioNome = mAuth.currentUser!!.displayName
-        menuViewModel.inicializaUsuario(getSharedPreferences("userPrefs_$usuarioId", MODE_PRIVATE), usuarioId, usuarioNome.toString())
 
-        menuViewModel.listaFilmesVotados.observe(this) {
-            for (filme in it) {
-                menuViewModel.getFilme(filme.id)
-                Log.i("listaFilmesVotados", filme.id.toString() )
-            }
-        }
+        prefs = getSharedPreferences("userPrefs_$usuarioId", MODE_PRIVATE)
+        inicializaAudio()
+
+        menuViewModel.inicializaUsuario(
+            getSharedPreferences("userPrefs_$usuarioId", MODE_PRIVATE),
+            usuarioId,
+            usuarioNome.toString()
+        )
 
         binding.btnMenuDicas.btnItemDica.setOnClickListener {
-
-            val intent: Intent = Intent(this, JogoDica::class.java)
-                .putExtra("listaFilmes", menuViewModel.listaFilmesUtilizaveis as Serializable)
-
+            executaSomItemMenu()
+            vibrarBotão()
+            val intent = Intent(this, LoadingActivity::class.java)
+            intent.putExtra(Parametros.CHAVE_JOGO, Parametros.ID_JOGO_DICA)
+            intent.putExtra(
+                Parametros.CHAVE_QUANTIDADE_FILMES,
+                Parametros.QUANTIDADE_INICIAL_FILMES_DICA
+            )
             startActivity(intent)
         }
 
         binding.btnMenuCenas.btnItemCena.setOnClickListener {
-
-            val intent: Intent = Intent(this, JogoCena::class.java)
-                .putExtra("listaFilmes", menuViewModel.listaFilmesUtilizaveis as Serializable)
-
+            executaSomItemMenu()
+            vibrarBotão()
+            val intent = Intent(this, LoadingActivity::class.java)
+            intent.putExtra(Parametros.CHAVE_JOGO, Parametros.ID_JOGO_CENA)
+            intent.putExtra(
+                Parametros.CHAVE_QUANTIDADE_FILMES,
+                Parametros.QUANTIDADE_INICIAL_FILMES_CENA
+            )
             startActivity(intent)
         }
 
         binding.btnMenuMedalhas.setOnClickListener {
+            somItemSelecionado.start()
             startActivity(Intent(this, MedalhasActivity::class.java))
         }
 
         binding.btnMenuOpcoes.setOnClickListener {
+            somItemSelecionado.start()
             startActivity(Intent(this, OpcoesActivity::class.java))
         }
-
     }
+
+    fun inicializaAudio(){
+        somItemSelecionado = MediaPlayer.create(this, R.raw.item_menu_som)
+    }
+
+    fun executaSomItemMenu(){
+        if(prefs.getBoolean("sons", true)) {
+            somItemSelecionado.setOnCompletionListener (object: MediaPlayer.OnCompletionListener{
+                override fun onCompletion(p0: MediaPlayer?) {
+                    somItemSelecionado.release()
+                }
+            })
+            somItemSelecionado.start()
+        }
+    }
+
+    fun vibrarBotão() {
+        val vibrator = this.getSystemService(VIBRATOR_SERVICE) as Vibrator
+
+        if (Build.VERSION.SDK_INT >= 26) {
+            vibrator.vibrate(VibrationEffect.createOneShot(150, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            vibrator.vibrate(150)
+        }
+    }
+
 }
