@@ -117,7 +117,7 @@ class ResultadoDialogAdapter(
         if (prefs.getBoolean("sons", true)){
             somAplausos.setOnCompletionListener (object: MediaPlayer.OnCompletionListener{
                 override fun onCompletion(p0: MediaPlayer?) {
-                    somAplausos.release()
+                    somAplausos.stop()
                 }
             })
             somAplausos.start()
@@ -133,4 +133,22 @@ class ResultadoDialogAdapter(
         intent.putExtra(android.content.Intent.EXTRA_TEXT, mensagem)
         startActivity(Intent.createChooser(intent, titulo))
     }
+
+    private fun liberaAudios(){
+        somItemSelecionado.release()
+        somAplausos.release()
+    }
+
+    override fun onPause() {
+        if (prefs.getBoolean("musica", true) && somAplausos.isPlaying) {
+            somAplausos.pause()
+        }
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        liberaAudios()
+        super.onDestroy()
+    }
+
 }

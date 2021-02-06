@@ -79,6 +79,14 @@ class JogoDicaViewModel(
         })
     }
 
+    fun continuarMusica(){
+        musicaJogoDica.start()
+    }
+
+    fun pausarMusica(){
+        musicaJogoDica.pause()
+    }
+
     fun tocarRespostaCorreta() {
         somRespostaCorreta.start()
     }

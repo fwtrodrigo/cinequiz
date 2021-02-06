@@ -33,6 +33,7 @@ class JogoCena : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var animacaoRespostaCorreta: LottieAnimationView
     private lateinit var animacaoRespostaErrada: LottieAnimationView
+    private var flagPartidaEncerrada: Boolean = false
 
     private val jogoCenaViewModel: JogoCenaViewModel by viewModels {
         JogoCenaViewModelFactory(
@@ -89,6 +90,25 @@ class JogoCena : AppCompatActivity() {
             selecaoAlternativa("btn4")
         }
 
+    }
+
+    override fun onPause() {
+        if (prefs.getBoolean("musica", true) && !flagPartidaEncerrada) {
+            jogoCenaViewModel.pausarMusica()
+        }
+        super.onPause()
+    }
+
+    override fun onRestart() {
+        if (prefs.getBoolean("musica", true) && !flagPartidaEncerrada) {
+            jogoCenaViewModel.continuarMusica()
+        }
+        super.onRestart()
+    }
+
+    override fun onDestroy() {
+        jogoCenaViewModel.liberaAudios()
+        super.onDestroy()
     }
 
     fun novaPartida() {
@@ -161,7 +181,9 @@ class JogoCena : AppCompatActivity() {
 
     fun encerraPartida() {
 
-        jogoCenaViewModel.liberaAudios()
+        jogoCenaViewModel.pausarMusica()
+        flagPartidaEncerrada = true
+
         val resultadoDialog =
             ResultadoDialogAdapter(
                 jogoCenaViewModel.pontuacao.value!!,

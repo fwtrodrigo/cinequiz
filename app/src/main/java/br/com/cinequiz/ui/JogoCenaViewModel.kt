@@ -64,6 +64,14 @@ class JogoCenaViewModel(
     }
 
     fun tocarMusica() {
+        musicaJogoCena.setOnPreparedListener(object : MediaPlayer.OnPreparedListener {
+            override fun onPrepared(som: MediaPlayer) {
+                som.start();
+            }
+        })
+    }
+
+    fun continuarMusica() {
         musicaJogoCena.start()
     }
 
