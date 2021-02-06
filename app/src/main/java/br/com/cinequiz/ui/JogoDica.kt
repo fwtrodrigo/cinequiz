@@ -34,6 +34,7 @@ class JogoDica : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var animacaoRespostaCorreta: LottieAnimationView
     private lateinit var animacaoRespostaErrada: LottieAnimationView
+    private var flagPartidaEncerrada: Boolean = false
     val scope = CoroutineScope(Dispatchers.Main)
 
     private val jogoDicaViewModel: JogoDicaViewModel by viewModels {
@@ -94,6 +95,25 @@ class JogoDica : AppCompatActivity() {
             vibrarBotão()
             jogoDicaViewModel.proximaDica(Parametros.PONTUACAO_PROXIMA_DICA_JOGO_DICA)
         }
+    }
+
+    override fun onPause() {
+        if (prefs.getBoolean("musica", true) && !flagPartidaEncerrada) {
+            jogoDicaViewModel.pausarMusica()
+        }
+        super.onPause()
+    }
+
+    override fun onRestart() {
+        if (prefs.getBoolean("musica", true) && !flagPartidaEncerrada) {
+            jogoDicaViewModel.continuarMusica()
+        }
+        super.onRestart()
+    }
+
+    override fun onDestroy() {
+        jogoDicaViewModel.liberaAudios()
+        super.onDestroy()
     }
 
     fun novaPartida() {
@@ -158,7 +178,8 @@ class JogoDica : AppCompatActivity() {
             scope.launch {
                 delay(600)
 
-                jogoDicaViewModel.liberaAudios()
+                jogoDicaViewModel.pausarMusica()
+                flagPartidaEncerrada = true
 
                 val resultadoDialog =
                     ResultadoDialogAdapter(
