@@ -27,7 +27,7 @@ class LoadingViewModel(
 
                 listaFilmesVotados.value = repository.getFilmesVotados(
                     apiKey,
-                    (1..50).random(),
+                    (1..20).random(),
                     "pt-BR"
                 ).listaFilmesVotados
 
