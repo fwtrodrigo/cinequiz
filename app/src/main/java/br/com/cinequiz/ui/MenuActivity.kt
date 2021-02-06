@@ -84,8 +84,17 @@ class MenuActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        liberaAudio()
+        super.onDestroy()
+    }
+
     fun inicializaAudio(){
         somItemSelecionado = MediaPlayer.create(this, R.raw.item_menu_som)
+    }
+
+    fun liberaAudio(){
+        somItemSelecionado.release()
     }
 
     fun executaSomItemMenu(){

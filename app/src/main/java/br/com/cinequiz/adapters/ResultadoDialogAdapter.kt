@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import br.com.cinequiz.R
 import br.com.cinequiz.domain.Parametros
 import br.com.cinequiz.ui.LoadingActivity
@@ -27,7 +29,6 @@ class ResultadoDialogAdapter(
 ) : DialogFragment() {
 
     lateinit var somAplausos: MediaPlayer
-    lateinit var somItemSelecionado: MediaPlayer
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +52,6 @@ class ResultadoDialogAdapter(
         )
         dialog?.window?.setBackgroundDrawableResource(R.color.cineSombraAzul)
 
-        somItemSelecionado = MediaPlayer.create(context, R.raw.item_menu_som)
         somAplausos = MediaPlayer.create(context, R.raw.aplausos_som)
         
         var btnJogarNovamente = rootView.findViewById<Button>(R.id.btnResultadoJogarNovamente)
@@ -61,15 +61,6 @@ class ResultadoDialogAdapter(
         txtResultadoPontos.text = pontos.toString()
 
         btnJogarNovamente.setOnClickListener {
-
-            if (prefs.getBoolean("sons", true)){
-                somItemSelecionado.setOnCompletionListener (object: MediaPlayer.OnCompletionListener{
-                    override fun onCompletion(p0: MediaPlayer?) {
-                        somItemSelecionado.release()
-                    }
-                })
-                somItemSelecionado.start()
-            }
 
             val intent = if (idJogo == Parametros.ID_JOGO_DICA) {
                 Intent(activity, LoadingActivity::class.java)
@@ -87,17 +78,10 @@ class ResultadoDialogAdapter(
                     )
             }
             startActivity(intent)
+            activity?.finish()
         }
 
         btnVoltarMenu.setOnClickListener {
-            if (prefs.getBoolean("sons", true)){
-                somItemSelecionado.setOnCompletionListener (object: MediaPlayer.OnCompletionListener{
-                    override fun onCompletion(p0: MediaPlayer?) {
-                        somItemSelecionado.release()
-                    }
-                })
-                somItemSelecionado.start()
-            }
 
             var intent = Intent(activity, MenuActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
@@ -135,7 +119,6 @@ class ResultadoDialogAdapter(
     }
 
     private fun liberaAudios(){
-        somItemSelecionado.release()
         somAplausos.release()
     }
 
