@@ -113,7 +113,7 @@ class ResultadoDialogAdapter(
         return rootView
     }
 
-    override fun onStart() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         if (prefs.getBoolean("sons", true)){
             somAplausos.setOnCompletionListener (object: MediaPlayer.OnCompletionListener{
                 override fun onCompletion(p0: MediaPlayer?) {
@@ -122,7 +122,6 @@ class ResultadoDialogAdapter(
             })
             somAplausos.start()
         }
-        super.onStart()
     }
 
     private fun compartilhar(jogo: String) {
