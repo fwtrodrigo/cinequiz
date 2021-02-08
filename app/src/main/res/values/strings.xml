@@ -62,4 +62,7 @@
     <string name="string_continuar">CONTINUAR</string>
     <string name="pontuacao_perdida">TEM CERTEZA QUE DESEJA VOLTAR? TODA A PONTUAÇÃO SERÁ PERDIDA.</string>
 
+    <!--   MENU -->
+    <string name="alerta_conexao_titulo">Sem conexão</string>
+    <string name="alerta_conexao_mensagem">Parece que você não está conectado à internet. Verifique sua conexão e tente novamente</string>
 </resources>

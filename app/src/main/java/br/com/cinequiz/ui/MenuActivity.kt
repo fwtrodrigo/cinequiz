@@ -134,10 +134,10 @@ class MenuActivity : AppCompatActivity() {
     }
 
     private fun alertaSemConexao() {
-        AlertDialog.Builder(this).setTitle("Sem conexão")
-            .setMessage("Ops, parece que voce não está conectado a internet. Verifique e tente novamente")
+        AlertDialog.Builder(this).setTitle(getString(R.string.alerta_conexao_titulo))
+            .setMessage(getString(R.string.alerta_conexao_mensagem))
             .setPositiveButton(android.R.string.ok) { _, _ -> }
-            .setIcon(android.R.drawable.ic_dialog_alert).show()
+            .setIcon(R.drawable.ic_wifi_off).show()
     }
 
     private fun isNetworkConnected(): Boolean {
