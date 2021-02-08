@@ -1,8 +1,11 @@
 package br.com.cinequiz.ui
 
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.media.MediaPlayer
+import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
@@ -50,36 +53,48 @@ class MenuActivity : AppCompatActivity() {
         )
 
         binding.btnMenuDicas.btnItemDica.setOnClickListener {
-            executaSomItemMenu()
-            vibrarBotão()
-            val intent = Intent(this, LoadingActivity::class.java)
-            intent.putExtra(Parametros.CHAVE_JOGO, Parametros.ID_JOGO_DICA)
-            intent.putExtra(
-                Parametros.CHAVE_QUANTIDADE_FILMES,
-                Parametros.QUANTIDADE_INICIAL_FILMES_DICA
-            )
-            startActivity(intent)
+
+            if (!isNetworkConnected()) {
+                alertaSemConexao()
+                return@setOnClickListener
+            } else {
+                executaSomItemMenu()
+                vibrarBotão()
+                val intent = Intent(this, LoadingActivity::class.java)
+                intent.putExtra(Parametros.CHAVE_JOGO, Parametros.ID_JOGO_DICA)
+                intent.putExtra(
+                    Parametros.CHAVE_QUANTIDADE_FILMES,
+                    Parametros.QUANTIDADE_INICIAL_FILMES_DICA
+                )
+                startActivity(intent)
+            }
         }
 
         binding.btnMenuCenas.btnItemCena.setOnClickListener {
-            executaSomItemMenu()
-            vibrarBotão()
-            val intent = Intent(this, LoadingActivity::class.java)
-            intent.putExtra(Parametros.CHAVE_JOGO, Parametros.ID_JOGO_CENA)
-            intent.putExtra(
-                Parametros.CHAVE_QUANTIDADE_FILMES,
-                Parametros.QUANTIDADE_INICIAL_FILMES_CENA
-            )
-            startActivity(intent)
+
+            if (!isNetworkConnected()) {
+                alertaSemConexao()
+                return@setOnClickListener
+            } else {
+                executaSomItemMenu()
+                vibrarBotão()
+                val intent = Intent(this, LoadingActivity::class.java)
+                intent.putExtra(Parametros.CHAVE_JOGO, Parametros.ID_JOGO_CENA)
+                intent.putExtra(
+                    Parametros.CHAVE_QUANTIDADE_FILMES,
+                    Parametros.QUANTIDADE_INICIAL_FILMES_CENA
+                )
+                startActivity(intent)
+            }
         }
 
         binding.btnMenuMedalhas.setOnClickListener {
-            if(prefs.getBoolean("sons", true)) somItemSelecionado.start()
+            if (prefs.getBoolean("sons", true)) somItemSelecionado.start()
             startActivity(Intent(this, MedalhasActivity::class.java))
         }
 
         binding.btnMenuOpcoes.setOnClickListener {
-            if(prefs.getBoolean("sons", true)) somItemSelecionado.start()
+            if (prefs.getBoolean("sons", true)) somItemSelecionado.start()
             startActivity(Intent(this, OpcoesActivity::class.java))
         }
     }
@@ -89,17 +104,17 @@ class MenuActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    fun inicializaAudio(){
+    fun inicializaAudio() {
         somItemSelecionado = MediaPlayer.create(this, R.raw.item_menu_som)
     }
 
-    fun liberaAudio(){
+    fun liberaAudio() {
         somItemSelecionado.release()
     }
 
-    fun executaSomItemMenu(){
-        if(prefs.getBoolean("sons", true)) {
-            somItemSelecionado.setOnCompletionListener (object: MediaPlayer.OnCompletionListener{
+    fun executaSomItemMenu() {
+        if (prefs.getBoolean("sons", true)) {
+            somItemSelecionado.setOnCompletionListener(object : MediaPlayer.OnCompletionListener {
                 override fun onCompletion(p0: MediaPlayer?) {
                     somItemSelecionado.release()
                 }
@@ -116,5 +131,19 @@ class MenuActivity : AppCompatActivity() {
         } else {
             vibrator.vibrate(150)
         }
+    }
+
+    private fun alertaSemConexao() {
+        AlertDialog.Builder(this).setTitle("Sem conexão")
+            .setMessage("Ops, parece que voce não está conectado a internet. Verifique e tente novamente")
+            .setPositiveButton(android.R.string.ok) { _, _ -> }
+            .setIcon(android.R.drawable.ic_dialog_alert).show()
+    }
+
+    private fun isNetworkConnected(): Boolean {
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager //1
+        val networkInfo = connectivityManager.activeNetworkInfo //2
+        return networkInfo != null && networkInfo.isConnected //3
     }
 }
