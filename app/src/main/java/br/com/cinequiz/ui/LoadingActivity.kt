@@ -10,7 +10,6 @@ import br.com.cinequiz.domain.Filme
 import br.com.cinequiz.domain.Parametros
 import br.com.cinequiz.domain.SingletonListaFilmes
 import br.com.cinequiz.service.repository
-import java.io.Serializable
 
 class LoadingActivity : AppCompatActivity() {
 
@@ -50,7 +49,12 @@ class LoadingActivity : AppCompatActivity() {
 
                 val intent: Intent = Intent(this, jogoSelecionado)
                 val listaFilmes = mutableListOf<Filme>()
-                listaFilmes.addAll(loadingViewModel.listaFilmesUtilizaveis.subList(0, requisitoQuantidadeFilmes))
+                listaFilmes.addAll(
+                    loadingViewModel.listaFilmesUtilizaveis.subList(
+                        0,
+                        requisitoQuantidadeFilmes
+                    )
+                )
                 listaFilmes.shuffle()
 
                 SingletonListaFilmes.filmes = mutableListOf()

@@ -118,6 +118,7 @@ class JogoCenaViewModel(
         } else {
             //Toast.makeText(context, "Errou", Toast.LENGTH_SHORT).show()
             animacaoResposta.value = Parametros.ID_RESPOSTA_ERRADA
+            descontaPontuacao(Parametros.PONTUACAO_ERRO_JOGO_CENA)
         }
     }
 
@@ -126,7 +127,11 @@ class JogoCenaViewModel(
     }
 
     fun descontaPontuacao(pontosDescontados: Int) {
-        pontuacao.value = pontuacao.value?.minus(pontosDescontados)
+        if(pontuacao.value?.minus(pontosDescontados)!! < 0){
+            pontuacao.value = 0
+        }else{
+            pontuacao.value = pontuacao.value?.minus(pontosDescontados)
+        }
     }
 
     fun incrementaFilme() {

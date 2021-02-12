@@ -16,7 +16,8 @@ class Parametros {
         //JogoCena
         val TEMPO_JOGO_CENA: Long = 60000 //60 Segundos
         val CONTADOR_JOGO_CENA = 60
-        val PONTUACAO_ACERTO_JOGO_CENA = 10
+        val PONTUACAO_ACERTO_JOGO_CENA = 15
+        val PONTUACAO_ERRO_JOGO_CENA = 5
         val QUANTIDADE_INICIAL_FILMES_CENA = 50
 
         //JogoDica
